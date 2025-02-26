@@ -4,3 +4,8 @@ void showMainMenu();
 
 void goodbye();
 
+void showStudentMenu();
+
+void showTeacherMenu();
+
+void showAdminMenu();

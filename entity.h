@@ -25,8 +25,8 @@ struct Admin {
 // 大机房 100 * 2 (9~10)
 struct Room {
 	int m_Id; // 门牌号
-	int m_Capacity;
-	int m_Size;
+	int m_Capacity; // 总容量
+	int m_Size; // 已占用（预约状态0-1）
 };
 
 // 预约类
@@ -46,9 +46,33 @@ struct Order {
 
 struct Student* createStudent(char id[20], char psw[20]);
 
+void applyOrder(struct Student* stu);
+
+void showMyOrder(struct Student* stu);
+
+void showAllOrder_stu(struct Student* stu);
+
+void cancelOrder(struct Student* stu);
+
 // ----- about teacher -----
 
+struct Teacher* createTeacher(char id[20], char psw[20]);
+
+void showAllOrder_tea(struct Teacher* tea);
+
+void validOrder(struct Teacher* tea);
+
 // ----- about admin -----
+
+struct Admin* createAdmin(char id[20], char psw[20]);
+
+void addPerson();
+
+void showPerson();
+
+void showRooms();
+
+void cleanRecords();
 
 // ----- about room -----
 

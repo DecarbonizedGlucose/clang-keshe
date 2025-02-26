@@ -20,3 +20,15 @@ void goodbye() {
 	printf("欢迎下次使用。\n");
 	system("pause");
 }
+
+void showStudentMenu() {
+
+}
+
+void showTeacherMenu() {
+
+}
+
+void showAdminMenu() {
+
+}
