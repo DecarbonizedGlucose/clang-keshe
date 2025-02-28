@@ -46,33 +46,19 @@ struct Order {
 
 struct Student* createStudent(char id[20], char psw[20]);
 
-void applyOrder(struct Student* stu);
-
-void showMyOrder(struct Student* stu);
-
-void showAllOrder_stu(struct Student* stu);
-
-void cancelOrder(struct Student* stu);
+int isStudentEqual(struct Student* a, struct Student* b);
 
 // ----- about teacher -----
 
 struct Teacher* createTeacher(char id[20], char psw[20]);
 
-void showAllOrder_tea(struct Teacher* tea);
-
-void validOrder(struct Teacher* tea);
+int isTeacherEqual(struct Teacher* a, struct Teacher* b);
 
 // ----- about admin -----
 
 struct Admin* createAdmin(char id[20], char psw[20]);
 
-void addPerson();
-
-void showPerson();
-
-void showRooms();
-
-void cleanRecords();
+int isAdminEqual(struct Admin* a, struct Admin* b);
 
 // ----- about room -----
 

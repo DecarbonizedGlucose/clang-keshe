@@ -140,5 +140,23 @@ struct Node* delListIdx(struct List* l, int idx) {
 }
 
 void destroyList(struct List* l) {
-	;
+	while (l->length) {
+		delListFirst(l);
+	}
+	free(l);
+	l = NULL;
 }
+
+struct Node* findElem(struct List* l, void* data, int isDataEqual(void*, void*)) {
+	if (l->length == 0) {
+		return NULL;
+	}
+	struct Node* cur = l->head;
+	while (cur != NULL) {
+		if (isDataEqual(cur->data, data)) {
+			return cur;
+		}
+	}
+	return NULL;
+}
+

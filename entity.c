@@ -14,20 +14,8 @@ struct Student* createStudent(char id[20], char psw[20]) {
 	return newstu;
 }
 
-void applyOrder(struct Student* stu) {
-
-}
-
-void showMyOrder(struct Student* stu) {
-
-}
-
-void showAllOrder_stu(struct Student* stu) {
-
-}
-
-void cancelOrder(struct Student* stu) {
-
+int isStudentEqual(struct Student* a, struct Student* b) {
+	return !strcmp(a->m_Id, b->m_Id) && !strcmp(a->m_Psw, b->m_Psw);
 }
 
 // ----- about teacher -----
@@ -42,12 +30,8 @@ struct Teacher* createTeacher(char id[20], char psw[20]) {
 	return newtea;
 }
 
-void showAllOrder_tea(struct Teacher* tea) {
-
-}
-
-void validOrder(struct Teacher* tea) {
-
+int isTeacherEqual(struct Teacher* a, struct Teacher* b) {
+	return !strcmp(a->m_Id, b->m_Id) && !strcmp(a->m_Psw, b->m_Psw);
 }
 
 // ----- about admin -----
@@ -62,20 +46,8 @@ struct Student* createAdmin(char id[20], char psw[20]) {
 	return newadm;
 }
 
-void addPerson() {
-
-}
-
-void showPerson() {
-
-}
-
-void showRooms() {
-
-}
-
-void cleanRecords() {
-
+int isAdminEqual(struct Admin* a, struct Admin* b) {
+	return !strcmp(a->m_Id, b->m_Id) && !strcmp(a->m_Psw, b->m_Psw);
 }
 
 // ----- about room -----

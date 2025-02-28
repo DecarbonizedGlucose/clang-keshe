@@ -30,3 +30,5 @@ struct Node* delListLast(struct List* l);
 struct Node* delListIdx(struct List* l, int idx);
 
 void destroyList(struct List* l);
+
+struct Node* findElem(struct List* l, void* data, int isDataEqual(void*, void*));
