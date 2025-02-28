@@ -2,29 +2,29 @@
 
 // ----- about student -----
 
-void applyOrder(struct Student* stu) {
+void applyOrder(Person* stu) {
 
 }
 
-void showMyOrder(struct Student* stu) {
+void showMyOrder(Person* stu) {
 
 }
 
-void showAllOrder_stu(struct Student* stu) {
+void showAllOrder_stu(Person* stu) {
 
 }
 
-void cancelOrder(struct Student* stu) {
+void cancelOrder(Person* stu) {
 
 }
 
 // ----- about teacher -----
 
-void showAllOrder_tea(struct Teacher* tea) {
+void showAllOrder_tea(Person* tea) {
 
 }
 
-void validOrder(struct Teacher* tea) {
+void validOrder(Person* tea) {
 
 }
 

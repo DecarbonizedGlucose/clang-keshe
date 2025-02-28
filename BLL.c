@@ -29,8 +29,7 @@ void mainLoop() {
 }
 
 void login(int type, char* file) {
-	void* person = NULL;
-
+	;
 }
 
 void studentLoop() {

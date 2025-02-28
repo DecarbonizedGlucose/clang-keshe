@@ -1,34 +1,34 @@
 ﻿#pragma
 
-struct Node {
+typedef struct {
 	void* data;
 	struct Node* prev;
 	struct Node* next;
-};
+} Node;
 
 // List管理的由Node组成的双链表
-struct List {
+typedef struct {
 	int length;
-	struct Node* head;
-	struct Node* tail;
-};
+	Node* head;
+	Node* tail;
+} List;
 
-struct Node* createNode(void* data);
+Node* createNode(void* data);
 
-struct List* createList();
+List* createList();
 
-struct Node* addListFirst(struct List* l, void* pdata);
+Node* addListFirst(List* l, void* pdata);
 
-struct Node* addListLast(struct List* l, void* pdata);
+Node* addListLast(List* l, void* pdata);
 
-struct Node* addListIdx(struct List* l, void* pdata, int idx);
+Node* addListIdx(List* l, void* pdata, int idx);
 
-struct Node* delListFirst(struct List* l);
+Node* delListFirst(List* l);
 
-struct Node* delListLast(struct List* l);
+Node* delListLast(List* l);
 
-struct Node* delListIdx(struct List* l, int idx);
+Node* delListIdx(List* l, int idx);
 
-void destroyList(struct List* l);
+void destroyList(List* l);
 
-struct Node* findElem(struct List* l, void* data, int isDataEqual(void*, void*));
+Node* findElem(List* l, void* data, int isDataEqual(void*, void*));

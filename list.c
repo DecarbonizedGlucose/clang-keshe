@@ -1,8 +1,8 @@
 #include "list.h"
 #include <stdlib.h>
 
-struct Node* createNode(void* data) {
-	struct Node* node = (struct Node*)malloc(sizeof(struct Node));
+Node* createNode(void* data) {
+	Node* node = (Node*)malloc(sizeof Node);
 	if (node == NULL) {
 		return NULL;
 	}
@@ -10,8 +10,8 @@ struct Node* createNode(void* data) {
 	return node;
 }
 
-struct List* createList() {
-	struct List* list = (struct List*)malloc(sizeof(struct List));
+List* createList() {
+	List* list = (List*)malloc(sizeof List);
 	if (list == NULL) {
 		return NULL;
 	}
@@ -21,8 +21,8 @@ struct List* createList() {
 	return list;
 }
 
-struct Node* addListFirst(struct List* l, void* pdata) {
-	struct Node* new_head = (struct Node*)malloc(sizeof(struct Node));
+Node* addListFirst(List* l, void* pdata) {
+	Node* new_head = (Node*)malloc(sizeof Node);
 	if (new_head == NULL) {
 		return NULL;
 	}
@@ -35,8 +35,8 @@ struct Node* addListFirst(struct List* l, void* pdata) {
 	return new_head;
 }
 
-struct Node* addListLast(struct List* l, void* pdata) {
-	struct Node* new_tail = (struct Node*)malloc(sizeof(struct Node));
+Node* addListLast(List* l, void* pdata) {
+	Node* new_tail = (Node*)malloc(sizeof Node);
 	if (new_tail == NULL) {
 		return NULL;
 	}
@@ -49,7 +49,7 @@ struct Node* addListLast(struct List* l, void* pdata) {
 	return l->tail;
 }
 
-struct Node* addListIdx(struct List* l, void* pdata, int idx) {
+Node* addListIdx(List* l, void* pdata, int idx) {
 	if (idx < 0 || idx > l->length) {
 		return NULL;
 	}
@@ -59,11 +59,11 @@ struct Node* addListIdx(struct List* l, void* pdata, int idx) {
 	if (idx == 0 && l->length == 0) {
 		return addListFirst(l, pdata);
 	}
-	struct Node* cur = l->head;
+	Node* cur = l->head;
 	for (int i = 0; i < idx; ++i) {
 		cur = cur->next;
 	}
-	struct Node* new_node = (struct Node*)malloc(sizeof(struct Node));
+	Node* new_node = (Node*)malloc(sizeof Node);
 	if (new_node == NULL) {
 		return NULL;
 	}
@@ -75,11 +75,11 @@ struct Node* addListIdx(struct List* l, void* pdata, int idx) {
 	return new_node;
 }
 
-struct Node* delListFirst(struct List* l) {
+Node* delListFirst(List* l) {
 	if (l->length == 0) {
 		return NULL;
 	}
-	struct Node* old_head = l->head;
+	Node* old_head = l->head;
 	if (old_head->next == NULL) {
 		l->head = NULL;
 		l->tail = NULL;
@@ -96,14 +96,14 @@ struct Node* delListFirst(struct List* l) {
 	return l->head;
 }
 
-struct Node* delListLast(struct List* l) {
+Node* delListLast(List* l) {
 	if (l->length == 0) {
 		return NULL;
 	}
 	if (l->length == 1) {
 		return delListFirst(l);
 	}
-	struct Node* old_tail = l->tail;
+	Node* old_tail = l->tail;
 	l->tail = old_tail->prev;
 	l->tail->next = NULL;
 	free(old_tail->data);
@@ -114,7 +114,7 @@ struct Node* delListLast(struct List* l) {
 	return l->tail;
 }
 
-struct Node* delListIdx(struct List* l, int idx) {
+Node* delListIdx(List* l, int idx) {
 	if (l->length == 0 || idx > l->length) {
 		return NULL;
 	}
@@ -124,13 +124,13 @@ struct Node* delListIdx(struct List* l, int idx) {
 	if (idx == l->length - 1) {
 		return delListLast(l);
 	}
-	struct Node* cur = l->head;
+	Node* cur = l->head;
 	for (int i = 0; i < idx; ++i) {
 		cur = cur->next;
 	}
 	cur->prev->next = cur->next;
 	cur->next->prev = cur->prev;
-	struct Node* re = cur->next;
+	Node* re = cur->next;
 	cur->next = NULL;
 	cur->prev = NULL;
 	free(cur->data);
@@ -139,7 +139,7 @@ struct Node* delListIdx(struct List* l, int idx) {
 	return re;
 }
 
-void destroyList(struct List* l) {
+void destroyList(List* l) {
 	while (l->length) {
 		delListFirst(l);
 	}
@@ -147,11 +147,11 @@ void destroyList(struct List* l) {
 	l = NULL;
 }
 
-struct Node* findElem(struct List* l, void* data, int isDataEqual(void*, void*)) {
+Node* findElem(List* l, void* data, int isDataEqual(void*, void*)) {
 	if (l->length == 0) {
 		return NULL;
 	}
-	struct Node* cur = l->head;
+	Node* cur = l->head;
 	while (cur != NULL) {
 		if (isDataEqual(cur->data, data)) {
 			return cur;
