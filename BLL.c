@@ -9,7 +9,9 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
+#include "service.h"
 //#include <conio.h>
+//优化的事以后再说罢
 
 void mainLoop() {
 	int running = 1;
@@ -19,7 +21,7 @@ void mainLoop() {
 		digitInput(&option, -1, "请选择身份：", 0, 3);
 		if (!option) {
 			running = 0;
-			goodbye();
+			break;
 		}
 		Person* pp = login(option);
 		if (pp == NULL) {
@@ -64,6 +66,8 @@ Person* login(int type) {
 		clearReturn(tmp.m_Psw, 20);
 		fflush(stdin);
 		Node* res = findElem(personList, &tmp, isPersonEqual);
+		//printf("m_Id:%s m_Psw:%s\n", ((Person*)(res->data))->m_Id, 
+		// ((Person*)(res->data))->m_Psw);
 		if (res == NULL) {
 			printf("[INFO] 账号或密码错误，\n");
 			printf("[INFO] 你还有%d次机会。\n", count);
@@ -84,13 +88,85 @@ Person* login(int type) {
 }
 
 void studentLoop(Person* me) {
-
+	//printf("欢迎学生代表：%s登录！\n", me->m_Id);
+	int running = 1;
+	int option;
+	showStudentMenu();
+	while (running) {
+		digitInput(&option, -1, "请选择操作：", 0, 4);
+		if (!option) {
+			running = 0;
+			break;
+		}
+		switch (option) {
+		case 1:
+			applyOrder(me);
+			break;
+		case 2:
+			showMyOrder(me);
+			break;
+		case 3:
+			showAllOrder_stu(me);
+			break;
+		case 4:
+			cancelOrder(me);
+			break;
+		default:
+			printf("[ERROR] 程序bug出现了 !\n");
+		}
+	}
 }
 
 void teacherLoop(Person* me) {
-
+	//printf("欢迎教师：%s登录！\n", me->m_Id);
+	int running = 1;
+	int option;
+	showTeacherMenu();
+	while (running) {
+		digitInput(&option, -1, "请选择操作：", 0, 2);
+		if (!option) {
+			running = 0;
+			break;
+		}
+		switch (option) {
+		case 1:
+			showAllOrder_tea(me);
+			break;
+		case 2:
+			validOrder(me);
+			break;
+		default:
+			printf("[ERROR] 程序bug出现了 !\n");
+		}
+	}
 }
 
 void adminLoop(Person* me) {
-
+	//printf("欢迎管理员：%s登录！\n", me->m_Id);
+	int running = 1;
+	int option;
+	showAdminMenu();
+	while (running) {
+		digitInput(&option, -1, "请选择操作：", 0, 4);
+		if (!option) {
+			running = 0;
+			break;
+		}
+		switch (option) {
+		case 1:
+			addPerson();
+			break;
+		case 2:
+			showPerson();
+			break;
+		case 3:
+			showRooms();
+			break;
+		case 4:
+			cleanRecords();
+			break;
+		default:
+			printf("[ERROR] 程序bug出现了 !\n");
+		}
+	}
 }

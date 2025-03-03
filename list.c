@@ -43,8 +43,14 @@ Node* addListLast(List* l, void* pdata) {
 	new_tail->data = pdata;
 	new_tail->next = NULL;
 	new_tail->prev = l->tail;
-	l->tail->next = new_tail;
-	l->tail = new_tail;
+	if (l->tail != NULL) {
+		l->tail->next = new_tail;
+		l->tail = new_tail;
+	}
+	else {
+		l->head = new_tail;
+		l->tail = new_tail;
+	}
 	l->length++;
 	return l->tail;
 }
@@ -156,6 +162,7 @@ Node* findElem(List* l, void* data, int isDataEqual(void*, void*)) {
 		if (isDataEqual(cur->data, data)) {
 			return cur;
 		}
+		cur = cur->next;
 	}
 	return NULL;
 }
