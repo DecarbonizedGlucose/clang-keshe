@@ -1,8 +1,9 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 void showMainMenu() {
-	printf("============  欢迎来到西安架空大学机房预约系统  ===========\n");
-	printf("\n请输入您的身份\n");
+	system("cls");
+	printf("============  欢迎来到西安架空大学机房预约系统  ===========\n\n");
 	printf("\t\t -------------------------------\n");
 	printf("\t\t|                               |\n");
 	printf("\t\t|          1.学生代表           |\n");
@@ -17,18 +18,21 @@ void showMainMenu() {
 }
 
 void goodbye() {
+	system("cls");
 	printf("欢迎下次使用。\n");
 	system("pause");
 }
 
 void showStudentMenu() {
-
+	system("cls");
 }
 
 void showTeacherMenu() {
+	system("cls");
 
 }
 
 void showAdminMenu() {
+	system("cls");
 
 }

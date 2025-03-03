@@ -1,7 +1,8 @@
 #include "BLL.h"
+#include "UI.h"
 
 int main() {
-	mainloop();
+	mainLoop();
 	goodbye();
 	return 0;
 }

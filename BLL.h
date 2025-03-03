@@ -1,11 +1,12 @@
 #pragma once
+#include "entity.h"
 
 void mainLoop();
 
-void login(int type, char* file);
+Person* login(int type);
 
-void studentLoop();
+void studentLoop(Person*);
 
-void teacherLoop();
+void teacherLoop(Person*);
 
-void adminLoop();
+void adminLoop(Person*);

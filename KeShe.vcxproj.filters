@@ -27,9 +27,6 @@
     <ClCompile Include="UI.c">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="room.txt">
-      <Filter>资源文件</Filter>
-    </ClCompile>
     <ClCompile Include="entity.c">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -71,6 +68,9 @@
       <Filter>资源文件</Filter>
     </Text>
     <Text Include="teacher.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="room.txt">
       <Filter>资源文件</Filter>
     </Text>
   </ItemGroup>

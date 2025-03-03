@@ -132,7 +132,6 @@
     <ClCompile Include="list.c" />
     <ClCompile Include="DAL.c" />
     <ClCompile Include="main.c" />
-    <ClCompile Include="room.txt" />
     <ClCompile Include="service.c" />
     <ClCompile Include="UI.c" />
   </ItemGroup>
@@ -147,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="admin.txt" />
+    <Text Include="room.txt" />
     <Text Include="student.txt" />
     <Text Include="teacher.txt" />
   </ItemGroup>

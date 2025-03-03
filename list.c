@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 Node* createNode(void* data) {
-	Node* node = (Node*)malloc(sizeof Node);
+	Node* node = (Node*)malloc(sizeof(Node));
 	if (node == NULL) {
 		return NULL;
 	}
@@ -11,7 +11,7 @@ Node* createNode(void* data) {
 }
 
 List* createList() {
-	List* list = (List*)malloc(sizeof List);
+	List* list = (List*)malloc(sizeof(List));
 	if (list == NULL) {
 		return NULL;
 	}
@@ -22,7 +22,7 @@ List* createList() {
 }
 
 Node* addListFirst(List* l, void* pdata) {
-	Node* new_head = (Node*)malloc(sizeof Node);
+	Node* new_head = (Node*)malloc(sizeof(Node));
 	if (new_head == NULL) {
 		return NULL;
 	}
@@ -36,7 +36,7 @@ Node* addListFirst(List* l, void* pdata) {
 }
 
 Node* addListLast(List* l, void* pdata) {
-	Node* new_tail = (Node*)malloc(sizeof Node);
+	Node* new_tail = (Node*)malloc(sizeof(Node));
 	if (new_tail == NULL) {
 		return NULL;
 	}
@@ -63,7 +63,7 @@ Node* addListIdx(List* l, void* pdata, int idx) {
 	for (int i = 0; i < idx; ++i) {
 		cur = cur->next;
 	}
-	Node* new_node = (Node*)malloc(sizeof Node);
+	Node* new_node = (Node*)malloc(sizeof(Node));
 	if (new_node == NULL) {
 		return NULL;
 	}

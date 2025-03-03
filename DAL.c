@@ -1,16 +1,19 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include "DAL.h"
 #include "list.h"
 #include "globalfile.h"
+#include "entity.h"
 #include <string.h>
 #include <stdio.h>
+#include <ctype.h>
 
-int digitInput(int* data, int triles, char* start, int min, int max) {
-	int times = 0;
+int digitInput(int* data, unsigned triles, char* start, int min, int max) {
+	unsigned times = 0;
 	int state = 0;
 	int cur = 1;
 	while (times < triles) {
 		cur = 1;
-		printf("%s", start);
+		printf("[INPUT] %s", start);
 		char line[80];
 		fgets(line, 79, stdin);
 		fflush(stdin);
@@ -18,20 +21,21 @@ int digitInput(int* data, int triles, char* start, int min, int max) {
 			if (line[i] == '\n') {
 				line[i] = '\0';
 			}
-			if (!isdigit(line[i])) {
+			if (!isdigit(line[i]) && line[i] != '\0') {
 				cur = 0;
 				break;
 			}
 		}
 		if (cur) {
-			sscanf_s(line, "%d", data);
+			sscanf(line, "%d", data);
+			//printf("data=%d\n", *data);
 			cur = (min <= *data && *data <= max) ? 1 : 0;
 		}
 		times++;
 		if (!cur) {
-			printf("输入有误，请重新输入。\n");
+			printf("[INFO] 输入有误，请重新输入。\n");
 			if (triles != -1) {
-				printf("你还有%d次机会。\n", triles - times);
+				printf("[INFO] 你还有%d次机会。\n", triles - times);
 			}
 		}
 		else {
@@ -42,63 +46,77 @@ int digitInput(int* data, int triles, char* start, int min, int max) {
 	return state;
 }
 
-int strInput(char* data, int triles, int det(char*), char* start) {
+int strInput(char** data, int triles, int det(char*), char* start) {
 	int times = 0;
 	int state = 0;
 	int cur = 1;
 	while (times < triles) {
 		cur = 1;
-		printf("%s", start);
+		printf("[INPUT] %s", start);
 		char line[20];
 		fgets(line, 19, stdin);
-		for (int i = 0; i < 20 && line[i] != '\0'; ++i) {
-			if (line[i] == '\n') {
-				line[i] = '\0';
-			}
-		}
+		fflush(stdin);
+		clearReturn(line, 20);
 		cur = det(line);
 		times++;
 		if (!cur) {
-			printf("输入有误，请重新输入。\n");
+			printf("[INFO] 输入有误，请重新输入。\n");
 			if (triles != -1) {
-				printf("你还有%d次机会。\n", triles - times);
+				printf("[INFO] 你还有%d次机会。\n", triles - times);
 			}
 		}
 		else {
 			state = 1;
+			strcmp(*data, line);
 			break;
+		}
+	}
+	return state;
+}
+
+void clearReturn(char* str, int size) {
+	for (int i = 0; i < size && str[i] != '\0'; ++i) {
+		if (str[i] == '\n') {
+			str[i] = '\0';
 		}
 	}
 }
 
-struct List* readFromPerson(int type) {
-    char fileName[20];
-    switch (type) {
-    case 1:
-        strcpy(fileName, STUDENTFILE);
-        break;
-    case 2:
-        strcpy(fileName, TEACHERFILE);
-        break;
+List* readFromPerson(int type) {
+	char fileName[20] = { 0 };
+	switch (type) {
+	case 1:
+		strcpy(fileName, STUFILE);
+		break;
+	case 2:
+		strcpy(fileName, TEACHERFILE);
+		break;
     case 3:
-        strcpy(fileName, ADMINFILE);
-        break;
-    default:
-        printf("program bug appears\n");
-    }
-    FILE* fp = fopen(fileName, "r");
-    List* personList = createList();
-    if (personList == NULL) {
-        printf("[ERROR] fail creating list\n");
-        return NULL;
-    }
-    while (1) {
-        char line[40], name[20], psw[20];
-        if (fgets(line, 39, fp) == NULL) {
-            break;
-        }
-        sscanf(line, "%s %s", name, psw);
-        addListLast(personList, createPerson(name, psw));
-    }
-    return personList;
+		strcpy(fileName, ADMINFILE);
+		break;
+	default:
+		printf("[ERROR] bug出现了呃呃\n");
+	}
+	FILE* fp = fopen(fileName, "r");
+	if (fp == NULL) {
+		printf("[ERROR] 无法读取文件。\n");
+		return NULL;
+	}
+	List* personList = createList();
+	if (personList == NULL) {
+		printf("[ERROR] 未能创建人员列表\n");
+		return NULL;
+	}
+	char line[40], id[20], psw[20];
+	while (1) {
+		char* t = fgets(line, 39, fp);
+		//clearerr(fp);
+		if (t == NULL) {
+			break;
+		}
+		sscanf(line, "%s %s", id, psw);
+		addListLast(personList, createPerson(id, psw));
+	}
+	//clearerr(fp);
+	return personList;
 }

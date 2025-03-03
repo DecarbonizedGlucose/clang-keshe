@@ -1,13 +1,13 @@
-﻿#pragma
+﻿#pragma once
 
-typedef struct {
+typedef struct Node {
 	void* data;
 	struct Node* prev;
 	struct Node* next;
 } Node;
 
 // List管理的由Node组成的双链表
-typedef struct {
+typedef struct List{
 	int length;
 	Node* head;
 	Node* tail;
