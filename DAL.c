@@ -13,7 +13,7 @@ int digitInput(int* data, unsigned triles, char* start, int min, int max) {
 	int cur = 1;
 	while (times < triles) {
 		cur = 1;
-		printf("[INPUT] %s", start);
+		printf("[Input> %s", start);
 		char line[80];
 		fgets(line, 79, stdin);
 		fflush(stdin);
@@ -52,7 +52,7 @@ int strInput(char** data, int triles, int det(char*), char* start) {
 	int cur = 1;
 	while (times < triles) {
 		cur = 1;
-		printf("[INPUT] %s", start);
+		printf("[Input> %s", start);
 		char line[20];
 		fgets(line, 19, stdin);
 		fflush(stdin);

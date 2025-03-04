@@ -16,8 +16,9 @@
 void mainLoop() {
 	int running = 1;
 	int option;
-	showMainMenu();
 	while (running) {
+		system("cls");
+		showMainMenu();
 		digitInput(&option, -1, "ÇëÑ¡ÔñÉí·İ£º", 0, 3);
 		if (!option) {
 			running = 0;
@@ -57,11 +58,11 @@ Person* login(int type) {
 	Person tmp;
 	int count = 3;
 	while (count--) {
-		printf("[INPUT] ÕÊºÅ£º");
+		printf("[Input> ÕÊºÅ£º");
 		fgets(tmp.m_Id, 19, stdin);
 		clearReturn(tmp.m_Id, 20);
 		fflush(stdin);
-		printf("[INPUT] ÃÜÂë£º");
+		printf("[Input> ÃÜÂë£º");
 		fgets(tmp.m_Psw, 19, stdin);
 		clearReturn(tmp.m_Psw, 20);
 		fflush(stdin);
