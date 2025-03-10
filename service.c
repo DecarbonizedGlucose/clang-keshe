@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
+﻿#define _CRT_SECURE_NO_WARNINGS
 #include "entity.h"
 #include "DAL.h"
 #include <stdio.h>
@@ -7,6 +7,7 @@
 #include "globalfile.h"
 #include "UI.h"
 #include <string.h>
+#include "service.h"
 
 // 优化什么的, 有空再写
 // 改进时间存储机制

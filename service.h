@@ -41,6 +41,6 @@ void cleanRecords(Person* admin);
 
 // ----- all -----
 
-List* showOrderLogs(Person* p);
+void showOrderLogs(Person* p);
 
 Person* findPerson(int type, char* id);

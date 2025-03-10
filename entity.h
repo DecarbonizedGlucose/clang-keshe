@@ -8,8 +8,8 @@ m_Id : 学生10位标准学号，8位教职工编号，8位管理工号
 m_Psw : 8-16位大小写英文字母和数字的组合，不得出现其他字符
 */
 typedef struct {
-    char m_Id[20]; // 唯一标识ID
-    char m_Psw[20];
+	char m_Id[20]; // 唯一标识ID
+	char m_Psw[20];
 } Person;
 
 Person* createEmptyPerson();

@@ -1,4 +1,4 @@
-#include <stdio.h>
+﻿#include <stdio.h>
 #include <stdlib.h>
 #include "entity.h"
 
@@ -7,7 +7,7 @@ void showMainMenu() {
 	printf("============  欢迎来到西安架空大学机房预约系统  ===========\n\n");
 	printf("\t\t+-------------------------------+\n");
 	printf("\t\t|                               |\n");
-	printf("\t\t|          1.学生代表           |\n");
+	printf("\t\t|          1.学    生           |\n");
 	printf("\t\t|                               |\n");
 	printf("\t\t|          2.老    师           |\n");
 	printf("\t\t|                               |\n");

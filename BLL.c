@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
+﻿#define _CRT_SECURE_NO_WARNINGS
 #include "BLL.h"
 #include "UI.h"
 #include "DAL.h"
@@ -38,10 +38,10 @@ void mainLoop() {
 		case 3: // 管理员
 			adminLoop(pp);
 			break;
-		/*case 0:
-			running = 0;
-			goodbye();
-			break;*/
+			/*case 0:
+				running = 0;
+				goodbye();
+				break;*/
 		default:
 			printf("[ERROR] 程序bug出现了 !\n");
 		}

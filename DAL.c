@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
+﻿#define _CRT_SECURE_NO_WARNINGS
 #include "DAL.h"
 #include "list.h"
 #include "globalfile.h"
@@ -44,7 +44,7 @@ int digitInput(int* data, unsigned triles, char* start, int min, int max) {
 		if (!cur) {
 			printf("[INFO] 输入有误，请重新输入。\n");
 			if (triles != -1) {
-				printf("[INFO] 你还有%d次机会。\n", triles - times);
+				printf("[INFO] 你还有%d次机会。\n", (triles - times));
 			}
 		}
 		else {
@@ -72,7 +72,7 @@ int strInput(char** data, int triles, int det(char*), char* start) {
 		if (!cur) {
 			printf("[INFO] 输入有误，请重新输入。\n");
 			if (triles != -1) {
-				printf("[INFO] 你还有%d次机会。\n", triles - times);
+				printf("[INFO] 你还有%d次机会。\n", (triles - times));
 			}
 		}
 		else {
@@ -101,7 +101,7 @@ List* readPersonFromFile(int type) {
 	case 2: // 教师
 		strcpy(fileName, TEACHERFILE);
 		break;
-    case 3: // 管理员
+	case 3: // 管理员
 		strcpy(fileName, ADMINFILE);
 		break;
 	default:
@@ -312,6 +312,6 @@ void addNewOrder(Order* order) {
 }
 
 // 待定
-void orderLogUpdate(Order* order, int state) { 
+void orderLogUpdate(Order* order, int state) {
 	order->state = state;
 }
