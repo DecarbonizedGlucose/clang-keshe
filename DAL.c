@@ -42,9 +42,9 @@ int digitInput(int* data, unsigned triles, char* start, int min, int max) {
 		}
 		times++;
 		if (!cur) {
-			printf("[INFO] ÊäÈëÓĞÎó£¬ÇëÖØĞÂÊäÈë¡£\n");
+			printf("[INFO] è¾“å…¥æœ‰è¯¯ï¼Œè¯·é‡æ–°è¾“å…¥ã€‚\n");
 			if (triles != -1) {
-				printf("[INFO] Äã»¹ÓĞ%d´Î»ú»á¡£\n", triles - times);
+				printf("[INFO] ä½ è¿˜æœ‰%dæ¬¡æœºä¼šã€‚\n", triles - times);
 			}
 		}
 		else {
@@ -70,9 +70,9 @@ int strInput(char** data, int triles, int det(char*), char* start) {
 		cur = det(line);
 		times++;
 		if (!cur) {
-			printf("[INFO] ÊäÈëÓĞÎó£¬ÇëÖØĞÂÊäÈë¡£\n");
+			printf("[INFO] è¾“å…¥æœ‰è¯¯ï¼Œè¯·é‡æ–°è¾“å…¥ã€‚\n");
 			if (triles != -1) {
-				printf("[INFO] Äã»¹ÓĞ%d´Î»ú»á¡£\n", triles - times);
+				printf("[INFO] ä½ è¿˜æœ‰%dæ¬¡æœºä¼šã€‚\n", triles - times);
 			}
 		}
 		else {
@@ -95,26 +95,26 @@ void clearReturn(char* str, int size) {
 List* readPersonFromFile(int type) {
 	char fileName[20] = { 0 };
 	switch (type) {
-	case 1: // Ñ§Éú
+	case 1: // å­¦ç”Ÿ
 		strcpy(fileName, STUFILE);
 		break;
-	case 2: // ½ÌÊ¦
+	case 2: // æ•™å¸ˆ
 		strcpy(fileName, TEACHERFILE);
 		break;
-    case 3: // ¹ÜÀíÔ±
+    case 3: // ç®¡ç†å‘˜
 		strcpy(fileName, ADMINFILE);
 		break;
 	default:
-		printf("[ERROR] bug³öÏÖÁËßÀßÀ\n");
+		printf("[ERROR] bugå‡ºç°äº†å‘ƒå‘ƒ\n");
 	}
 	FILE* fp = fopen(fileName, "r");
 	if (fp == NULL) {
-		printf("[ERROR] ÎŞ·¨¶ÁÈ¡ÎÄ¼ş¡£\n");
+		printf("[ERROR] æ— æ³•è¯»å–æ–‡ä»¶ã€‚\n");
 		return NULL;
 	}
 	List* personList = createEmptyList();
 	if (personList == NULL) {
-		printf("[ERROR] Î´ÄÜ´´½¨ÈËÔ±ÁĞ±í\n");
+		printf("[ERROR] æœªèƒ½åˆ›å»ºäººå‘˜åˆ—è¡¨\n");
 		return NULL;
 	}
 	char line[40], id[20], psw[20];
@@ -126,7 +126,7 @@ List* readPersonFromFile(int type) {
 		sscanf(line, "%s %s", id, psw);
 		Person* new_person = createEmptyPerson();
 		if (new_person == NULL) {
-			printf("[ERROR] ÄÚ´æ·ÖÅä´íÎó£¬ÎŞ·¨¶ÁÈ¡ÕËºÅ¡£\n");
+			printf("[ERROR] å†…å­˜åˆ†é…é”™è¯¯ï¼Œæ— æ³•è¯»å–è´¦å·ã€‚\n");
 			destroyList(personList);
 			return NULL;
 		}
@@ -140,21 +140,21 @@ List* readPersonFromFile(int type) {
 int writePersonToFile(List* list, int type) {
 	char fileName[20] = { 0 };
 	switch (type) {
-	case 1: // Ñ§Éú
+	case 1: // å­¦ç”Ÿ
 		strcpy(fileName, STUFILE);
 		break;
-	case 2: // ½ÌÊ¦
+	case 2: // æ•™å¸ˆ
 		strcpy(fileName, TEACHERFILE);
 		break;
-	case 3: // ¹ÜÀíÔ±
+	case 3: // ç®¡ç†å‘˜
 		strcpy(fileName, ADMINFILE);
 		break;
 	default:
-		printf("[ERROR] bug³öÏÖÁËßÀßÀ\n");
+		printf("[ERROR] bugå‡ºç°äº†å‘ƒå‘ƒ\n");
 	}
 	FILE* fp = fopen(fileName, "w");
 	if (fp == NULL) {
-		printf("[ERROR] ÎŞ·¨Ğ´ÈëÎÄ¼ş¡£\n");
+		printf("[ERROR] æ— æ³•å†™å…¥æ–‡ä»¶ã€‚\n");
 		return 0;
 	}
 	Node* cur = list->head;
@@ -170,12 +170,12 @@ int writePersonToFile(List* list, int type) {
 List* readRoomFromFile() {
 	FILE* fp = fopen(ROOMFILE, "r");
 	if (fp == NULL) {
-		printf("[ERROR] ÎŞ·¨¶ÁÈ¡ÎÄ¼ş¡£\n");
+		printf("[ERROR] æ— æ³•è¯»å–æ–‡ä»¶ã€‚\n");
 		return NULL;
 	}
 	List* roomList = createEmptyList();
 	if (roomList == NULL) {
-		printf("[ERROR] Î´ÄÜ´´½¨»ú·¿ÁĞ±í\n");
+		printf("[ERROR] æœªèƒ½åˆ›å»ºæœºæˆ¿åˆ—è¡¨\n");
 		return NULL;
 	}
 	char line[20];
@@ -188,7 +188,7 @@ List* readRoomFromFile() {
 		sscanf(line, "%d %d %d", &id, &capacity, &size);
 		Room* newRoom = createRoom(id, capacity, size);
 		if (newRoom == NULL) {
-			printf("[ERROR] ÄÚ´æ·ÖÅä´íÎó£¬ÎŞ·¨¶ÁÈ¡»ú·¿¡£\n");
+			printf("[ERROR] å†…å­˜åˆ†é…é”™è¯¯ï¼Œæ— æ³•è¯»å–æœºæˆ¿ã€‚\n");
 			destroyList(roomList);
 			return NULL;
 		}
@@ -200,7 +200,7 @@ List* readRoomFromFile() {
 int writeRoomToFile(List* list) {
 	FILE* fp = fopen(ROOMFILE, "w");
 	if (fp == NULL) {
-		printf("[ERROR] ÎŞ·¨Ğ´ÈëÎÄ¼ş¡£\n");
+		printf("[ERROR] æ— æ³•å†™å…¥æ–‡ä»¶ã€‚\n");
 		return 0;
 	}
 	Node* cur = list->head;
@@ -216,12 +216,12 @@ int writeRoomToFile(List* list) {
 List* readOrderFromFile() {
 	FILE* fp = fopen(ORDERFILE, "r");
 	if (fp == NULL) {
-		printf("[ERROR] ÎŞ·¨¶ÁÈ¡ÎÄ¼ş¡£\n");
+		printf("[ERROR] æ— æ³•è¯»å–æ–‡ä»¶ã€‚\n");
 		return NULL;
 	}
 	List* orderList = createEmptyList();
 	if (orderList == NULL) {
-		printf("[ERROR] Î´ÄÜ´´½¨Ô¤Ô¼ÁĞ±í\n");
+		printf("[ERROR] æœªèƒ½åˆ›å»ºé¢„çº¦åˆ—è¡¨\n");
 		return NULL;
 	}
 	char line[100];
@@ -232,7 +232,7 @@ List* readOrderFromFile() {
 		}
 		Order* newOrder = createEmptyOrder();
 		if (newOrder == NULL) {
-			printf("[ERROR] ÄÚ´æ·ÖÅä´íÎó£¬ÎŞ·¨¶ÁÈ¡Ô¤Ô¼¡£\n");
+			printf("[ERROR] å†…å­˜åˆ†é…é”™è¯¯ï¼Œæ— æ³•è¯»å–é¢„çº¦ã€‚\n");
 			destroyList(orderList);
 			return NULL;
 		}
@@ -247,7 +247,7 @@ List* readOrderFromFile() {
 int writeOrderToFile(List* list) {
 	FILE* fp = fopen(ORDERFILE, "w");
 	if (fp == NULL) {
-		printf("[ERROR] ÎŞ·¨Ğ´ÈëÎÄ¼ş¡£\n");
+		printf("[ERROR] æ— æ³•å†™å…¥æ–‡ä»¶ã€‚\n");
 		return 0;
 	}
 	Node* cur = list->head;
@@ -264,7 +264,7 @@ int writeOrderToFile(List* list) {
 int clearFile(char* fileName) {
 	FILE* fp = fopen(fileName, "w");
 	if (fp == NULL) {
-		printf("[ERROR] ÎŞ·¨Çå¿ÕÎÄ¼ş¡£\n");
+		printf("[ERROR] æ— æ³•æ¸…ç©ºæ–‡ä»¶ã€‚\n");
 		return 0;
 	}
 	fclose(fp);
@@ -274,7 +274,7 @@ int clearFile(char* fileName) {
 void roomInfoUpdate(int id, int delta_size) {
 	List* roomList = readRoomFromFile();
 	if (roomList == NULL) {
-		printf("[ERROR] ÎŞ·¨¸üĞÂ»ú·¿ĞÅÏ¢¡£\n");
+		printf("[ERROR] æ— æ³•æ›´æ–°æœºæˆ¿ä¿¡æ¯ã€‚\n");
 		return;
 	}
 	Node* cur = roomList->head;
@@ -287,10 +287,10 @@ void roomInfoUpdate(int id, int delta_size) {
 		cur = cur->next;
 	}
 	if (writeRoomToFile(roomList)) {
-		printf("[INFO] »ú·¿ĞÅÏ¢ÒÑ¸üĞÂ¡£\n");
+		printf("[INFO] æœºæˆ¿ä¿¡æ¯å·²æ›´æ–°ã€‚\n");
 	}
 	else {
-		printf("[ERROR] ÎŞ·¨¸üĞÂ»ú·¿ĞÅÏ¢¡£\n");
+		printf("[ERROR] æ— æ³•æ›´æ–°æœºæˆ¿ä¿¡æ¯ã€‚\n");
 	}
 	destroyList(roomList);
 }
@@ -298,20 +298,20 @@ void roomInfoUpdate(int id, int delta_size) {
 void addNewOrder(Order* order) {
 	List* orderList = readOrderFromFile();
 	if (orderList == NULL) {
-		printf("[ERROR] ÎŞ·¨Ìí¼ÓÔ¤Ô¼¡£\n");
+		printf("[ERROR] æ— æ³•æ·»åŠ é¢„çº¦ã€‚\n");
 		return;
 	}
 	addListLast(orderList, order);
 	if (writeOrderToFile(orderList)) {
-		printf("[INFO] Ô¤Ô¼ÒÑÌí¼Ó¡£\n");
+		printf("[INFO] é¢„çº¦å·²æ·»åŠ ã€‚\n");
 	}
 	else {
-		printf("[ERROR] ÎŞ·¨Ìí¼ÓÔ¤Ô¼¡£\n");
+		printf("[ERROR] æ— æ³•æ·»åŠ é¢„çº¦ã€‚\n");
 	}
 	destroyList(orderList);
 }
 
-// ´ı¶¨
+// å¾…å®š
 void orderLogUpdate(Order* order, int state) { 
 	order->state = state;
 }

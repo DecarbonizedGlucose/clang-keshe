@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include "service.h"
 //#include <conio.h>
-//ÓÅ»¯µÄÊÂÒÔºóÔÙËµ°Õ
+//ä¼˜åŒ–çš„äº‹ä»¥åå†è¯´ç½¢
 
 void mainLoop() {
 	int running = 1;
@@ -19,7 +19,7 @@ void mainLoop() {
 	while (running) {
 		system("cls");
 		showMainMenu();
-		digitInput(&option, -1, "ÇëÑ¡ÔñÉí·İ£º", 0, 3);
+		digitInput(&option, -1, "è¯·é€‰æ‹©èº«ä»½ï¼š", 0, 3);
 		if (!option) {
 			running = 0;
 			break;
@@ -29,13 +29,13 @@ void mainLoop() {
 			continue;
 		}
 		switch (option) {
-		case 1: // Ñ§Éú´ú±í
+		case 1: // å­¦ç”Ÿä»£è¡¨
 			studentLoop(pp);
 			break;
-		case 2: // ½ÌÊ¦
+		case 2: // æ•™å¸ˆ
 			teacherLoop(pp);
 			break;
-		case 3: // ¹ÜÀíÔ±
+		case 3: // ç®¡ç†å‘˜
 			adminLoop(pp);
 			break;
 		/*case 0:
@@ -43,7 +43,7 @@ void mainLoop() {
 			goodbye();
 			break;*/
 		default:
-			printf("[ERROR] ³ÌĞòbug³öÏÖÁË !\n");
+			printf("[ERROR] ç¨‹åºbugå‡ºç°äº† !\n");
 		}
 	}
 }
@@ -52,17 +52,17 @@ Person* login(int type) {
 	Person* person = NULL;
 	List* personList = readPersonFromFile(type);
 	if (personList == NULL) {
-		printf("[ERROR] ÏÖÔÚÎŞ·¨µÇÂ¼¡£\n");
+		printf("[ERROR] ç°åœ¨æ— æ³•ç™»å½•ã€‚\n");
 		return NULL;
 	}
 	Person tmp;
 	int count = 3;
 	while (count--) {
-		printf("[Input> ÕÊºÅ£º");
+		printf("[Input> å¸å·ï¼š");
 		fgets(tmp.m_Id, 19, stdin);
 		clearReturn(tmp.m_Id, 20);
 		fflush(stdin);
-		printf("[Input> ÃÜÂë£º");
+		printf("[Input> å¯†ç ï¼š");
 		fgets(tmp.m_Psw, 19, stdin);
 		clearReturn(tmp.m_Psw, 20);
 		fflush(stdin);
@@ -70,18 +70,18 @@ Person* login(int type) {
 		//printf("m_Id:%s m_Psw:%s\n", ((Person*)(res->data))->m_Id, 
 		// ((Person*)(res->data))->m_Psw);
 		if (res == NULL) {
-			printf("[INFO] ÕËºÅ»òÃÜÂë´íÎó£¬\n");
-			printf("[INFO] Äã»¹ÓĞ%d´Î»ú»á¡£\n", count);
+			printf("[INFO] è´¦å·æˆ–å¯†ç é”™è¯¯ï¼Œ\n");
+			printf("[INFO] ä½ è¿˜æœ‰%dæ¬¡æœºä¼šã€‚\n", count);
 		}
 		else {
 			person = createEmptyPerson();
 			if (person == NULL) {
-				printf("[ERROR] ÄÚ´æ·ÖÅä´íÎó£¬µÇÂ¼Ê§°Ü¡£\n");
+				printf("[ERROR] å†…å­˜åˆ†é…é”™è¯¯ï¼Œç™»å½•å¤±è´¥ã€‚\n");
 				return NULL;
 			}
 			strcpy(person->m_Id, tmp.m_Id);
 			strcpy(person->m_Psw, tmp.m_Psw);
-			printf("[INFO] µÇÂ¼³É¹¦¡£\n");
+			printf("[INFO] ç™»å½•æˆåŠŸã€‚\n");
 			break;
 		}
 	}
@@ -90,12 +90,12 @@ Person* login(int type) {
 }
 
 void studentLoop(Person* me) {
-	//printf("»¶Ó­Ñ§Éú´ú±í£º%sµÇÂ¼£¡\n", me->m_Id);
+	//printf("æ¬¢è¿å­¦ç”Ÿä»£è¡¨ï¼š%sç™»å½•ï¼\n", me->m_Id);
 	int running = 1;
 	int option;
 	showStudentMenu();
 	while (running) {
-		digitInput(&option, -1, "ÇëÑ¡Ôñ²Ù×÷£º", 0, 3);
+		digitInput(&option, -1, "è¯·é€‰æ‹©æ“ä½œï¼š", 0, 3);
 		if (!option) {
 			running = 0;
 			break;
@@ -111,18 +111,18 @@ void studentLoop(Person* me) {
 			cancelOrder(me);
 			break;
 		default:
-			printf("[ERROR] ³ÌĞòbug³öÏÖÁË !\n");
+			printf("[ERROR] ç¨‹åºbugå‡ºç°äº† !\n");
 		}
 	}
 }
 
 void teacherLoop(Person* me) {
-	//printf("»¶Ó­½ÌÊ¦£º%sµÇÂ¼£¡\n", me->m_Id);
+	//printf("æ¬¢è¿æ•™å¸ˆï¼š%sç™»å½•ï¼\n", me->m_Id);
 	int running = 1;
 	int option;
 	showTeacherMenu();
 	while (running) {
-		digitInput(&option, -1, "ÇëÑ¡Ôñ²Ù×÷£º", 0, 2);
+		digitInput(&option, -1, "è¯·é€‰æ‹©æ“ä½œï¼š", 0, 2);
 		if (!option) {
 			running = 0;
 			break;
@@ -135,18 +135,18 @@ void teacherLoop(Person* me) {
 			validOrder(me);
 			break;
 		default:
-			printf("[ERROR] ³ÌĞòbug³öÏÖÁË !\n");
+			printf("[ERROR] ç¨‹åºbugå‡ºç°äº† !\n");
 		}
 	}
 }
 
 void adminLoop(Person* me) {
-	//printf("»¶Ó­¹ÜÀíÔ±£º%sµÇÂ¼£¡\n", me->m_Id);
+	//printf("æ¬¢è¿ç®¡ç†å‘˜ï¼š%sç™»å½•ï¼\n", me->m_Id);
 	int running = 1;
 	int option;
 	showAdminMenu();
 	while (running) {
-		digitInput(&option, -1, "ÇëÑ¡Ôñ²Ù×÷£º", 0, 7);
+		digitInput(&option, -1, "è¯·é€‰æ‹©æ“ä½œï¼š", 0, 7);
 		if (!option) {
 			running = 0;
 			break;
@@ -174,7 +174,7 @@ void adminLoop(Person* me) {
 			cleanRecords(me);
 			break;
 		default:
-			printf("[ERROR] ³ÌĞòbug³öÏÖÁË !\n");
+			printf("[ERROR] ç¨‹åºbugå‡ºç°äº† !\n");
 		}
 	}
 }

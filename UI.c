@@ -4,23 +4,23 @@
 
 void showMainMenu() {
 	system("cls");
-	printf("============  »¶Ó­À´µ½Î÷°²¼Ü¿Õ´óÑ§»ú·¿Ô¤Ô¼ÏµÍ³  ===========\n\n");
+	printf("============  æ¬¢è¿æ¥åˆ°è¥¿å®‰æ¶ç©ºå¤§å­¦æœºæˆ¿é¢„çº¦ç³»ç»Ÿ  ===========\n\n");
 	printf("\t\t+-------------------------------+\n");
 	printf("\t\t|                               |\n");
-	printf("\t\t|          1.Ñ§Éú´ú±í           |\n");
+	printf("\t\t|          1.å­¦ç”Ÿä»£è¡¨           |\n");
 	printf("\t\t|                               |\n");
-	printf("\t\t|          2.ÀÏ    Ê¦           |\n");
+	printf("\t\t|          2.è€    å¸ˆ           |\n");
 	printf("\t\t|                               |\n");
-	printf("\t\t|          3.¹Ü Àí Ô±           |\n");
+	printf("\t\t|          3.ç®¡ ç† å‘˜           |\n");
 	printf("\t\t|                               |\n");
-	printf("\t\t|          0.ÍË    ³ö           |\n");
+	printf("\t\t|          0.é€€    å‡º           |\n");
 	printf("\t\t|                               |\n");
 	printf("\t\t+-------------------------------+\n");
 }
 
 void goodbye() {
 	system("cls");
-	printf("»¶Ó­ÏÂ´ÎÊ¹ÓÃ¡£\n");
+	printf("æ¬¢è¿ä¸‹æ¬¡ä½¿ç”¨ã€‚\n");
 	system("pause");
 }
 
@@ -28,13 +28,13 @@ void showStudentMenu() {
 	system("cls");
 	printf("\t\t+----------------------------------+\n");
 	printf("\t\t|                                  |\n");
-	printf("\t\t|          1.ÉêÇëÔ¤Ô¼              |\n");
+	printf("\t\t|          1.ç”³è¯·é¢„çº¦              |\n");
 	printf("\t\t|                                  |\n");
-	printf("\t\t|          2.²é¿´ÎÒµÄÔ¤Ô¼          |\n");
+	printf("\t\t|          2.æŸ¥çœ‹æˆ‘çš„é¢„çº¦          |\n");
 	printf("\t\t|                                  |\n");
-	printf("\t\t|          3.È¡ÏûÔ¤Ô¼              |\n");
+	printf("\t\t|          3.å–æ¶ˆé¢„çº¦              |\n");
 	printf("\t\t|                                  |\n");
-	printf("\t\t|          0.×¢ÏúµÇÂ¼              |\n");
+	printf("\t\t|          0.æ³¨é”€ç™»å½•              |\n");
 	printf("\t\t|                                  |\n");
 	printf("\t\t+----------------------------------+\n");
 }
@@ -43,11 +43,11 @@ void showTeacherMenu() {
 	system("cls");
 	printf("\t\t+----------------------------------+\n");
 	printf("\t\t|                                  |\n");
-	printf("\t\t|          1.²é¿´ËùÓĞÔ¤Ô¼          |\n");
+	printf("\t\t|          1.æŸ¥çœ‹æ‰€æœ‰é¢„çº¦          |\n");
 	printf("\t\t|                                  |\n");
-	printf("\t\t|          2.ÉóºËÔ¤Ô¼              |\n");
+	printf("\t\t|          2.å®¡æ ¸é¢„çº¦              |\n");
 	printf("\t\t|                                  |\n");
-	printf("\t\t|          0.×¢ÏúµÇÂ¼              |\n");
+	printf("\t\t|          0.æ³¨é”€ç™»å½•              |\n");
 	printf("\t\t|                                  |\n");
 	printf("\t\t+----------------------------------+\n");
 }
@@ -56,37 +56,37 @@ void showAdminMenu() {
 	system("cls");
 	printf("\t\t+---------------------------------+\n");
 	printf("\t\t|                                 |\n");
-	printf("\t\t|          1.Ìí¼ÓÕËºÅ             |\n");
+	printf("\t\t|          1.æ·»åŠ è´¦å·             |\n");
 	printf("\t\t|                                 |\n");
-	printf("\t\t|          2.²é¿´ÕËºÅ             |\n");
+	printf("\t\t|          2.æŸ¥çœ‹è´¦å·             |\n");
 	printf("\t\t|                                 |\n");
-	printf("\t\t|          3.²éÕÒÕËºÅ             |\n");
+	printf("\t\t|          3.æŸ¥æ‰¾è´¦å·             |\n");
 	printf("\t\t|                                 |\n");
-	printf("\t\t|          4.É¾³ıÕËºÅ             |\n");
+	printf("\t\t|          4.åˆ é™¤è´¦å·             |\n");
 	printf("\t\t|                                 |\n");
-	printf("\t\t|          5.ĞŞ¸ÄÕËºÅ             |\n");
+	printf("\t\t|          5.ä¿®æ”¹è´¦å·             |\n");
 	printf("\t\t|                                 |\n");
-	printf("\t\t|          6.²é¿´»ú·¿             |\n");
+	printf("\t\t|          6.æŸ¥çœ‹æœºæˆ¿             |\n");
 	printf("\t\t|                                 |\n");
-	printf("\t\t|          7.Çå¿ÕÔ¤Ô¼             |\n");
+	printf("\t\t|          7.æ¸…ç©ºé¢„çº¦             |\n");
 	printf("\t\t|                                 |\n");
-	printf("\t\t|          0.×¢ÏúµÇÂ¼             |\n");
+	printf("\t\t|          0.æ³¨é”€ç™»å½•             |\n");
 	printf("\t\t|                                 |\n");
 	printf("\t\t+---------------------------------+\n");
 }
 
 void introduceRooms() {
 	system("cls");
-	printf("»ú·¿¿ª·ÅÊ±¼äÎªÖÜÒ»ÖÁÖÜÎå8:00-11:30¡¢13:30-22:30£¬¾ßÌå´úºÅÈçÏÂ\n");
-	printf("       ÉÏÎç    ÏÂÎç\n");
-	printf("ÖÜÒ»     1      2\n");
-	printf("ÖÜ¶ş     3      4\n");
-	printf("ÖÜÈı     5      6\n");
-	printf("ÖÜËÄ     7      8\n");
-	printf("ÖÜÎå     9     10\n");
-	printf("»ú·¿ÈçÏÂ\n");
-	printf("Ğ¡»ú·¿(20)£º1-5\n");
-	printf("ÖĞ»ú·¿(50)£º6-8\n");
-	printf("´ó»ú·¿(100)£º9-10\n");
+	printf("æœºæˆ¿å¼€æ”¾æ—¶é—´ä¸ºå‘¨ä¸€è‡³å‘¨äº”8:00-11:30ã€13:30-22:30ï¼Œå…·ä½“ä»£å·å¦‚ä¸‹\n");
+	printf("       ä¸Šåˆ    ä¸‹åˆ\n");
+	printf("å‘¨ä¸€     1      2\n");
+	printf("å‘¨äºŒ     3      4\n");
+	printf("å‘¨ä¸‰     5      6\n");
+	printf("å‘¨å››     7      8\n");
+	printf("å‘¨äº”     9     10\n");
+	printf("æœºæˆ¿å¦‚ä¸‹\n");
+	printf("å°æœºæˆ¿(20)ï¼š1-5\n");
+	printf("ä¸­æœºæˆ¿(50)ï¼š6-8\n");
+	printf("å¤§æœºæˆ¿(100)ï¼š9-10\n");
 	system("pause");
 }

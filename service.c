@@ -8,19 +8,19 @@
 #include "UI.h"
 #include <string.h>
 
-// ÓÅ»¯Ê²Ã´µÄ, ÓĞ¿ÕÔÙĞ´
-// ¸Ä½øÊ±¼ä´æ´¢»úÖÆ
-// Ìí¼ÓÕ¹Ê¾´óÁ¿Êı¾İÊ±µÄ·­Ò³¹¦ÄÜ
-// Ìí¼ÓÍ¼ĞÎ½çÃæ
+// ä¼˜åŒ–ä»€ä¹ˆçš„, æœ‰ç©ºå†å†™
+// æ”¹è¿›æ—¶é—´å­˜å‚¨æœºåˆ¶
+// æ·»åŠ å±•ç¤ºå¤§é‡æ•°æ®æ—¶çš„ç¿»é¡µåŠŸèƒ½
+// æ·»åŠ å›¾å½¢ç•Œé¢
 
 // ----- about student -----
 
-// Ç©µ½
+// ç­¾åˆ°
 void signIn(Person* stu) {
 	
 }
 
-// Ç©ÍË
+// ç­¾é€€
 void signOut(Person* stu) {
 
 }
@@ -30,18 +30,18 @@ void applyOrder(Person* stu) {
 	introduceRooms();
 	int weekday = 0;
 	int room_Id = 0;
-	printf("×Ô¶¯Æ¥ÅäÎª´ÎÈÕÆğµÄµÚÒ»¸öÖÜ*¡£\n");
-	digitInput(&weekday, 3, "ÇëÊäÈëÔ¤Ô¼Ê±¼ä£º", 1, 10);
+	printf("è‡ªåŠ¨åŒ¹é…ä¸ºæ¬¡æ—¥èµ·çš„ç¬¬ä¸€ä¸ªå‘¨*ã€‚\n");
+	digitInput(&weekday, 3, "è¯·è¾“å…¥é¢„çº¦æ—¶é—´ï¼š", 1, 10);
 	if (weekday == 0) {
 		return;
 	}
-	digitInput(&room_Id, 3, "ÇëÊäÈë»ú·¿ºÅ£º", 1, 10);
+	digitInput(&room_Id, 3, "è¯·è¾“å…¥æœºæˆ¿å·ï¼š", 1, 10);
 	if (room_Id == 0) {
 		return;
 	}
 	Order* newOrder = createEmptyOrder();
 	if (newOrder == NULL) {
-		printf("[ERROR] ÄÚ´æ·ÖÅä´íÎó£¬ÎŞ·¨Ô¤Ô¼¡£\n");
+		printf("[ERROR] å†…å­˜åˆ†é…é”™è¯¯ï¼Œæ— æ³•é¢„çº¦ã€‚\n");
 		return;
 	}
 	newOrder->weekday = weekday;
@@ -62,11 +62,11 @@ void cancelOrder(Person* stu) {
 	showMyOrder(stu);
 	List* orderList = readOrderFromFile();
 	if (orderList == NULL) {
-		printf("[ERROR] ÎŞ·¨¶ÁÈ¡ÎÄ¼ş£¬ÎŞ·¨È¡ÏûÔ¤Ô¼¡£\n");
+		printf("[ERROR] æ— æ³•è¯»å–æ–‡ä»¶ï¼Œæ— æ³•å–æ¶ˆé¢„çº¦ã€‚\n");
 		return;
 	}
 	char order_Id[20] = { 0 };
-	strInput(order_Id, 3, strAlnumDetect, "ÇëÊäÈëÒªÈ¡ÏûµÄÔ¤Ô¼ºÅ£º");
+	strInput(order_Id, 3, strAlnumDetect, "è¯·è¾“å…¥è¦å–æ¶ˆçš„é¢„çº¦å·ï¼š");
 	if (order_Id[0] == '\0') {
 		return;
 	}
@@ -75,17 +75,17 @@ void cancelOrder(Person* stu) {
 	strcpy(order->stu_Id, stu->m_Id);
 	Node* del = findListElem(orderList, order, isOrderInfoEqual);
 	if (del == NULL) {
-		printf("[INFO] Î´ÕÒµ½¸ÃÔ¤Ô¼¡£\n");
+		printf("[INFO] æœªæ‰¾åˆ°è¯¥é¢„çº¦ã€‚\n");
 		destroyList(orderList);
 		return;
 	}
 	orderLogUpdate((Order*)(del->data), 3);
 	roomInfoUpdate(((Order*)(del->data))->room_Id, -1);
 	if (writeOrderToFile(orderList) == 0) {
-		printf("[ERROR] ÎŞ·¨Ğ´ÈëÎÄ¼ş£¬ÎŞ·¨È¡ÏûÔ¤Ô¼¡£\n");
+		printf("[ERROR] æ— æ³•å†™å…¥æ–‡ä»¶ï¼Œæ— æ³•å–æ¶ˆé¢„çº¦ã€‚\n");
 	}
 	destroyList(orderList);
-	printf("[INFO] È¡ÏûÔ¤Ô¼³É¹¦¡£\n");
+	printf("[INFO] å–æ¶ˆé¢„çº¦æˆåŠŸã€‚\n");
 }
 
 // ----- about teacher -----
@@ -98,13 +98,13 @@ void showAllOrder(Person* tea) {
 void showOnesOrder(Person* tea) {
 	system("cls");
 	char* stu_Id[20] = { 0 };
-	strInput(stu_Id, 3, isStuIdValid, "ÇëÊäÈëÑ§ÉúÕËºÅ£º");
+	strInput(stu_Id, 3, isStuIdValid, "è¯·è¾“å…¥å­¦ç”Ÿè´¦å·ï¼š");
 	if (stu_Id[0] == '\0') {
 
 	}
 }
 
-// ÕâºÎ³¢²»ÊÇÒ»ÖÖloop
+// è¿™ä½•å°ä¸æ˜¯ä¸€ç§loop
 void validOrder(Person* tea) {
 	system("cls");
 	
@@ -115,16 +115,16 @@ void validOrder(Person* tea) {
 int secondSafetyVerify(Person* admin) {
 	int res = 0;
 	char psw[20];
-	printf("[Input> ÇëÔÙ´ÎÊäÈëÄúµÄÃÜÂëÒÔÑéÖ¤Éí·İ£º");
+	printf("[Input> è¯·å†æ¬¡è¾“å…¥æ‚¨çš„å¯†ç ä»¥éªŒè¯èº«ä»½ï¼š");
 	fgets(psw, 19, stdin);
 	clearReturn(psw, 20);
 	fflush(stdin);
 	if (!strcmp(psw, admin->m_Psw)) {
 		res = 1;
-		printf("Éí·İÑéÖ¤³É¹¦¡£\n");
+		printf("èº«ä»½éªŒè¯æˆåŠŸã€‚\n");
 	}
 	else {
-		printf("Éí·İÑéÖ¤Ê§°Ü¡£\n");
+		printf("èº«ä»½éªŒè¯å¤±è´¥ã€‚\n");
 	}
 	return res;
 }
@@ -132,29 +132,29 @@ int secondSafetyVerify(Person* admin) {
 void addPerson(Person* admin) {
 	system("cls");
 	int type = 0;
-	printf("Ñ¡ÔñÀàĞÍ¡£\n");
-	printf("1   -----   Ñ§Éú\n");
-	printf("2   -----   ½ÌÊ¦\n");
-	printf("0   -----   ÍË³ö\n");
-	digitInput(&type, 3, "ÇëÊäÈëÌí¼ÓÕËºÅµÄÀàĞÍ£º", 0, 2);
+	printf("é€‰æ‹©ç±»å‹ã€‚\n");
+	printf("1   -----   å­¦ç”Ÿ\n");
+	printf("2   -----   æ•™å¸ˆ\n");
+	printf("0   -----   é€€å‡º\n");
+	digitInput(&type, 3, "è¯·è¾“å…¥æ·»åŠ è´¦å·çš„ç±»å‹ï¼š", 0, 2);
 	if (!type) {
 		return;
 	}
 	List* personList = readPersonFromFile(type);
 	if (personList == NULL) {
-		printf("[ERROR] ÎŞ·¨¶ÁÈ¡ÎÄ¼ş£¬ÎŞ·¨Ìí¼ÓÕËºÅ¡£\n");
+		printf("[ERROR] æ— æ³•è¯»å–æ–‡ä»¶ï¼Œæ— æ³•æ·»åŠ è´¦å·ã€‚\n");
 		return;
 	}
 	Person* newPerson = createEmptyPerson();
 	if (newPerson == NULL) {
-		printf("[ERROR] ÄÚ´æ·ÖÅä´íÎó£¬ÎŞ·¨Ìí¼ÓÕËºÅ¡£\n");
+		printf("[ERROR] å†…å­˜åˆ†é…é”™è¯¯ï¼Œæ— æ³•æ·»åŠ è´¦å·ã€‚\n");
 		return;
 	}
-	printf("[Input> ÕÊºÅ£º");
+	printf("[Input> å¸å·ï¼š");
 	fgets(newPerson->m_Id, 19, stdin);
 	clearReturn(newPerson->m_Id, 20);
 	fflush(stdin);
-	printf("[Input> ÃÜÂë£º");
+	printf("[Input> å¯†ç ï¼š");
 	fgets(newPerson->m_Psw, 19, stdin);
 	clearReturn(newPerson->m_Psw, 20);
 	fflush(stdin);
@@ -164,43 +164,43 @@ void addPerson(Person* admin) {
 		return;
 	}
 	if (!(isIdValid(newPerson->m_Id, type) && isPasswordValid(newPerson->m_Psw))) {
-		printf("[INFO] ÊäÈë²»·ûºÏ¹æÔò£¬ÎŞ·¨Ìí¼ÓÕËºÅ¡£\n");
+		printf("[INFO] è¾“å…¥ä¸ç¬¦åˆè§„åˆ™ï¼Œæ— æ³•æ·»åŠ è´¦å·ã€‚\n");
 		free(newPerson);
 		destroyList(personList);
 		return;
 	}
 	if (findListElem(personList, newPerson, isPersonIdEqual) != NULL) {
-		printf("[INFO] ¸ÃÕËºÅÒÑ´æÔÚ¡£\n"); // ÕâÀï¿ÉÒÔ¼Ó¸öÑ¯ÎÊÊÇ·ñ¸²¸Ç£¨ĞŞ¸ÄÃÜÂë£©
-		// Ê²Ã´Â³°ôĞÔ£¬²»ÖªµÀß÷
+		printf("[INFO] è¯¥è´¦å·å·²å­˜åœ¨ã€‚\n"); // è¿™é‡Œå¯ä»¥åŠ ä¸ªè¯¢é—®æ˜¯å¦è¦†ç›–ï¼ˆä¿®æ”¹å¯†ç ï¼‰
+		// ä»€ä¹ˆé²æ£’æ€§ï¼Œä¸çŸ¥é“å–µ
 		free(newPerson);
 		destroyList(personList);
 		return;
 	}
 	if (addListLast(personList, newPerson) == NULL) {
-		printf("[ERROR] Êı¾İ´¦Àí´íÎó£¬ÎŞ·¨Ìí¼ÓÕËºÅ¡£\n");
+		printf("[ERROR] æ•°æ®å¤„ç†é”™è¯¯ï¼Œæ— æ³•æ·»åŠ è´¦å·ã€‚\n");
 		free(newPerson);
 		destroyList(personList);
 		return;
 	}
 	if (writePersonToFile(personList, type) == 0) {
-		printf("[ERROR] ÎŞ·¨Ğ´ÈëÎÄ¼ş£¬ÎŞ·¨Ìí¼ÓÕËºÅ¡£\n");
+		printf("[ERROR] æ— æ³•å†™å…¥æ–‡ä»¶ï¼Œæ— æ³•æ·»åŠ è´¦å·ã€‚\n");
 		free(newPerson);
 		destroyList(personList);
 		return;
 	}
 	free(newPerson);
 	destroyList(personList);
-	printf("[INFO] Ìí¼ÓÕËºÅ³É¹¦¡£\n");
+	printf("[INFO] æ·»åŠ è´¦å·æˆåŠŸã€‚\n");
 }
 
 void showTypePersons(Person* admin) {
 	system("cls");
 	int type = 0;
-	printf("Ñ¡ÔñÀàĞÍ¡£\n");
-	printf("1   -----   Ñ§Éú\n");
-	printf("2   -----   ½ÌÊ¦\n");
-	printf("0   -----   ÍË³ö\n");
-	digitInput(&type, 3, "ÇëÊäÈë²é¿´ÕËºÅµÄÀàĞÍ£º", 0, 2);
+	printf("é€‰æ‹©ç±»å‹ã€‚\n");
+	printf("1   -----   å­¦ç”Ÿ\n");
+	printf("2   -----   æ•™å¸ˆ\n");
+	printf("0   -----   é€€å‡º\n");
+	digitInput(&type, 3, "è¯·è¾“å…¥æŸ¥çœ‹è´¦å·çš„ç±»å‹ï¼š", 0, 2);
 	if (!type) {
 		return;
 	}
@@ -209,7 +209,7 @@ void showTypePersons(Person* admin) {
 	}
 	List* personList = readPersonFromFile(type);
 	if (personList == NULL) {
-		printf("[ERROR] ÎŞ·¨¶ÁÈ¡ÎÄ¼ş£¬ÎŞ·¨²é¿´ÕËºÅ¡£\n");
+		printf("[ERROR] æ— æ³•è¯»å–æ–‡ä»¶ï¼Œæ— æ³•æŸ¥çœ‹è´¦å·ã€‚\n");
 		return;
 	}
 	int count = 0;
@@ -220,7 +220,7 @@ void showTypePersons(Person* admin) {
 		cur = cur->next;
 		++count;
 	}
-	printf("[INFO] ¹²ÕÒµ½%d¸öÕËºÅ¡£\n", count);
+	printf("[INFO] å…±æ‰¾åˆ°%dä¸ªè´¦å·ã€‚\n", count);
 	destroyList(personList);
 	system("pause");
 }
@@ -229,15 +229,15 @@ void findOnePerson(Person* admin) {
 	system("cls");
 	int type = 0;
 	char person_Id[20] = { 0 };
-	printf("Ñ¡ÔñÀàĞÍ¡£\n");
-	printf("1   -----   Ñ§Éú\n");
-	printf("2   -----   ½ÌÊ¦\n");
-	printf("0   -----   ÍË³ö\n");
-	digitInput(&type, 3, "ÇëÊäÈë²éÕÒÕËºÅµÄÀàĞÍ£º", 0, 2);
+	printf("é€‰æ‹©ç±»å‹ã€‚\n");
+	printf("1   -----   å­¦ç”Ÿ\n");
+	printf("2   -----   æ•™å¸ˆ\n");
+	printf("0   -----   é€€å‡º\n");
+	digitInput(&type, 3, "è¯·è¾“å…¥æŸ¥æ‰¾è´¦å·çš„ç±»å‹ï¼š", 0, 2);
 	if (!type) {
 		return;
 	}
-	strInput(person_Id, 3, isStuIdValid, "ÇëÊäÈëÒª²éÕÒµÄÕËºÅ£º");
+	strInput(person_Id, 3, isStuIdValid, "è¯·è¾“å…¥è¦æŸ¥æ‰¾çš„è´¦å·ï¼š");
 	if (person_Id[0] == '\0') {
 		return;
 	}	
@@ -268,11 +268,11 @@ void showRooms(Person* admin) {
 	}
 	List* roomList = readRoomFromFile();
 	if (roomList == NULL) {
-		printf("[ERROR] ÎŞ·¨¶ÁÈ¡ÎÄ¼ş£¬ÎŞ·¨²é¿´»ú·¿¡£\n");
+		printf("[ERROR] æ— æ³•è¯»å–æ–‡ä»¶ï¼Œæ— æ³•æŸ¥çœ‹æœºæˆ¿ã€‚\n");
 		return;
 	}
 	Node* cur = roomList->head;
-	printf("·¿ºÅ     ÈİÁ¿                ÒÑÕ¼ÓÃ\n");
+	printf("æˆ¿å·     å®¹é‡                å·²å ç”¨\n");
 	for (int i = 1; i <= roomList->length; ++i) {
 		showRoomListLine((Room*)(cur->data));
 		cur = cur->next;
@@ -287,10 +287,10 @@ void cleanRecords(Person* admin) {
 		return;
 	}
 	if (clearFile(ROOMFILE)) {
-		printf("[INFO] »ú·¿¼ÇÂ¼ÒÑÇå¿Õ¡£\n");
+		printf("[INFO] æœºæˆ¿è®°å½•å·²æ¸…ç©ºã€‚\n");
 	}
 	else {
-		printf("[ERROR] ÎŞ·¨Çå¿Õ»ú·¿¼ÇÂ¼¡£\n");
+		printf("[ERROR] æ— æ³•æ¸…ç©ºæœºæˆ¿è®°å½•ã€‚\n");
 	}
 }
 
@@ -300,13 +300,13 @@ void showOrderLogs(Person* p) {
 	system("cls");
 	List* orderList = readOrderFromFile();
 	if (orderList == NULL) {
-		printf("[ERROR] ÎŞ·¨¶ÁÈ¡ÎÄ¼ş£¬ÎŞ·¨²é¿´Ô¤Ô¼¼ÇÂ¼¡£\n");
+		printf("[ERROR] æ— æ³•è¯»å–æ–‡ä»¶ï¼Œæ— æ³•æŸ¥çœ‹é¢„çº¦è®°å½•ã€‚\n");
 		return;
 	}
 	int count = 0;
-	printf("          ÇëÇó±êºÅ            \
-Ñ§ÉúÕËºÅ            \
-·¿¼ä Ê±¼ä      ×´Ì¬\n");
+	printf("          è¯·æ±‚æ ‡å·            \
+å­¦ç”Ÿè´¦å·            \
+æˆ¿é—´ æ—¶é—´      çŠ¶æ€\n");
 	Node* cur = orderList->head;
 	while (cur != NULL) {
 		if (p == NULL || !strcmp(p->m_Id, ((Order*)(cur->data))->stu_Id)) {
@@ -314,18 +314,18 @@ void showOrderLogs(Person* p) {
 			showOrderListLine(cur->data, count);
 		}
 	}
-	printf("\n[INFO] ¹²ÕÒµ½%dÌõ¼ÇÂ¼¡£\n", count);
+	printf("\n[INFO] å…±æ‰¾åˆ°%dæ¡è®°å½•ã€‚\n", count);
 	destroyList(orderList);
 }
 
 Person* findPerson(int type, char* id) {
 	List* personList = readPersonFromFile(type);
 	if (personList == NULL) {
-		printf("[ERROR] ÎŞ·¨²éÕÒÕËºÅ¡£\n");
+		printf("[ERROR] æ— æ³•æŸ¥æ‰¾è´¦å·ã€‚\n");
 	}
 	Node* res = findListElem(personList, id, isPersonIdEqual);
 	if (res == NULL) {
-		printf("[INFO] Î´ÕÒµ½¸ÃÕËºÅ¡£\n");
+		printf("[INFO] æœªæ‰¾åˆ°è¯¥è´¦å·ã€‚\n");
 		destroyList(personList);
 		return NULL;
 	}

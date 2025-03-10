@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
+ï»¿#define _CRT_SECURE_NO_WARNINGS
 #include "entity.h"
 #include <stdlib.h>
 #include <string.h>
@@ -19,7 +19,7 @@ Person* createEmptyPerson() {
 Person* personCopy(Person* p) {
 	Person* newPerson = createEmptyPerson();
 	if (newPerson == NULL) {
-		printf("[ERROR] ÄÚ´æ·ÖÅä´íÎó£¬ÎÞ·¨¸´ÖÆ¡£\n");
+		printf("[ERROR] å†…å­˜åˆ†é…é”™è¯¯ï¼Œæ— æ³•å¤åˆ¶ã€‚\n");
 		return NULL;
 	}
 	strcpy(newPerson->m_Id, p->m_Id);
@@ -38,7 +38,7 @@ int isPersonIdEqual(Person* a, Person* b) {
 int isIdValid(char* id, int type) {
     int len = strlen(id);
     switch (type) {
-	case 1: // Ñ§Éú
+	case 1: // å­¦ç”Ÿ
 		if (len != 10) {
 			return 0;
 		}
@@ -48,8 +48,8 @@ int isIdValid(char* id, int type) {
 			}
 		}
 		break;
-    case 2: // ½ÌÊ¦
-	case 3: // ¹ÜÀíÔ±
+    case 2: // æ•™å¸ˆ
+	case 3: // ç®¡ç†å‘˜
         if (len != 8) {
             return 0;
         }
@@ -60,7 +60,7 @@ int isIdValid(char* id, int type) {
 		}
 		break;
     default:
-		printf("[ERROR] bug³öÏÖÁËßÀßÀ\n");
+		printf("[ERROR] bugå‡ºçŽ°äº†å‘ƒå‘ƒ\n");
 		return 0;
 	}
 	return 1;
@@ -107,7 +107,7 @@ void showTypePersonsListLine(Person* p, int idx) {
 Room* createEmptyRoom() {
     Room* newRoom = (Room*)malloc(sizeof(Room));
     if (newRoom == NULL) {
-        printf("ÄÚ´æ·ÖÅä´íÎó£¬ÎÞ·¨´´½¨ÊµÌå¡£");
+        printf("å†…å­˜åˆ†é…é”™è¯¯ï¼Œæ— æ³•åˆ›å»ºå®žä½“ã€‚");
         return NULL;
     }
 	newRoom->m_Id = 0;
@@ -119,7 +119,7 @@ Room* createEmptyRoom() {
 Room* createRoom(int id, int capacity, int size) {
 	Room* newRoom = (Room*)malloc(sizeof(Room));
 	if (newRoom == NULL) {
-		printf("ÄÚ´æ·ÖÅä´íÎó£¬ÎÞ·¨´´½¨ÊµÌå¡£");
+		printf("å†…å­˜åˆ†é…é”™è¯¯ï¼Œæ— æ³•åˆ›å»ºå®žä½“ã€‚");
 		return NULL;
 	}
 	newRoom->m_Id = id;
@@ -128,7 +128,7 @@ Room* createRoom(int id, int capacity, int size) {
 	return newRoom;
 }
 
-// -5ÃÅÅÆºÅ-5ÈÝÁ¿-5ÈËÊý
+// -5é—¨ç‰Œå·-5å®¹é‡-5äººæ•°
 void showRoomListLine(Room* r) {
 	printf("%-5d%-5d%-5d\n", r->m_Id, r->m_Capacity, r->m_Size);
 }
@@ -138,7 +138,7 @@ void showRoomListLine(Room* r) {
 char* createOrderId() {
 	char* orderId = (char*)calloc(20, sizeof(char));
 	if (orderId == NULL) {
-		printf("ÄÚ´æ·ÖÅä´íÎó£¬ÎÞ·¨Éú³É±êºÅ¡£");
+		printf("å†…å­˜åˆ†é…é”™è¯¯ï¼Œæ— æ³•ç”Ÿæˆæ ‡å·ã€‚");
 		return NULL;
 	}
 	time_t now = time(NULL);
@@ -173,7 +173,7 @@ char* createOrderId() {
 Order* createEmptyOrder() {
 	Order* newOrder = (Order*)malloc(sizeof(Order));
 	if (newOrder == NULL) {
-		printf("ÄÚ´æ·ÖÅä´íÎó£¬ÎÞ·¨´´½¨ÊµÌå¡£");
+		printf("å†…å­˜åˆ†é…é”™è¯¯ï¼Œæ— æ³•åˆ›å»ºå®žä½“ã€‚");
 		return NULL;
 	}
 	newOrder->order_Id[0] = '\0';
@@ -187,7 +187,7 @@ Order* createEmptyOrder() {
 Order* createOrder(char* order_Id, int room_Id, char* stu_Id, int state, int weekday) {
 	Order* newOrder = (Order*)malloc(sizeof(Order));
 	if (newOrder == NULL) {
-		printf("ÄÚ´æ·ÖÅä´íÎó£¬ÎÞ·¨´´½¨ÊµÌå¡£");
+		printf("å†…å­˜åˆ†é…é”™è¯¯ï¼Œæ— æ³•åˆ›å»ºå®žä½“ã€‚");
 		return NULL;
 	}
 	strcpy(newOrder->order_Id, order_Id);
@@ -202,43 +202,43 @@ char* changeNumToWeekday(int num) {
 	char* weekday = (char*)calloc(10, sizeof(char));
 	switch (num) {
 	case 1:
-		strcpy(weekday, "ÖÜÒ»ÉÏÎç");
+		strcpy(weekday, "å‘¨ä¸€ä¸Šåˆ");
 		break;
 	case 2:
-		strcpy(weekday, "ÖÜÒ»ÏÂÎç");
+		strcpy(weekday, "å‘¨ä¸€ä¸‹åˆ");
 		break;
 	case 3:
-		strcpy(weekday, "ÖÜ¶þÉÏÎç");
+		strcpy(weekday, "å‘¨äºŒä¸Šåˆ");
 		break;
 	case 4:
-		strcpy(weekday, "ÖÜ¶þÏÂÎç");
+		strcpy(weekday, "å‘¨äºŒä¸‹åˆ");
 		break;
 	case 5:
-		strcpy(weekday, "ÖÜÈýÉÏÎç");
+		strcpy(weekday, "å‘¨ä¸‰ä¸Šåˆ");
 		break;
 	case 6:
-		strcpy(weekday, "ÖÜÈýÏÂÎç");
+		strcpy(weekday, "å‘¨ä¸‰ä¸‹åˆ");
 		break;
 	case 7:
-		strcpy(weekday, "ÖÜËÄÉÏÎç");
+		strcpy(weekday, "å‘¨å››ä¸Šåˆ");
 		break;
 	case 8:
-		strcpy(weekday, "ÖÜËÄÏÂÎç");
+		strcpy(weekday, "å‘¨å››ä¸‹åˆ");
 		break;
 	case 9:
-		strcpy(weekday, "ÖÜÎåÉÏÎç");
+		strcpy(weekday, "å‘¨äº”ä¸Šåˆ");
 		break;
 	case 10:
-		strcpy(weekday, "ÖÜÎåÏÂÎç");
+		strcpy(weekday, "å‘¨äº”ä¸‹åˆ");
 		break;
 	default:
-		printf("[ERROR] ³ÌÐòbug³öÏÖÁË !\n");
+		printf("[ERROR] ç¨‹åºbugå‡ºçŽ°äº† !\n");
 		break;
 	}
 	return weekday;
 }
 
-// -5idx-20ÇëÇó±êºÅ-20ÈË-5·¿-10Ê±¼ä-5×´Ì¬
+// -5idx-20è¯·æ±‚æ ‡å·-20äºº-5æˆ¿-10æ—¶é—´-5çŠ¶æ€
 void showOrderListLine(Order* o, int idx) {
 	char* weekday = changeNumToWeekday(o->weekday);
 	printf("%5d --- %-20s%-20s%-5d%-10s%-5d\n", idx, o->order_Id, o->stu_Id, o->room_Id, weekday, o->state);
