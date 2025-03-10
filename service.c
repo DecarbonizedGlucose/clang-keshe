@@ -66,7 +66,7 @@ void cancelOrder(Person* stu) {
 		return;
 	}
 	char order_Id[20] = { 0 };
-	strInput(order_Id, 3, strAlnumDetect, "请输入要取消的预约号：");
+	strInput(order_Id, 3, isStuIdValid, "请输入要取消的预约号：");
 	if (order_Id[0] == '\0') {
 		return;
 	}
