@@ -3,30 +3,44 @@
 
 // ----- about student -----
 
+void signIn(Person* stu); 
+
+void signOut(Person* stu);
+
 void applyOrder(Person* stu);
 
 void showMyOrder(Person* stu);
-
-void showAllOrder_stu(Person* stu);
 
 void cancelOrder(Person* stu);
 
 // ----- about teacher -----
 
-void showAllOrder_tea(Person* tea);
+void showAllOrder(Person* tea);
+
+void showOnesOrder(Person* tea);
 
 void validOrder(Person* tea);
 
 // ----- about admin -----
 
-void addPerson();
+int secondSafetyVerify(Person* admin);
 
-void showPerson();
+void addPerson(Person* admin);
 
-void showRooms();
+void showTypePersons(Person* admin);
 
-void cleanRecords();
+void findOnePerson(Person* admin);
 
-// ----- about room -----
+void delOnePerson(Person* admin);
 
-// ----- about order -----
+void changePersonInfo(Person* admin);
+
+void showRooms(Person* admin);
+
+void cleanRecords(Person* admin);
+
+// ----- all -----
+
+List* showOrderLogs(Person* p);
+
+Person* findPerson(int type, char* id);

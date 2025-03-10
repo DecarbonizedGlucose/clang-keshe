@@ -50,7 +50,7 @@ void mainLoop() {
 
 Person* login(int type) {
 	Person* person = NULL;
-	List* personList = readFromPerson(type);
+	List* personList = readPersonFromFile(type);
 	if (personList == NULL) {
 		printf("[ERROR] 现在无法登录。\n");
 		return NULL;
@@ -66,7 +66,7 @@ Person* login(int type) {
 		fgets(tmp.m_Psw, 19, stdin);
 		clearReturn(tmp.m_Psw, 20);
 		fflush(stdin);
-		Node* res = findElem(personList, &tmp, isPersonEqual);
+		Node* res = findListElem(personList, &tmp, isPersonInfoEqual);
 		//printf("m_Id:%s m_Psw:%s\n", ((Person*)(res->data))->m_Id, 
 		// ((Person*)(res->data))->m_Psw);
 		if (res == NULL) {
@@ -74,7 +74,7 @@ Person* login(int type) {
 			printf("[INFO] 你还有%d次机会。\n", count);
 		}
 		else {
-			person = (Person*)malloc(sizeof(Person));
+			person = createEmptyPerson();
 			if (person == NULL) {
 				printf("[ERROR] 内存分配错误，登录失败。\n");
 				return NULL;
@@ -85,6 +85,7 @@ Person* login(int type) {
 			break;
 		}
 	}
+	destroyList(personList);
 	return person;
 }
 
@@ -94,7 +95,7 @@ void studentLoop(Person* me) {
 	int option;
 	showStudentMenu();
 	while (running) {
-		digitInput(&option, -1, "请选择操作：", 0, 4);
+		digitInput(&option, -1, "请选择操作：", 0, 3);
 		if (!option) {
 			running = 0;
 			break;
@@ -107,9 +108,6 @@ void studentLoop(Person* me) {
 			showMyOrder(me);
 			break;
 		case 3:
-			showAllOrder_stu(me);
-			break;
-		case 4:
 			cancelOrder(me);
 			break;
 		default:
@@ -131,7 +129,7 @@ void teacherLoop(Person* me) {
 		}
 		switch (option) {
 		case 1:
-			showAllOrder_tea(me);
+			showAllOrder(me);
 			break;
 		case 2:
 			validOrder(me);
@@ -148,23 +146,32 @@ void adminLoop(Person* me) {
 	int option;
 	showAdminMenu();
 	while (running) {
-		digitInput(&option, -1, "请选择操作：", 0, 4);
+		digitInput(&option, -1, "请选择操作：", 0, 7);
 		if (!option) {
 			running = 0;
 			break;
 		}
 		switch (option) {
 		case 1:
-			addPerson();
+			addPerson(me);
 			break;
 		case 2:
-			showPerson();
+			showTypePersons(me);
 			break;
 		case 3:
-			showRooms();
+			findOnePerson(me);
 			break;
 		case 4:
-			cleanRecords();
+			delOnePerson(me);
+			break;
+		case 5:
+			changePersonInfo(me);
+			break;
+		case 6:
+			showRooms(me);
+			break;
+		case 7:
+			cleanRecords(me);
 			break;
 		default:
 			printf("[ERROR] 程序bug出现了 !\n");

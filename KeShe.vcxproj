@@ -146,6 +146,8 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="admin.txt" />
+    <Text Include="logs.txt" />
+    <Text Include="order.txt" />
     <Text Include="room.txt" />
     <Text Include="student.txt" />
     <Text Include="teacher.txt" />

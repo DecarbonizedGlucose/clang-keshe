@@ -9,3 +9,5 @@ void showStudentMenu();
 void showTeacherMenu();
 
 void showAdminMenu();
+
+void introduceRooms();

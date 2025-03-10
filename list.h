@@ -15,7 +15,7 @@ typedef struct List{
 
 Node* createNode(void* data);
 
-List* createList();
+List* createEmptyList();
 
 Node* addListFirst(List* l, void* pdata);
 
@@ -31,4 +31,4 @@ Node* delListIdx(List* l, int idx);
 
 void destroyList(List* l);
 
-Node* findElem(List* l, void* data, int isDataEqual(void*, void*));
+Node* findListElem(List* l, void* data, int isDataEqual(void*, void*));

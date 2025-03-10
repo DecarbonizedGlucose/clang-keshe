@@ -73,5 +73,11 @@
     <Text Include="room.txt">
       <Filter>资源文件</Filter>
     </Text>
+    <Text Include="order.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="logs.txt">
+      <Filter>资源文件</Filter>
+    </Text>
   </ItemGroup>
 </Project>

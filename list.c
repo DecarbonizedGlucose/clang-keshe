@@ -10,7 +10,7 @@ Node* createNode(void* data) {
 	return node;
 }
 
-List* createList() {
+List* createEmptyList() {
 	List* list = (List*)malloc(sizeof(List));
 	if (list == NULL) {
 		return NULL;
@@ -21,51 +21,51 @@ List* createList() {
 	return list;
 }
 
-Node* addListFirst(List* l, void* pdata) {
+Node* addListFirst(List* list, void* pdata) {
 	Node* new_head = (Node*)malloc(sizeof(Node));
 	if (new_head == NULL) {
 		return NULL;
 	}
 	new_head->data = pdata;
 	new_head->prev = NULL;
-	new_head->next = l->head;
-	l->head->prev = new_head;
-	l->head = new_head;
-	l->length++;
+	new_head->next = list->head;
+	list->head->prev = new_head;
+	list->head = new_head;
+	list->length++;
 	return new_head;
 }
 
-Node* addListLast(List* l, void* pdata) {
+Node* addListLast(List* list, void* pdata) {
 	Node* new_tail = (Node*)malloc(sizeof(Node));
 	if (new_tail == NULL) {
 		return NULL;
 	}
 	new_tail->data = pdata;
 	new_tail->next = NULL;
-	new_tail->prev = l->tail;
-	if (l->tail != NULL) {
-		l->tail->next = new_tail;
-		l->tail = new_tail;
+	new_tail->prev = list->tail;
+	if (list->tail != NULL) {
+		list->tail->next = new_tail;
+		list->tail = new_tail;
 	}
 	else {
-		l->head = new_tail;
-		l->tail = new_tail;
+		list->head = new_tail;
+		list->tail = new_tail;
 	}
-	l->length++;
-	return l->tail;
+	list->length++;
+	return list->tail;
 }
 
-Node* addListIdx(List* l, void* pdata, int idx) {
-	if (idx < 0 || idx > l->length) {
+Node* addListIdx(List* list, void* pdata, int idx) {
+	if (idx < 0 || idx > list->length) {
 		return NULL;
 	}
-	if (idx == l->length) {
-		return addListLast(l, pdata);
+	if (idx == list->length) {
+		return addListLast(list, pdata);
 	}
-	if (idx == 0 && l->length == 0) {
-		return addListFirst(l, pdata);
+	if (idx == 0 && list->length == 0) {
+		return addListFirst(list, pdata);
 	}
-	Node* cur = l->head;
+	Node* cur = list->head;
 	for (int i = 0; i < idx; ++i) {
 		cur = cur->next;
 	}
@@ -81,56 +81,56 @@ Node* addListIdx(List* l, void* pdata, int idx) {
 	return new_node;
 }
 
-Node* delListFirst(List* l) {
-	if (l->length == 0) {
+Node* delListFirst(List* list) {
+	if (list->length == 0) {
 		return NULL;
 	}
-	Node* old_head = l->head;
+	Node* old_head = list->head;
 	if (old_head->next == NULL) {
-		l->head = NULL;
-		l->tail = NULL;
+		list->head = NULL;
+		list->tail = NULL;
 	}
 	else {
-		l->head = old_head->next;
-		l->head->prev = NULL;
+		list->head = old_head->next;
+		list->head->prev = NULL;
 	}
 	free(old_head->data);
 	old_head->next = NULL;
 	old_head->prev = NULL;
 	free(old_head);
 	old_head = NULL;
-	return l->head;
+	return list->head;
 }
 
-Node* delListLast(List* l) {
-	if (l->length == 0) {
+Node* delListLast(List* list) {
+	if (list->length == 0) {
 		return NULL;
 	}
-	if (l->length == 1) {
-		return delListFirst(l);
+	if (list->length == 1) {
+		return delListFirst(list);
 	}
-	Node* old_tail = l->tail;
-	l->tail = old_tail->prev;
-	l->tail->next = NULL;
+	Node* old_tail = list->tail;
+	list->tail = old_tail->prev;
+	list->tail->next = NULL;
 	free(old_tail->data);
 	old_tail->next = NULL;
 	old_tail->prev = NULL;
 	free(old_tail);
 	old_tail = NULL;
-	return l->tail;
+	return list->tail;
 }
 
-Node* delListIdx(List* l, int idx) {
-	if (l->length == 0 || idx > l->length) {
+Node* delListIdx(List* list, int idx) {
+	if (list->length == 0 || idx > list->length) {
 		return NULL;
 	}
 	if (idx == 1) {
-		return delListFirst(l);
+		return delListFirst(list);
 	}
-	if (idx == l->length - 1) {
-		return delListLast(l);
+	if (idx == list->length - 1) {
+		return delListLast(list);
 	}
-	Node* cur = l->head;
+	Node* cur = list->head;
 	for (int i = 0; i < idx; ++i) {
 		cur = cur->next;
 	}
@@ -145,19 +145,22 @@ Node* delListIdx(List* l, int idx) {
 	return re;
 }
 
-void destroyList(List* l) {
-	while (l->length) {
-		delListFirst(l);
+void destroyList(List* list) {
+	if (list == NULL) {
+		return;
 	}
-	free(l);
-	l = NULL;
+	while (list->length) {
+		delListFirst(list);
+	}
+	free(list);
+	list = NULL;
 }
 
-Node* findElem(List* l, void* data, int isDataEqual(void*, void*)) {
-	if (l->length == 0) {
+Node* findListElem(List* list, void* data, int isDataEqual(void*, void*)) {
+	if (list->length == 0) {
 		return NULL;
 	}
-	Node* cur = l->head;
+	Node* cur = list->head;
 	while (cur != NULL) {
 		if (isDataEqual(cur->data, data)) {
 			return cur;
