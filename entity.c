@@ -189,7 +189,7 @@ char* createOrderId() {
 	temp = ltm->tm_sec;
 	while (*idx != '\0' && idx < orderId + 20) ++idx;
 	if (temp < 10) sprintf(idx, "0%d", temp);
-	else sprintf(idx, "%d\0", temp);
+	else sprintf(idx, "%d", temp);
 	return orderId;
 }
 

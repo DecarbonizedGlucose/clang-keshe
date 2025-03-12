@@ -116,7 +116,7 @@ void showAllOrder(Person* tea) {
 
 void showOnesOrder(Person* tea) {
 	system("cls");
-	char* stu_Id[20] = { 0 };
+	char stu_Id[20] = { 0 };
 	strInput(stu_Id, 3, isPasswordValid, "请输入学生账号：");
 	if (stu_Id[0] == '\0') {
 		system("pause");
@@ -383,7 +383,7 @@ void delOnePerson(Person* admin) {
 		system("pause");
 		return;
 	}
-	char* person_Id[20] = { 0 };
+	char person_Id[20] = { 0 };
 	if (type == 1) {
 		strInput(person_Id, 3, isPasswordValid, "请输入学生账号：");
 	}
@@ -438,7 +438,7 @@ void resetPersonPassword(Person* admin) {
 		system("pause");
 		return;
 	}
-	char* person_Id[20] = { 0 };
+	char person_Id[20] = { 0 };
 	if (type == 1) {
 		strInput(person_Id, 3, isPasswordValid, "请输入学生账号：");
 	}

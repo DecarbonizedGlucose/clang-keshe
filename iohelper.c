@@ -1,7 +1,9 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 #include "iohelper.h"
+#include <stdlib.h>
 
 int strAlnumDetect(char* str) {
 	for (int i = 0; i < strlen(str); ++i) {
@@ -37,7 +39,7 @@ int digitInput(int* data, unsigned triles, char* start, int min, int max) {
 			}
 		}
 		if (cur) {
-			if (sscanf(line, "%d", &temp_data) == 0);
+			sscanf(line, "%d", &temp_data);
 			cur = (min <= temp_data && temp_data <= max) ? 1 : 0;
 		}
 		times++;
@@ -56,7 +58,7 @@ int digitInput(int* data, unsigned triles, char* start, int min, int max) {
 	return state;
 }
 
-int strInput(char** data, int triles, int det(char*), char* start) {
+int strInput(char* data, int triles, int det(char*), char* start) {
 	int times = 0;
 	int state = 0;
 	int cur = 1;
@@ -77,7 +79,7 @@ int strInput(char** data, int triles, int det(char*), char* start) {
 		}
 		else {
 			state = 1;
-			strcpy(*data, line);
+			strcpy(data, line);
 			break;
 		}
 	}
@@ -111,7 +113,7 @@ int showListInPages(
 		system("cls");
 		printf("[INFO] 列表为空！\n");
 		system("pause");
-		return;
+		return 0;
 	}
 	// num of pages 页数
 	int nop = list->length / lpp;

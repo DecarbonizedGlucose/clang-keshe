@@ -210,7 +210,7 @@ int findListElemIdx(
 	int isDataEqual(void*, void*)
 ) {
 	if (list->length == 0) {
-		return NULL;
+		return -1;
 	}
 	int idx = 1;
 	Node* cur = list->head;
