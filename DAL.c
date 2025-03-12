@@ -92,6 +92,7 @@ List* readPersonFromFile_Bin(int type) {
 		}
 		if (fread(new_person, sizeof(Person), 1, fp) <= 0) {
 			free(new_person);
+			new_person = NULL;
 			break;
 		}
 		addListLast(personList, new_person);
@@ -213,6 +214,7 @@ List* readRoomFromFile_Bin() {
 		}
 		if (fread(new_room, sizeof(Room), 1, fp) <= 0) {
 			free(new_room);
+			new_room = NULL;
 			break;
 		}
 		addListLast(roomList, new_room);
@@ -255,7 +257,7 @@ int writeRoomToFile_Bin(List* list) {
 
 //这东西要重写的
 void roomInfoUpdate(int id, int delta_size) {
-	List* roomList = readRoomFromFile();
+	List* roomList = readRoomFromFile_Bin();
 	if (roomList == NULL) {
 		printf("[ERROR] 无法更新机房信息。\n");
 		return;
@@ -323,7 +325,7 @@ List* readOrderFromFile_Bin() {
 		return NULL;
 	}
 	while (1) {
-		Order* new_order = createEmptyRoom();
+		Order* new_order = createEmptyOrder();
 		if (new_order == NULL) {
 			printf("[ERROR] 内存分配错误，无法读取账号。\n");
 			destroyList(orderList);
@@ -331,6 +333,7 @@ List* readOrderFromFile_Bin() {
 		}
 		if (fread(new_order, sizeof(Order), 1, fp) <= 0) {
 			free(new_order);
+			new_order = NULL;
 			break;
 		}
 		addListLast(orderList, new_order);
@@ -378,7 +381,9 @@ void addNewOrder(Order* order) {
 		printf("[ERROR] 无法添加预约。\n");
 		return;
 	}
-	addListLast(orderList, order);
+	Order* newOrder = orderCopy(order);
+	// 这样就深拷贝了
+	addListLast(orderList, newOrder);
 	if (writeOrderToFile_Bin(orderList)) {
 		printf("[INFO] 预约已添加。\n");
 		showOrderInLine(order);
@@ -407,6 +412,7 @@ int clearFile(char* fileName) {
 		printf("[ERROR] 无法清空文件。\n");
 		return 0;
 	}
+
 	fclose(fp);
 	return 1;
 }

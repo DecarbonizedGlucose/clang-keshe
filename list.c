@@ -1,12 +1,13 @@
 ﻿#include "list.h"
 #include <stdlib.h>
+// 模块化
 
 Node* createNode(void* data) {
 	Node* node = (Node*)malloc(sizeof(Node));
 	if (node == NULL) {
 		return NULL;
 	}
-	node->data = data;
+	node->data = data; // 浅拷贝
 	return node;
 }
 
@@ -21,59 +22,60 @@ List* createEmptyList() {
 	return list;
 }
 
-Node* addListFirst(List* list, void* pdata) {
-	Node* new_head = (Node*)malloc(sizeof(Node));
+// 下面新增数据全是浅拷贝
+
+Node* addListFirst(List* list, void* data) {
+	Node* new_head = createNode(data);
 	if (new_head == NULL) {
 		return NULL;
 	}
-	new_head->data = pdata;
 	new_head->prev = NULL;
 	new_head->next = list->head;
-	list->head->prev = new_head;
+	if (list->head != NULL) {
+		list->head->prev = new_head;
+	}
+	else {
+		list->tail = new_head;
+	}
 	list->head = new_head;
 	list->length++;
 	return new_head;
 }
 
-Node* addListLast(List* list, void* pdata) {
-	Node* new_tail = (Node*)malloc(sizeof(Node));
+Node* addListLast(List* list, void* data) {
+	Node* new_tail = createNode(data);
 	if (new_tail == NULL) {
 		return NULL;
 	}
-	new_tail->data = pdata;
 	new_tail->next = NULL;
 	new_tail->prev = list->tail;
 	if (list->tail != NULL) {
 		list->tail->next = new_tail;
-		list->tail = new_tail;
 	}
 	else {
 		list->head = new_tail;
-		list->tail = new_tail;
 	}
+	list->tail = new_tail;
 	list->length++;
 	return list->tail;
 }
 
-Node* addListIdx(List* list, void* pdata, int idx) {
-	if (idx < 0 || idx > list->length) {
+// 算insert，所以不允许在最后追加
+Node* addListIdx(List* list, void* data, int idx) {
+	if (idx < 0 || idx > list->length || idx < 1) {
 		return NULL;
 	}
-	if (idx == list->length) {
-		return addListLast(list, pdata);
-	}
-	if (idx == 0 && list->length == 0) {
-		return addListFirst(list, pdata);
+	if (list->length == 0) { // idx一定<=length
+		return addListFirst(list, data);
 	}
 	Node* cur = list->head;
-	for (int i = 0; i < idx; ++i) {
+	for (int i = 1; i < idx; ++i) {
 		cur = cur->next;
 	}
-	Node* new_node = (Node*)malloc(sizeof(Node));
+	Node* new_node = createNode(data);
 	if (new_node == NULL) {
 		return NULL;
 	}
-	new_node->data = pdata;
 	new_node->prev = cur->prev;
 	cur->prev->next = new_node;
 	new_node->next = cur;
@@ -92,10 +94,11 @@ Node* delListFirst(List* list) {
 		list->tail = NULL;
 	}
 	else {
+		old_head->next->prev = NULL;
 		list->head = old_head->next;
-		list->head->prev = NULL;
 	}
 	free(old_head->data);
+	old_head->data = NULL;
 	old_head->next = NULL;
 	old_head->prev = NULL;
 	free(old_head);
@@ -115,6 +118,7 @@ Node* delListLast(List* list) {
 	list->tail = old_tail->prev;
 	list->tail->next = NULL;
 	free(old_tail->data);
+	old_tail->data = NULL;
 	old_tail->next = NULL;
 	old_tail->prev = NULL;
 	free(old_tail);
@@ -124,17 +128,17 @@ Node* delListLast(List* list) {
 }
 
 Node* delListIdx(List* list, int idx) {
-	if (list->length == 0 || idx > list->length) {
+	if (list->length == 0 || idx > list->length || idx < 1) {
 		return NULL;
 	}
 	if (idx == 1) {
 		return delListFirst(list);
 	}
-	if (idx == list->length - 1) {
+	if (idx == list->length) {
 		return delListLast(list);
 	}
 	Node* cur = list->head;
-	for (int i = 0; i < idx; ++i) {
+	for (int i = 1; i < idx; ++i) {
 		cur = cur->next;
 	}
 	cur->prev->next = cur->next;
@@ -148,20 +152,6 @@ Node* delListIdx(List* list, int idx) {
 	cur = NULL;
 	list->length--;
 	return re;
-}
-
-Node* getListHead(List* list) {
-	if (list == NULL) {
-		return NULL;
-	}
-	return list->head;
-}
-
-Node* getListTail(List* list) {
-	if (list == NULL) {
-		return NULL;
-	}
-	return list->tail;
 }
 
 Node* getListIdxNode(List* list, int idx) {
@@ -244,7 +234,6 @@ List* generateSublist_Ref(
 	return newList;
 }
 
-//主播主播，有没有更优雅的解决办法?
 List* generateSublist_Det(
 	List* list,
 	int isDataFit(void*),

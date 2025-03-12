@@ -60,19 +60,21 @@ void showAdminMenu() {
 	system("cls");
 	printf("\t\t+---------------------------------+\n");
 	printf("\t\t|                                 |\n");
-	printf("\t\t|          1.添加账号             |\n");
+	printf("\t\t|          1.查看所有预约         |\n");
 	printf("\t\t|                                 |\n");
-	printf("\t\t|          2.查看账号             |\n");
+	printf("\t\t|          2.添加账号             |\n");
 	printf("\t\t|                                 |\n");
-	printf("\t\t|          3.查找账号             |\n");
+	printf("\t\t|          3.查看账号             |\n");
 	printf("\t\t|                                 |\n");
-	printf("\t\t|          4.删除账号             |\n");
+	printf("\t\t|          4.查找账号             |\n");
 	printf("\t\t|                                 |\n");
-	printf("\t\t|          5.修改账号             |\n");
+	printf("\t\t|          5.删除账号             |\n");
 	printf("\t\t|                                 |\n");
-	printf("\t\t|          6.查看机房             |\n");
+	printf("\t\t|          6.重置密码             |\n");
 	printf("\t\t|                                 |\n");
-	printf("\t\t|          7.清空预约             |\n");
+	printf("\t\t|          7.查看机房             |\n");
+	printf("\t\t|                                 |\n");
+	printf("\t\t|          8.清空预约             |\n");
 	printf("\t\t|                                 |\n");
 	printf("\t\t|          0.注销登录             |\n");
 	printf("\t\t|                                 |\n");
@@ -92,5 +94,4 @@ void introduceRooms() {
 	printf("小机房(20)：1-5\n");
 	printf("中机房(50)：6-8\n");
 	printf("大机房(100)：9-10\n");
-	system("pause");
 }

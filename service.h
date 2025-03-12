@@ -15,8 +15,6 @@ void cancelOrder(Person* stu);
 
 // ---------- teacher ----------
 
-void showAllOrder(Person* tea);
-
 void showOnesOrder(Person* tea);
 
 void checkOrder(Person* tea);
@@ -37,9 +35,11 @@ void resetPersonPassword(Person* admin);
 
 void showRooms(Person* admin);
 
-void cleanRecords(Person* admin);
+void clearOrderLogs(Person* admin);
 
 // ----- all -----
+
+void showAllOrder(Person* me);
 
 void showOrderLogs(Person* p);
 

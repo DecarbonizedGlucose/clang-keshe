@@ -38,12 +38,8 @@ void mainLoop() {
 		case 3: // 管理员
 			adminLoop(pp);
 			break;
-			/*case 0:
-				running = 0;
-				goodbye();
-				break;*/
 		default:
-			printf("[ERROR] 程序bug出现了 !\n");
+			printf("[ERROR] Unexpected value of var \"option\" = %d in func \"mainLoop\".\n", option);
 		}
 	}
 }
@@ -52,7 +48,7 @@ Person* login(int type) {
 	Person* person = NULL;
 	List* personList = readPersonFromFile_Bin(type);
 	if (personList == NULL) {
-		printf("[ERROR] 现在无法登录。\n");
+		printf("[ERROR] Failed to read person from file in func \"login\".\n");
 		return NULL;
 	}
 	Person tmp;
@@ -67,17 +63,9 @@ Person* login(int type) {
 		clearReturn(tmp.m_Psw, 20);
 		fflush(stdin);
 		Node* res = findListElemNode(personList, &tmp, isPersonInfoEqual);
-		//printf("m_Id:%s m_Psw:%s\n", ((Person*)(res->data))->m_Id, 
-		// ((Person*)(res->data))->m_Psw);
 		if (res == NULL) {
 			printf("[INFO] 账号或密码错误，\n");
 			printf("[INFO] 你还有%d次机会。\n", count);
-			////////
-			//printf("m_Id:%s m_Psw:%s\n", tmp.m_Id, tmp.m_Psw);
-			/*showListInPages(personList,
-				showPersonHeader,
-				showPersonInLine,
-				10,1,1);*/
 		}
 		else {
 			person = createEmptyPerson();
@@ -97,7 +85,6 @@ Person* login(int type) {
 }
 
 void studentLoop(Person* me) {
-	//printf("欢迎学生代表：%s登录！\n", me->m_Id);
 	int running = 1;
 	int option;
 	while (running) {
@@ -124,13 +111,12 @@ void studentLoop(Person* me) {
 			cancelOrder(me);
 			break;
 		default:
-			printf("[ERROR] 程序bug出现了 !\n");
+			printf("[ERROR] Unexpected value of var \"option\" = %d in func \"studentLoop\".\n", option);
 		}
 	}
 }
 
 void teacherLoop(Person* me) {
-	//printf("欢迎教师：%s登录！\n", me->m_Id);
 	int running = 1;
 	int option;
 	while (running) {
@@ -148,46 +134,48 @@ void teacherLoop(Person* me) {
 			checkOrder(me);
 			break;
 		default:
-			printf("[ERROR] 程序bug出现了 !\n");
+			printf("[ERROR] Unexpected value of var \"option\" = %d in func \"teacherLoop\".\n", option);
 		}
 	}
 }
 
 void adminLoop(Person* me) {
-	//printf("欢迎管理员：%s登录！\n", me->m_Id);
 	int running = 1;
 	int option;
 	while (running) {
 		showAdminMenu();
-		digitInput(&option, -1, "请选择操作：", 0, 7);
+		digitInput(&option, -1, "请选择操作：", 0, 8);
 		if (!option) {
 			running = 0;
 			break;
 		}
 		switch (option) {
 		case 1:
-			addPerson(me);
+			showAllOrder(me);
 			break;
 		case 2:
-			showTypePersons(me);
+			addPerson(me);
 			break;
 		case 3:
-			findOnePerson(me);
+			showTypePersons(me);
 			break;
 		case 4:
-			delOnePerson(me);
+			findOnePerson(me);
 			break;
 		case 5:
-			resetPersonPassword(me);
+			delOnePerson(me);
 			break;
 		case 6:
-			showRooms(me);
+			resetPersonPassword(me);
 			break;
 		case 7:
-			cleanRecords(me);
+			showRooms(me);
+			break;
+		case 8:
+			clearOrderLogs(me);
 			break;
 		default:
-			printf("[ERROR] 程序bug出现了 !\n");
+			printf("[ERROR] Unexpected value of var \"option\" = %d in func \"adminLoop\".\n", option);
 		}
 	}
 }

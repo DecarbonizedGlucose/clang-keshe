@@ -17,7 +17,7 @@
 
 // ---------- student ----------
 
-// 签到
+// 签到 这个真的要写吗
 void signIn(Person* stu) {
 	
 }
@@ -33,7 +33,7 @@ void applyOrder(Person* stu) {
 	int weekday = 0;
 	int room_Id = 0;
 	printf("自动匹配为次日起的第一个周*。\n");
-	digitInput(&weekday, 3, "请输入预约时间：", 1, 10);
+	digitInput(&weekday, 3, "请输入预约时间(输入0退出)：", 0, 10);
 	if (weekday == 0) {
 		system("pause");
 		return;
@@ -45,7 +45,7 @@ void applyOrder(Person* stu) {
 	}
 	Order* newOrder = createEmptyOrder();
 	if (newOrder == NULL) {
-		printf("[ERROR] 内存分配错误，无法预约。\n");
+		printf("[ERROR] Nullptr appeared from func \"createEmptyOrder\" in func \"applyOrder\".\n");
 		system("pause");
 		return;
 	}
@@ -53,13 +53,15 @@ void applyOrder(Person* stu) {
 	newOrder->room_Id = room_Id;
 	strcpy(newOrder->stu_Id, stu->m_Id);
 	char* newOrderId = createOrderId();
-	printf("order_Id=%s\n", newOrderId);
+	//printf("order_Id=%s\n", newOrderId);
 	strcpy(newOrder->order_Id, newOrderId);
 	newOrder->state = 4;
-	addNewOrder(newOrder);
-	//roomInfoUpdate(room_Id, 1);
-	free(newOrder);
+	addNewOrder(newOrder);//这里浅拷贝
+	//roomInfoUpdate(room_Id, 1); // 这个功能要是真加上 就不是预约系统了
+	free(newOrder); // 析构两次报错
 	free(newOrderId);
+	newOrder = NULL;
+	newOrderId = NULL;
 	printf("[INFO] 预约提交成功。\n");
 	system("pause");
 }
@@ -69,50 +71,11 @@ void showMyOrder(Person* stu) {
 	showOrderLogs(stu);
 }
 
-//void cancelOrder(Person* stu) {
-//	showMyOrder(stu);
-//	List* orderList = readOrderFromFile();
-//	if (orderList == NULL) {
-//		printf("[ERROR] 无法读取文件，无法取消预约。\n");
-//		system("pause");
-//		return;
-//	}
-//	char order_Id[20] = { 0 };
-//	strInput(order_Id, 3, strAlnumDetect, "请输入要取消的预约号：");
-//	if (order_Id[0] == '\0') {
-//		system("pause");
-//		return;
-//	}
-//	Order* order = createEmptyOrder();
-//	strcpy(order->order_Id, order_Id);
-//	strcpy(order->stu_Id, stu->m_Id);
-//	Node* del = findListElemNode(orderList, order, isOrderIdEqual);
-//	if (del == NULL) {
-//		printf("[INFO] 未找到该预约。\n");
-//		destroyList(orderList);
-//		system("pause");
-//		return;
-//	}
-//	orderLogUpdate((Order*)(del->data), 3);
-//	roomInfoUpdate(((Order*)(del->data))->room_Id, -1);
-//	if (writeOrderToFile(orderList) == 0) {
-//		printf("[ERROR] 无法写入文件，无法取消预约。\n");
-//	}
-//	destroyList(orderList);
-//	printf("[INFO] 取消预约成功。\n");
-//	system("pause");
-//}
-
 void cancelOrder(Person* stu) {
 	manageOrderLoop(stu, 1);
 }
 
 // ---------- teacher ----------
-
-void showAllOrder(Person* tea) {
-	system("cls");
-	showOrderLogs(NULL);
-}
 
 void showOnesOrder(Person* tea) {
 	system("cls");
@@ -132,81 +95,6 @@ void showOnesOrder(Person* tea) {
 	system("pause");
 }
 
-//// 这何尝不是一种loop
-//void checkOrder(Person* tea) {
-//	List* orderList = readOrderFromFile();
-//	// 这个不能提前销毁！！
-//	if (orderList == NULL) {
-//		printf("[ERROR] 列表为空指针 in func \"checkOrder\".\n");
-//		system("pause");
-//		return;
-//	}
-//	Order tmp;
-//	tmp.state = 4;
-//	List* sub = generateSublist_Ref(
-//		orderList,
-//		&tmp,
-//		isOrderStateEqual,
-//		orderCopy
-//	);
-//	if (sub == NULL) {
-//		printf("[ERROR] 列表为空指针 in func \"checkOrder\".\n\n");
-//		system("pause");
-//		return;
-//	}
-//	// 下面进入loop
-//	int running = 1;
-//	int lastpage = 0;
-//	while (running) {
-//		showListInPages(
-//			sub,
-//			showOrderHeader,
-//			showOrderInLine,
-//			15,
-//			1,
-//			1
-//		);
-//		int subidx = 0;
-//		digitInput(&subidx, 3,
-//			"请输入要审核的预约序号：（输入‘0’退出）",
-//			0, sub->length);
-//		if (subidx = 0) {
-//			break;
-//		}
-//		Node* full_idx = findListElemNode(
-//			orderList,
-//			getListIdxNode(sub, subidx)->data,
-//			isOrderIdEqual
-//		);
-//		if (full_idx == -1) {
-//			printf("[ERROR] 父列表中找不到子列表的元素 in func \"checkOrder\"\n");
-//			break;
-//		}
-//		printf("[INFO] 这是你选择的预约：\n\t");
-//		showOrderInLine(getListIdxNode(orderList, full_idx));
-//		int adj = -1;
-//		digitInput(&adj, 3, "1:同意 0:驳回 >>> ", 0, 1);
-//		if (adj == -1) {
-//			printf("[INFO] 未能审批。\n");
-//			break;
-//		}
-//		else if (adj == 1) {
-//			((Order*)(getListIdxNode(orderList, full_idx)->data))->state = 0;
-//			delListIdx(sub, subidx);
-//		}
-//		else if (adj == 0) {
-//			((Order*)(getListIdxNode(orderList, full_idx)->data))->state = 5;
-//			delListIdx(sub, subidx);
-//		}
-//		else {
-//			printf("[ERROR] 变量\"adj\"出现意外的值 in func \"checkOrder\".\n");
-//			break;
-//		}
-//		printf("[INFO] 该项处理成功。\n");
-//	}
-//	system("pause");
-//}
-//
 void checkOrder(Person* tea) {
 	manageOrderLoop(tea, 2);
 }
@@ -236,16 +124,13 @@ void addPerson(Person* admin) {
 	printf("选择类型。\n");
 	printf("1   -----   学生\n");
 	printf("2   -----   教师\n");
-	printf("3   -----   管理员\n");
 	printf("0   -----   退出\n");
-	digitInput(&type, 3, "请输入添加账号的类型：", 0, 3);
+	digitInput(&type, 3, "请输入添加账号的类型：", 0, 2);
 	if (!type) {
 		system("pause");
 		return;
 	}
-	List* personList = readPersonFromFile_Bin(type);
-	if (personList == NULL) {
-		printf("[ERROR] 无法读取文件，无法添加账号。\n");
+	if (!secondSafetyVerify(admin)) {
 		system("pause");
 		return;
 	}
@@ -255,51 +140,37 @@ void addPerson(Person* admin) {
 		system("pause");
 		return;
 	}
-	printf("[Input] 帐号：");
-	fgets(newPerson->m_Id, 19, stdin);
-	clearReturn(newPerson->m_Id, 20);
-	fflush(stdin);
-	printf("[Input] 密码：");
-	fgets(newPerson->m_Psw, 19, stdin);
-	clearReturn(newPerson->m_Psw, 20);
-	fflush(stdin);
-	if (!secondSafetyVerify(admin)) {
-		free(newPerson);
-		destroyList(personList);
+	strInput(newPerson->m_Id, 1, (type == 1 ? isStuIdValid : isTeaIdValid), "帐号：");
+	if (newPerson->m_Id[0] == '\0') {
 		system("pause");
 		return;
 	}
-	if (!(isIdValid(newPerson->m_Id, type) && isPasswordValid(newPerson->m_Psw))) {
-		printf("[INFO] 输入不符合规则，无法添加账号。\n");
-		free(newPerson);
-		destroyList(personList);
+	strInput(newPerson->m_Psw, 1, isPasswordValid, "密码：");
+	if (newPerson->m_Psw[0] == '\0') {
 		system("pause");
 		return;
+	}
+	int acc = 1;
+	List* personList = readPersonFromFile_Bin(type);
+	if (personList == NULL) {
+		printf("[ERROR] 无法读取文件，无法添加账号。\n");
+		acc = 0;
 	}
 	if (findListElemNode(personList, newPerson, isPersonIdEqual) != NULL) {
 		printf("[INFO] 该账号已存在。\n"); // 这里可以加个询问是否覆盖（修改密码）
-		// 什么鲁棒性，不知道喵
-		free(newPerson);
-		destroyList(personList);
-		system("pause");
-		return;
+		// 什么鲁棒性，不知道
+		acc = 0;
 	}
 	if (addListLast(personList, newPerson) == NULL) {
-		printf("[ERROR] 数据处理错误，无法添加账号。\n");
-		free(newPerson);
-		destroyList(personList);
-		system("pause");
-		return;
+		printf("[ERROR] Failed to add node to list in func \"addListLast\".\n");
+		acc = 0;
 	}
-	if (writePersonToFile_Bin(personList, type) == 0) {
-		printf("[ERROR] 无法写入文件，无法添加账号。\n");
-		free(newPerson);
-		destroyList(personList);
-		system("pause");
-		return;
+	if (acc && writePersonToFile_Bin(personList, type) == 0) {
+		printf("[ERROR] Failed to write order to file in func \"addPerson\".\n");
 	}
-	free(newPerson);
+	//free(newPerson); // 哈哈，浅拷贝 折如磨
 	destroyList(personList);
+	personList = NULL;
 	printf("[INFO] 添加账号成功。\n");
 	system("pause");
 }
@@ -322,7 +193,7 @@ void showTypePersons(Person* admin) {
 	}
 	List* personList = readPersonFromFile_Bin(type);
 	if (personList == NULL) {
-		printf("[ERROR] 无法读取文件，无法查看账号。\n");
+		printf("[ERROR] Failed to read person from file in func \"showTypePersons\".\n");
 		system("pause");
 		return;
 	}
@@ -335,6 +206,7 @@ void showTypePersons(Person* admin) {
 		1
 	);
 	destroyList(personList);
+	personList = NULL;
 	system("pause");
 }
 
@@ -368,6 +240,7 @@ void findOnePerson(Person* admin) {
 	}
 	showSinglePerson(p);
 	free(p);
+	p = NULL;
 	system("pause");
 }
 
@@ -391,7 +264,7 @@ void delOnePerson(Person* admin) {
 		strInput(person_Id, 3, isTeaIdValid, "请输入教师账号：");
 	}
 	else {
-		printf("[ERROR] bug出现了\n");
+		printf("[ERROR] Unexpected value of var = %d in func \"delOnePerson\".\n", type);
 		system("pause");
 		return;
 	}
@@ -405,7 +278,7 @@ void delOnePerson(Person* admin) {
 	}
 	List* personList = readPersonFromFile_Bin(type);
 	if (personList == NULL) {
-		printf("[ERROR] 无法读取文件。\n");
+		printf("[ERROR] Failed to read person from file in func \"delOnePerson\".\n");
 		system("pause");
 		return;
 	}
@@ -415,12 +288,14 @@ void delOnePerson(Person* admin) {
 	if (idx == -1) {
 		printf("[INFO] 未找到该账号。\n");
 		destroyList(personList);
+		personList = NULL;
 		system("pause");
 		return;
 	}
 	delListIdx(personList, idx);
 	writePersonToFile_Bin(personList, 1);
 	destroyList(personList);
+	personList = NULL;
 	printf("[INFO] 删除成功！\n");
 	system("pause");
 }
@@ -449,7 +324,7 @@ void resetPersonPassword(Person* admin) {
 		strInput(person_Id, 3, isTeaIdValid, "请输入管理员账号：");
 	}
 	else {
-		printf("[ERROR] bug出现了\n");
+		printf("[ERROR] Unexpected value of var = %d in func \"resetPersonPassword\".\n", type);
 		system("pause");
 		return;
 	}
@@ -463,7 +338,7 @@ void resetPersonPassword(Person* admin) {
 	}
 	List* personList = readPersonFromFile_Bin(type);
 	if (personList == NULL) {
-		printf("[ERROR] 无法读取文件。\n");
+		printf("[ERROR] Failed to read person from file in func \"resetPersonPassword\".\n");
 		system("pause");
 		return;
 	}
@@ -481,11 +356,14 @@ void resetPersonPassword(Person* admin) {
 	if (new_psw[0] == '\0') {
 		printf("[INFO] 修改失败。\n");
 		destroyList(personList);
+		personList = NULL;
 		system("pause");
 		return;
 	}
+	strcpy(((Person*)(pnode->data))->m_Psw, new_psw);
 	writePersonToFile_Bin(personList, 1);
 	destroyList(personList);
+	personList = NULL;
 	printf("[INFO] 修改成功！\n");
 	system("pause");
 }
@@ -498,7 +376,7 @@ void showRooms(Person* admin) {
 	}
 	List* roomList = readRoomFromFile_Bin();
 	if (roomList == NULL) {
-		printf("[ERROR] 无法读取文件，无法查看机房。\n");
+		printf("[ERROR] Failed to read room from file in func \"showRooms\".\n");
 		system("pause");
 		return;
 	}
@@ -511,31 +389,37 @@ void showRooms(Person* admin) {
 		1
 	);
 	destroyList(roomList);
+	roomList = NULL;
 	system("pause");
 }
 
-void cleanRecords(Person* admin) {
+void clearOrderLogs(Person* admin) {
 	system("cls");
 	if (!secondSafetyVerify(admin)) {
 		return;
 	}
-	if (clearFile_Bin(ROOMFILE)) {
-		printf("[INFO] 机房记录已清空。\n");
+	if (clearFile_Bin(ORDERFILE)) {
+		printf("[INFO] 预约记录已清空。\n");
 	}
 	else {
-		printf("[ERROR] 无法清空机房记录。\n");
+		printf("[ERROR] Failed to clear file in func \"clearOrderLogs\".\n");
 	}
 	system("pause");
 }
 
 // ---------- all ----------
 
+void showAllOrder(Person* me) {
+	system("cls");
+	showOrderLogs(NULL);
+}
+
 void showOrderLogs(Person* p) {
 	system("cls");
 	List* curlist = NULL;
 	List* full_list = readOrderFromFile_Bin();
 	if (full_list == NULL) {
-		printf("[ERROR] 获取数据失败。\n");
+		printf("[ERROR] Nullptr appears from func \"readOrderFromFile_Bin\" in func \"showOrderLogs\".\n");
 		return;
 	}
 	if (p != NULL) {
@@ -548,14 +432,16 @@ void showOrderLogs(Person* p) {
 			orderCopy
 		);
 		destroyList(full_list);
+		full_list = NULL;
+		if (sub_list == NULL) {
+			printf("[ERROR] Failed to generate sublist in func \"showOrderLogs\".\n");
+			system("pause");
+			return;
+		}
 		curlist = sub_list;
 	}
 	else {
 		curlist = full_list;
-	}
-	if (curlist == NULL) {
-		printf("[ERROR] 内存分配错误。\n");
-		return NULL;
 	}
 	showListInPages(
 		curlist,
@@ -566,6 +452,7 @@ void showOrderLogs(Person* p) {
 		1
 	);
 	destroyList(curlist);
+	curlist = NULL;
 	system("pause");
 }
 
@@ -573,23 +460,25 @@ void showOrderLogs(Person* p) {
 Person* findPerson(int type, char* id) {
 	List* personList = readPersonFromFile_Bin(type);
 	if (personList == NULL) {
-		printf("[ERROR] 无法查找账号。\n");
+		printf("[ERROR] Nullptr appears from func \"readPersonFromFile_Bin\" in func \"findPerson\".\n");
 	}
 	Node* res = findListElemNode(personList, id, isPersonIdEqual);
 	if (res == NULL) {
 		printf("[INFO] 未找到该账号。\n");
 		destroyList(personList);
+		personList = NULL;
 		return NULL;
 	}
 	Person* p = personCopy(res->data);
 	destroyList(personList);
+	personList = NULL;
 	return p;
 }
 
 void manageOrderLoop(Person* person, int type) {
 	List* orderList = readOrderFromFile_Bin();
 	if (orderList == NULL) {
-		printf("[ERROR] 列表为空指针 in func \"checkOrder\".\n");
+		printf("[ERROR] Nullptr appears from func \"readOrderFromFile_Bin\" in func \"manageOrderLoop\".\n");
 		system("pause");
 		return;
 	}
@@ -612,7 +501,7 @@ void manageOrderLoop(Person* person, int type) {
 		);
 	}
 	if (sub == NULL) {
-		printf("[ERROR] 列表为空指针 in func \"checkOrder\".\n\n");
+		printf("[ERROR] Failed to generate sublist in func \"checkOrder\".\n\n");
 		system("pause");
 		return;
 	}
@@ -645,7 +534,7 @@ void manageOrderLoop(Person* person, int type) {
 			break;
 		}
 		printf("[INFO] 这是你选择的预约：\n\t");
-		showOrderInLine(full_node);
+		showOrderInLine(full_node->data);
 		int adj = -1;
 		char message2[80] = { 0 };
 		sprintf(message2, "%s", (type == 1 ? "确定要取消吗？\n1:是   0:否   >>> " : "1:同意 0:驳回 >>> "));
@@ -666,12 +555,15 @@ void manageOrderLoop(Person* person, int type) {
 			}
 		}
 		else {
-			printf("[ERROR] 变量\"adj\"出现意外的值 in func \"checkOrder\".\n");
+			printf("[ERROR] Unexpected value of var \"adj\" = %d in func \"checkOrder\".\n", adj);
 			break;
 		}
 		printf("[INFO] 该项处理成功。\n");
 	}
+	writeOrderToFile_Bin(orderList);
 	destroyList(orderList);
+	orderList = NULL;
 	destroyList(sub);
+	sub = NULL;
 	system("pause");
 }

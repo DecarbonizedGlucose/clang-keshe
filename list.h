@@ -7,6 +7,7 @@ typedef struct Node {
 } Node;
 
 // List管理的由Node组成的双链表
+// 对于所有节点的索引idx，从1开始算
 typedef struct List{
 	int length;
 	Node* head;
@@ -29,17 +30,21 @@ Node* delListLast(List* list);
 
 Node* delListIdx(List* list, int idx);
 
-Node* getListHead(List* list);
-
-Node* getListTail(List* list);
-
 Node* getListIdxNode(List* list, int idx);
 
 void destroyList(List* list);
 
-Node* findListElemNode(List* list, void* data, int isDataEqual(void*, void*));
+Node* findListElemNode(
+	List* list,
+	void* data,
+	int isDataEqual(void*, void*) // 这招只对windows有效
+);
 
-int findListElemIdx(List* list, void* data, int isDataEqual(void*,void*));
+int findListElemIdx(
+	List* list,
+	void* data,
+	int isDataEqual(void*, void*)
+);
 
 List* generateSublist_Ref(
 	List* list,
