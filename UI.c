@@ -28,11 +28,15 @@ void showStudentMenu() {
 	system("cls");
 	printf("\t\t+----------------------------------+\n");
 	printf("\t\t|                                  |\n");
-	printf("\t\t|          1.申请预约              |\n");
+	printf("\t\t|          1.机房签到              |\n");
 	printf("\t\t|                                  |\n");
-	printf("\t\t|          2.查看我的预约          |\n");
+	printf("\t\t|          2.机房签退              |\n");
 	printf("\t\t|                                  |\n");
-	printf("\t\t|          3.取消预约              |\n");
+	printf("\t\t|          3.申请预约              |\n");
+	printf("\t\t|                                  |\n");
+	printf("\t\t|          4.查看我的预约          |\n");
+	printf("\t\t|                                  |\n");
+	printf("\t\t|          5.取消预约              |\n");
 	printf("\t\t|                                  |\n");
 	printf("\t\t|          0.注销登录              |\n");
 	printf("\t\t|                                  |\n");

@@ -78,6 +78,7 @@ Node* addListIdx(List* list, void* pdata, int idx) {
 	cur->prev->next = new_node;
 	new_node->next = cur;
 	cur->prev = new_node;
+	list->length++;
 	return new_node;
 }
 
@@ -99,6 +100,7 @@ Node* delListFirst(List* list) {
 	old_head->prev = NULL;
 	free(old_head);
 	old_head = NULL;
+	list->length--;
 	return list->head;
 }
 
@@ -117,6 +119,7 @@ Node* delListLast(List* list) {
 	old_tail->prev = NULL;
 	free(old_tail);
 	old_tail = NULL;
+	list->length--;
 	return list->tail;
 }
 
@@ -142,7 +145,34 @@ Node* delListIdx(List* list, int idx) {
 	free(cur->data);
 	cur->data = NULL;
 	free(cur);
+	cur = NULL;
+	list->length--;
 	return re;
+}
+
+Node* getListHead(List* list) {
+	if (list == NULL) {
+		return NULL;
+	}
+	return list->head;
+}
+
+Node* getListTail(List* list) {
+	if (list == NULL) {
+		return NULL;
+	}
+	return list->tail;
+}
+
+Node* getListIdxNode(List* list, int idx) {
+	if (list == NULL || idx > list->length || idx < 1) {
+		return NULL;
+	}
+	Node* cur = list->head;
+	for (int i = 1; i < idx; ++i) {
+		cur = cur->next;
+	}
+	return cur;
 }
 
 void destroyList(List* list) {
@@ -156,7 +186,11 @@ void destroyList(List* list) {
 	list = NULL;
 }
 
-Node* findListElem(List* list, void* data, int isDataEqual(void*, void*)) {
+Node* findListElemNode(
+	List* list,
+	void* data,
+	int isDataEqual(void*, void*)
+) {
 	if (list->length == 0) {
 		return NULL;
 	}
@@ -170,3 +204,70 @@ Node* findListElem(List* list, void* data, int isDataEqual(void*, void*)) {
 	return NULL;
 }
 
+int findListElemIdx(
+	List* list,
+	void* data,
+	int isDataEqual(void*, void*)
+) {
+	if (list->length == 0) {
+		return NULL;
+	}
+	int idx = 1;
+	Node* cur = list->head;
+	while (cur != NULL) {
+		if (isDataEqual(cur->data, data)) {
+			return idx;
+		}
+		cur = cur->next;
+		idx++;
+	}
+	return -1;
+}
+
+List* generateSublist_Ref(
+	List* list,
+	void* data_ref,
+	int isDataFit(void*, void*),
+	void* dataCopy(void*)
+) {
+	List* newList = createEmptyList();
+	if (newList == NULL) {
+		return NULL;
+	}
+	Node* cur = list->head;
+	while (cur != NULL) {
+		if (isDataFit(data_ref, cur->data)) {
+			addListLast(newList, dataCopy(cur->data));
+		}
+		cur = cur->next;
+	}
+	return newList;
+}
+
+//主播主播，有没有更优雅的解决办法?
+List* generateSublist_Det(
+	List* list,
+	int isDataFit(void*),
+	void* dataCopy(void*)
+) {
+	List* newList = createEmptyList();
+	if (newList == NULL) {
+		return NULL;
+	}
+	Node* cur = list->head;
+	while (cur != NULL) {
+		if (isDataFit(cur->data)) {
+			addListLast(newList, dataCopy(cur->data));
+		}
+		cur = cur->next;
+	}
+	return newList;
+}
+
+List* mergeSortedLists(List* list1, List* list2) {
+
+}
+
+void listMergeSort(List* list) {
+
+}

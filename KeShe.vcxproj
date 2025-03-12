@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="BLL.c" />
     <ClCompile Include="entity.c" />
+    <ClCompile Include="iohelper.c" />
     <ClCompile Include="list.c" />
     <ClCompile Include="DAL.c" />
     <ClCompile Include="main.c" />
@@ -139,6 +140,7 @@
     <ClInclude Include="BLL.h" />
     <ClInclude Include="entity.h" />
     <ClInclude Include="globalfile.h" />
+    <ClInclude Include="iohelper.h" />
     <ClInclude Include="list.h" />
     <ClInclude Include="DAL.h" />
     <ClInclude Include="service.h" />
@@ -146,11 +148,17 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="admin.txt" />
-    <Text Include="logs.txt" />
     <Text Include="order.txt" />
     <Text Include="room.txt" />
     <Text Include="student.txt" />
     <Text Include="teacher.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="admin.dat" />
+    <None Include="order.dat" />
+    <None Include="room.dat" />
+    <None Include="student.dat" />
+    <None Include="teacher.dat" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

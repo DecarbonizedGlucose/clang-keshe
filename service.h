@@ -1,7 +1,7 @@
 #pragma once
 #include "entity.h"
 
-// ----- about student -----
+// ---------- student ----------
 
 void signIn(Person* stu); 
 
@@ -13,15 +13,15 @@ void showMyOrder(Person* stu);
 
 void cancelOrder(Person* stu);
 
-// ----- about teacher -----
+// ---------- teacher ----------
 
 void showAllOrder(Person* tea);
 
 void showOnesOrder(Person* tea);
 
-void validOrder(Person* tea);
+void checkOrder(Person* tea);
 
-// ----- about admin -----
+// ---------- administrator ----------
 
 int secondSafetyVerify(Person* admin);
 
@@ -33,7 +33,7 @@ void findOnePerson(Person* admin);
 
 void delOnePerson(Person* admin);
 
-void changePersonInfo(Person* admin);
+void resetPersonPassword(Person* admin);
 
 void showRooms(Person* admin);
 
@@ -44,3 +44,5 @@ void cleanRecords(Person* admin);
 void showOrderLogs(Person* p);
 
 Person* findPerson(int type, char* id);
+
+void manageOrderLoop(Person* person,int type);

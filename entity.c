@@ -28,13 +28,16 @@ Person* personCopy(Person* p) {
 }
 
 int isPersonInfoEqual(Person* a, Person* b) {
-    return !strcmp(a->m_Id, b->m_Id) && !strcmp(a->m_Psw, b->m_Psw);
+	//printf("a->m_Id = %s, b->m_Id = %s\n", a->m_Id, b->m_Id);
+	//printf("a->m_Psw = %s, b->m_Psw = %s\n", a->m_Psw, b->m_Psw);
+	return !strcmp(a->m_Id, b->m_Id) && !strcmp(a->m_Psw, b->m_Psw);
 }
 
 int isPersonIdEqual(Person* a, Person* b) {
 	return !strcmp(a->m_Id, b->m_Id);
 }
 
+// 合并美学
 int isIdValid(char* id, int type) {
     int len = strlen(id);
     switch (type) {
@@ -79,6 +82,19 @@ int isStuIdValid(char* id) {
 	return 1;
 }
 
+int isTeaIdValid(char* id) {
+	int len = strlen(id);
+	if (len != 8) {
+		return 0;
+	}
+	for (int i = 0; i < len; ++i) {
+		if (!isalnum(id[i])) {
+			return 0;
+		}
+	}
+	return 1;
+}
+
 int isPasswordValid(char* psw) {
     int len = strlen(psw);
     if (len < 8 || len > 16) {
@@ -97,12 +113,16 @@ void showSinglePerson(Person* p) {
     printf("Password: %s\n", p->m_Psw);
 }
 
-// 5d --- -20s-20s
-void showTypePersonsListLine(Person* p, int idx) {
-    printf("%5d --- %-20s%-20s\n", idx, p->m_Id, p->m_Psw);
+void showPersonHeader() {
+	printf("     ID             Password\n");
 }
 
-// ----- about room -----
+// 5d --- -20s-20s
+void showPersonInLine(Person* p) {
+    printf("%-20s%-20s\n", p->m_Id, p->m_Psw);
+}
+
+// ---------- room ----------
 
 Room* createEmptyRoom() {
     Room* newRoom = (Room*)malloc(sizeof(Room));
@@ -128,43 +148,46 @@ Room* createRoom(int id, int capacity, int size) {
 	return newRoom;
 }
 
+void showRoomHeader() {
+	printf("房号     容量                已占用\n");
+}
+
 // -5门牌号-5容量-5人数
-void showRoomListLine(Room* r) {
+void showRoomInLine(Room* r) {
 	printf("%-5d%-5d%-5d\n", r->m_Id, r->m_Capacity, r->m_Size);
 }
 
-// ----- about order -----
+// ---------- order ----------
 
 char* createOrderId() {
-	char* orderId = (char*)calloc(20, sizeof(char));
+	char* orderId = (char*)malloc(40 * sizeof(char));
 	if (orderId == NULL) {
 		printf("内存分配错误，无法生成标号。");
 		return NULL;
 	}
 	time_t now = time(NULL);
 	struct tm* ltm = localtime(&now);
-	char* code = (char*)calloc(20, sizeof(char));
-	char* idx = code;
+	char* idx = orderId;
 	int temp;
-	sprintf(code, "R%d", 1900 + ltm->tm_year);
+	sprintf(orderId, "R%d", 1900 + ltm->tm_year);
 	temp = ltm->tm_mon + 1;
-	while (*idx != '\0' && idx < code + 20) ++idx;
+	while (*idx != '\0' && idx < orderId + 20) ++idx;
 	if (temp < 10) sprintf(idx, "0%d", temp);
 	else sprintf(idx, "%d", temp);
 	temp = ltm->tm_mday;
-	while (*idx != '\0' && idx < code + 20) ++idx;
+	while (*idx != '\0' && idx < orderId + 20) ++idx;
 	if (temp < 10) sprintf(idx, "0%d", temp);
 	else sprintf(idx, "%d", temp);
 	temp = ltm->tm_hour;
-	while (*idx != '\0' && idx < code + 20) ++idx;
+	while (*idx != '\0' && idx < orderId + 20) ++idx;
 	if (temp < 10) sprintf(idx, "0%d", temp);
 	else sprintf(idx, "%d", temp);
 	temp = ltm->tm_min;
-	while (*idx != '\0' && idx < code + 20) ++idx;
+	while (*idx != '\0' && idx < orderId + 20) ++idx;
 	if (temp < 10) sprintf(idx, "0%d", temp);
 	else sprintf(idx, "%d", temp);
 	temp = ltm->tm_sec;
-	while (*idx != '\0' && idx < code + 20) ++idx;
+	while (*idx != '\0' && idx < orderId + 20) ++idx;
 	if (temp < 10) sprintf(idx, "0%d", temp);
 	else sprintf(idx, "%d\0", temp);
 	return orderId;
@@ -184,7 +207,13 @@ Order* createEmptyOrder() {
 	return newOrder;
 }
 
-Order* createOrder(char* order_Id, int room_Id, char* stu_Id, int state, int weekday) {
+Order* createOrder(
+	char* order_Id,
+	int room_Id,
+	char* stu_Id,
+	int state,
+	int weekday
+) {
 	Order* newOrder = (Order*)malloc(sizeof(Order));
 	if (newOrder == NULL) {
 		printf("内存分配错误，无法创建实体。");
@@ -198,8 +227,13 @@ Order* createOrder(char* order_Id, int room_Id, char* stu_Id, int state, int wee
 	return newOrder;
 }
 
+// 打表の艺术
 char* changeNumToWeekday(int num) {
-	char* weekday = (char*)calloc(10, sizeof(char));
+	char* weekday = (char*)malloc(40 * sizeof(char));
+	if (weekday == NULL) {
+		printf("[ERROR] 内存分配失败 in func \"changeNumToWeekday\".\n");
+		return NULL;
+	}
 	switch (num) {
 	case 1:
 		strcpy(weekday, "周一上午");
@@ -232,19 +266,107 @@ char* changeNumToWeekday(int num) {
 		strcpy(weekday, "周五下午");
 		break;
 	default:
-		printf("[ERROR] 程序bug出现了 !\n");
+		printf("[ERROR] 参数\"num\"意外的值: %d in func \"changeNumToWeekday\".\n", num);
 		break;
 	}
 	return weekday;
 }
 
-// -5idx-20请求标号-20人-5房-10时间-5状态
-void showOrderListLine(Order* o, int idx) {
-	char* weekday = changeNumToWeekday(o->weekday);
-	printf("%5d --- %-20s%-20s%-5d%-10s%-5d\n", idx, o->order_Id, o->stu_Id, o->room_Id, weekday, o->state);
-	free(weekday);
+char* changeNumToState(int num) {
+	char* state = (char*)malloc(40 * sizeof(char));
+	if (state == NULL) {
+		printf("[ERROR] 内存分配失败 in func \"changeNumToState\".\n");
+		return NULL;
+	}
+	switch (num) {
+	case 0:
+		strcpy(state, "预约成功");
+		break;
+	case 1:
+		strcpy(state, "正在使用");
+		break;
+	case 2:
+		strcpy(state, "已签退");
+		break;
+	case 3:
+		strcpy(state, "学生取消");
+		break;
+	case 4:
+		strcpy(state, "未审批");
+		break;
+	case 5:
+		strcpy(state, "驳回");
+		break;
+	case 6:
+		strcpy(state, "过期");
+		break;
+	default:
+		printf("[ERROR] 参数\"num\"意外的值: %d in func \"changeNumToState\".\n", num);
+		return NULL;
+	}
+	return state;
 }
 
-int isOrderInfoEqual(Order* a, Order* b) {
-	return !strcmp(a->order_Id, b->order_Id) && !strcmp(a->stu_Id, b->stu_Id);
+void showOrderHeader() {
+	printf("          预约号            \
+学生账号            \
+房间 时间      状态\n");
+}
+
+// -5idx-20请求标号-20人-5房-10时间-5状态
+void showOrderInLine(Order* o) {
+	char* weekday = changeNumToWeekday(o->weekday);
+	char* state = changeNumToState(o->state);
+	if (weekday == NULL || state == NULL) {
+		printf("[ERROR] 阻止解引用空指针 in func \"showOrderInLine\"\n");
+		return;
+	}
+	printf("%-20s%-20s%-5d%-10s%s\n", o->order_Id, o->stu_Id, o->room_Id, weekday, state);
+	free(weekday);
+	free(state);
+}
+
+int isOrderIdEqual(Order* a, Order* b) {
+	return !strcmp(a->order_Id, b->order_Id);
+}
+
+int isOrderPersonEqual(Order* a, Order* b) {
+	return !strcmp(a->stu_Id, b->stu_Id);
+}
+
+int isOrderStateEqual(Order* a, Order* b) {
+	return a->state == b->state;
+}
+
+Order* orderCopy(Order* prev) {
+	/*Order* newOrder = createOrder(
+		prev->order_Id,
+		prev->room_Id,
+		prev->stu_Id,
+		prev->state,
+		prev->weekday
+	);*/
+	Order* newOrder = createEmptyOrder();
+	if (newOrder == NULL) {
+		printf("[ERROR] 内存分配错误，无法复制请求体。\n");
+		return NULL;
+	}
+	strcpy(newOrder->order_Id, prev->order_Id);
+	strcpy(newOrder->stu_Id, prev->order_Id);
+	newOrder->state = prev->state;
+	newOrder->weekday = prev->weekday;
+	newOrder->room_Id = prev->room_Id;
+	return newOrder;
+}
+
+int isOrderUnchecked(Order* o) {
+	return o->state == 4;
+}
+
+// 这种写法略显狼狈了
+int canOrderBeCanceled(Order* ref, Order* listdata) {
+	if (strcmp(listdata->stu_Id, ref->stu_Id)) {
+		return 0;
+	}
+	return listdata->state == 0 || listdata->state == 4;
 }

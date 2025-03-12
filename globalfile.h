@@ -1,7 +1,13 @@
 #pragma once
 
-#define ADMINFILE "./admin.txt"
-#define TEACHERFILE "./teacher.txt"
-#define STUFILE "./student.txt"
-#define ROOMFILE "./room.txt"
-#define ORDERFILE "./order.txt"
+#define ADMINFILE "./admin.dat"
+#define TEACHERFILE "./teacher.dat"
+#define STUFILE "./student.dat"
+#define ROOMFILE "./room.dat"
+#define ORDERFILE "./order.dat"
+
+#define ADMINFILE_BIN "./admin.dat"
+#define TEACHERFILE_BIN "./teacher.dat"
+#define STUFILE_BIN "./student.dat"
+#define ROOMFILE_BIN "./room.dat"
+#define ORDERFILE_BIN "./order.dat"

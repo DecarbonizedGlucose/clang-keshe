@@ -36,6 +36,9 @@
     <ClCompile Include="service.c">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="iohelper.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="list.h">
@@ -59,9 +62,15 @@
     <ClInclude Include="service.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="iohelper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="admin.txt">
+    <Text Include="order.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="room.txt">
       <Filter>资源文件</Filter>
     </Text>
     <Text Include="student.txt">
@@ -70,14 +79,25 @@
     <Text Include="teacher.txt">
       <Filter>资源文件</Filter>
     </Text>
-    <Text Include="room.txt">
+    <Text Include="admin.txt">
       <Filter>资源文件</Filter>
     </Text>
-    <Text Include="order.txt">
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="admin.dat">
       <Filter>资源文件</Filter>
-    </Text>
-    <Text Include="logs.txt">
+    </None>
+    <None Include="order.dat">
       <Filter>资源文件</Filter>
-    </Text>
+    </None>
+    <None Include="room.dat">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="student.dat">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="teacher.dat">
+      <Filter>资源文件</Filter>
+    </None>
   </ItemGroup>
 </Project>

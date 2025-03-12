@@ -24,13 +24,18 @@ int isIdValid(char* id, int type);
 
 int isStuIdValid(char* id);
 
+int isTeaIdValid(char* id);
+
 int isPasswordValid(char* psw);
 
-void showTypePersonsListLine(Person* p, int idx);
+void showPersonHeader();
+
+/////////////
+void showPersonInLine(Person* p);
 
 void showSinglePerson(Person* p);
 
-// ----- about room -----
+// ---------- room ----------
 
 // 机房
 // 小机房容量20人 * 5 (1~5)
@@ -46,9 +51,11 @@ Room* createEmptyRoom();
 
 Room* createRoom(int id, int capacity, int size);
 
-void showRoomListLine(Room* r);
+void showRoomHeader();
 
-// ----- about order -----
+void showRoomInLine(Room* r);
+
+// ---------- order ----------
 
 // 预约类
 // 考虑将weekday改为struct tm，预约时间为年月日上下午
@@ -61,19 +68,38 @@ typedef struct {
 	int room_Id;
 	int weekday; // 1-10
 	int state; // 状态
-	// 0 预约成功-未上机
+	// 0 审批通过-未上机(可以取消)
 	// 1 正在使用
-	// 2 已完成
+	// 2 已签退
 	// 3 学生取消
-	// 4 教师拒绝
+	// 4 未审批(可以取消，可以审批)
+	// 5 驳回
+	// 6 过期(无论是否审批)
 } Order;
 
 char* createOrderId();
 
 Order* createEmptyOrder();
 
-Order* createOrder(char* order_Id, int room_Id, char* stu_Id, int state, int weekday);\
+Order* createOrder(char* order_Id,int room_Id,char* stu_Id,int state,int weekday);\
 
-void showOrderListLine(Order* o, int idx);
+char* changeNumToWeekday(int num);
 
-int isOrderInfoEqual(Order* a, Order* b);
+char* changeNumToState(int num);
+
+void showOrderHeader();
+
+/////////////
+void showOrderInLine(Order* o);
+
+int isOrderIdEqual(Order* a, Order* b);
+
+int isOrderPersonEqual(Order* a, Order* b);
+
+int isOrderStateEqual(Order* a,Order* b);
+
+Order* orderCopy(Order* prev);
+
+int isOrderUnchecked(Order* o);
+
+int canOrderBeCanceled(Order* listdata,Order* ref);

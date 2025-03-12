@@ -2,30 +2,46 @@
 #include "list.h"
 #include "entity.h"
 
-//int strAlnumDetect(char* str);
+// ---------- person ----------
 
-int digitInput(int* data, unsigned triles, char* start, int min, int max);
+//List* readPersonFromFile(int type);
 
-int strInput(char** data, int triles, int det(char*), char* start);
+List* readPersonFromFile_Bin(int type);
 
-void clearReturn(char* str, int size);
+//int writePersonToFile(List* list, int type);
 
-List* readPersonFromFile(int type);
+int writePersonToFile_Bin(List* list,int type);
 
-int writePersonToFile(List* list, int type);
+// --------- room ----------
 
-List* readRoomFromFile();
+//List* readRoomFromFile();
 
-int writeRoomToFile(List* list);
+List* readRoomFromFile_Bin();
 
-List* readOrderFromFile();
+//int writeRoomToFile(List* list);
 
-int writeOrderToFile(List* list);
+int writeRoomToFile_Bin(List* list);
 
-int clearFile(char* fileName);
+void roomInfoUpdate(int id,int delta_size);
 
-void roomInfoUpdate(int id, int delta_size);
+// ---------- order ----------
+
+//List* readOrderFromFile();
+
+List* readOrderFromFile_Bin();
+
+//int writeOrderToFile(List* list);
+
+int writeOrderToFile_Bin(List* list);
 
 void addNewOrder(Order* order);
 
-void orderLogUpdate(Order* order, int state);
+void orderLogUpdate(Order* order,int state);
+
+void orderLogRealtimeUpdate();
+
+// ---------- all ----------
+
+//int clearFile(char* fileName);
+
+int clearFile_Bin(char* fileName);
