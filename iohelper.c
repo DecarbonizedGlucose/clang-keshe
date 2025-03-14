@@ -146,7 +146,7 @@ int showListInPages(
 				printf("~\n");
 			}
 		}
-		printf("第%d页，共%d页    [0]退出翻页查看 [1]上页 [2]下页\n", startpage, nop);
+		printf("第%d页，共%d页    [0]退出翻页查看 [1]上页 [2]下页 [3]排序选项\n", startpage, nop);
 		digitInput(&option, -1, "", 0, 2);
 		if (!option) {
 			running = 0;

@@ -1,5 +1,7 @@
 #pragma once
 
+typedef int (*PF)(void*, void*, int);
+
 // ----- about person -----
 
 /*学生代表，教师，管理员
@@ -30,10 +32,13 @@ int isPasswordValid(char* psw);
 
 void showPersonHeader();
 
-/////////////
 void showPersonInLine(Person* p);
 
 void showSinglePerson(Person* p);
+
+PF personListSortAdvice(int*);
+
+int cmpPersonWithId(Person* a, Person* b);
 
 // ---------- room ----------
 
@@ -44,12 +49,12 @@ void showSinglePerson(Person* p);
 typedef struct {
 	int m_Id; // 门牌号
 	int m_Capacity; // 总容量
-	int m_Size; // 已占用（预约状态0-1）
+	//int m_Size; // 已占用（预约状态0-1）
 } Room;
 
 Room* createEmptyRoom();
 
-Room* createRoom(int id, int capacity, int size);
+Room* createRoom(int id, int capacity);
 
 void showRoomHeader();
 
@@ -89,7 +94,6 @@ char* changeNumToState(int num);
 
 void showOrderHeader();
 
-/////////////
 void showOrderInLine(Order* o);
 
 int isOrderIdEqual(Order* a, Order* b);
@@ -102,4 +106,14 @@ Order* orderCopy(Order* prev);
 
 int isOrderUnchecked(Order* o);
 
-int canOrderBeCanceled(Order* listdata,Order* ref);
+int canOrderBeCanceled(Order* listdata, Order* ref);
+
+PF orderListSortAdvice(int*);
+
+int cmpOrderWithOrderId(Order* a, Order* b);
+
+int cmpOrderWithStuId(Order* a,Order* b);
+
+int cmpOrderWithTime(Order* a, Order* b);
+
+int cmpOrderWithState(Order* a, Order* b);

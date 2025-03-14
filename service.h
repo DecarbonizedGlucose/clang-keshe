@@ -3,10 +3,6 @@
 
 // ---------- student ----------
 
-void signIn(Person* stu); 
-
-void signOut(Person* stu);
-
 void applyOrder(Person* stu);
 
 void showMyOrder(Person* stu);

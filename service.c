@@ -10,22 +10,7 @@
 #include "service.h"
 #include "iohelper.h"
 
-// 优化什么的, 有空再写
-// 改进时间存储机制
-// 添加展示大量数据时的翻页功能(√)
-// 添加图形界面
-
 // ---------- student ----------
-
-// 签到 这个真的要写吗
-void signIn(Person* stu) {
-	
-}
-
-// 签退
-void signOut(Person* stu) {
-
-}
 
 void applyOrder(Person* stu) {
 	system("cls");
@@ -197,14 +182,22 @@ void showTypePersons(Person* admin) {
 		system("pause");
 		return;
 	}
-	showListInPages(
-		personList,
-		showPersonHeader,
-		showPersonInLine,
-		15,
-		1,
-		1
-	);
+	int shift;
+	PF cmp = personListSortAdvice(&shift);
+	if (cmp != NULL) {
+		sortForList(personList, cmp);
+		if (shift == 2) {
+			reverseList(personList);
+		}
+		showListInPages(
+			personList,
+			showPersonHeader,
+			showPersonInLine,
+			15,
+			1,
+			1
+		);
+	}
 	destroyList(personList);
 	personList = NULL;
 	system("pause");
@@ -398,7 +391,7 @@ void clearOrderLogs(Person* admin) {
 	if (!secondSafetyVerify(admin)) {
 		return;
 	}
-	if (clearFile_Bin(ORDERFILE)) {
+	if (clearFile_Bin(ORDERFILE_BIN)) {
 		printf("[INFO] 预约记录已清空。\n");
 	}
 	else {
@@ -443,14 +436,22 @@ void showOrderLogs(Person* p) {
 	else {
 		curlist = full_list;
 	}
-	showListInPages(
-		curlist,
-		showOrderHeader,
-		showOrderInLine,
-		15,
-		1,
-		1
-	);
+	int shift;
+	PF cmp = orderListSortAdvice(&shift);
+	if (cmp != NULL) {
+		sortForList(curlist, cmp);
+		if (shift == 2) {
+			reverseList(curlist);
+		}
+		showListInPages(
+			curlist,
+			showOrderHeader,
+			showOrderInLine,
+			15,
+			1,
+			1
+		);
+	}
 	destroyList(curlist);
 	curlist = NULL;
 	system("pause");
@@ -509,56 +510,65 @@ void manageOrderLoop(Person* person, int type) {
 	int running = 1;
 	int lastpage = 0;
 	while (running) {
-		showListInPages(
-			sub,
-			showOrderHeader,
-			showOrderInLine,
-			15,
-			1,
-			1
-		);
-		int subidx = 0;
-		char message1[80] = { 0 };
-		sprintf(message1, "请输入要%s的预约序号：（输入‘0’退出）", (type == 1 ? "取消" : "审核"));
-		digitInput(&subidx, 3, message1, 0, sub->length);
-		if (subidx == 0) {
-			break;
-		}
-		Node* full_node = findListElemNode(
-			orderList,
-			getListIdxNode(sub, subidx)->data,
-			isOrderIdEqual
-		);
-		if (full_node == NULL) {
-			printf("[ERROR] 父列表中找不到子列表的元素 in func \"checkOrder\"\n");
-			break;
-		}
-		printf("[INFO] 这是你选择的预约：\n\t");
-		showOrderInLine(full_node->data);
-		int adj = -1;
-		char message2[80] = { 0 };
-		sprintf(message2, "%s", (type == 1 ? "确定要取消吗？\n1:是   0:否   >>> " : "1:同意 0:驳回 >>> "));
-		digitInput(&adj, 3, message2, 0, 1);
-		if (adj == -1) {
-			printf("[INFO] 未能%s。\n", (type == 1 ? "取消" : "审核"));
-			break;
-		}
-		else if (adj == 1) {
-			((Order*)(full_node->data))->state = (type == 1 ? 3 : 0);
-			//roomInfoUpdate(((Order*)(full_node->data))->room_Id, )
-			delListIdx(sub, subidx);
-		}
-		else if (adj == 0) {
-			if (type == 2) {
-				((Order*)(full_node->data))->state = 5;
+		system("cls");
+		int shift;
+		PF cmp = orderListSortAdvice(&shift);
+		if (cmp != NULL) {
+			if (shift == 2) {
+				reverseList(sub);
+			}
+			sortForList(sub, cmp);
+			showListInPages(
+				sub,
+				showOrderHeader,
+				showOrderInLine,
+				15,
+				1,
+				1
+			);
+			int subidx = 0;
+			char message1[80] = { 0 };
+			sprintf(message1, "请输入要%s的预约序号：（输入‘0’退出）", (type == 1 ? "取消" : "审核"));
+			digitInput(&subidx, 3, message1, 0, sub->length);
+			if (subidx == 0) {
+				break;
+			}
+			Node* full_node = findListElemNode(
+				orderList,
+				getListIdxNode(sub, subidx)->data,
+				isOrderIdEqual
+			);
+			if (full_node == NULL) {
+				printf("[ERROR] 父列表中找不到子列表的元素 in func \"checkOrder\"\n");
+				break;
+			}
+			printf("[INFO] 这是你选择的预约：\n\t");
+			showOrderInLine(full_node->data);
+			int adj = -1;
+			char message2[80] = { 0 };
+			sprintf(message2, "%s", (type == 1 ? "确定要取消吗？\n1:是   0:否   >>> " : "1:同意 0:驳回 >>> "));
+			digitInput(&adj, 3, message2, 0, 1);
+			if (adj == -1) {
+				printf("[INFO] 未能%s。\n", (type == 1 ? "取消" : "审核"));
+				break;
+			}
+			else if (adj == 1) {
+				((Order*)(full_node->data))->state = (type == 1 ? 3 : 0);
 				delListIdx(sub, subidx);
 			}
+			else if (adj == 0) {
+				if (type == 2) {
+					((Order*)(full_node->data))->state = 5;
+					delListIdx(sub, subidx);
+				}
+			}
+			else {
+				printf("[ERROR] Unexpected value of var \"adj\" = %d in func \"checkOrder\".\n", adj);
+				break;
+			}
+			printf("[INFO] 该项处理成功。\n");
+			system("pause");
 		}
-		else {
-			printf("[ERROR] Unexpected value of var \"adj\" = %d in func \"checkOrder\".\n", adj);
-			break;
-		}
-		printf("[INFO] 该项处理成功。\n");
 	}
 	writeOrderToFile_Bin(orderList);
 	destroyList(orderList);

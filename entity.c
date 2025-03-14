@@ -5,6 +5,7 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <time.h>
+#include "iohelper.h"
 
 // ----- about person -----
 
@@ -121,6 +122,23 @@ void showPersonInLine(Person* p) {
     printf("%-20s%-20s\n", p->m_Id, p->m_Psw);
 }
 
+PF personListSortAdvice(int* shift) {
+	printf("[INFO] 将以学生账号字典顺序排序。\n");
+	printf("[0] 退出\n");
+	printf("[1] 正序(默认)\n");
+	printf("[2] 逆序\n");
+	digitInput(shift, -1, "选择展示方式：", 0, 1);
+	if (*shift == 0) {
+		return NULL;
+	}
+	system("pause");
+	return cmpPersonWithId;
+}
+
+int cmpPersonWithId(Person* a, Person* b) {
+	return strcmp(a->m_Id, b->m_Id);
+}
+
 // ---------- room ----------
 
 Room* createEmptyRoom() {
@@ -131,11 +149,11 @@ Room* createEmptyRoom() {
     }
 	newRoom->m_Id = 0;
 	newRoom->m_Capacity = 0;
-	newRoom->m_Size = 0;
+	//newRoom->m_Size = 0;
 	return newRoom;
 }
 
-Room* createRoom(int id, int capacity, int size) {
+Room* createRoom(int id, int capacity) {
 	Room* newRoom = (Room*)malloc(sizeof(Room));
 	if (newRoom == NULL) {
 		printf("[ERROR] Failed to malloc in func \"personCopy\".\n");
@@ -143,16 +161,17 @@ Room* createRoom(int id, int capacity, int size) {
 	}
 	newRoom->m_Id = id;
 	newRoom->m_Capacity = capacity;
-	newRoom->m_Size = size;
+	//newRoom->m_Size = size;
 	return newRoom;
 }
 
+//"房号     容量      已预约\n"
 void showRoomHeader() {
-	printf("房号     容量      已占用\n");
+	printf("房号     容量\n");
 }
 
 void showRoomInLine(Room* r) {
-	printf("%-10d%-10d%d\n", r->m_Id, r->m_Capacity, r->m_Size);
+	printf("%-10d%-10d\n", r->m_Id, r->m_Capacity);
 }
 
 // ---------- order ----------
@@ -364,10 +383,54 @@ int isOrderUnchecked(Order* o) {
 	return o->state == 4;
 }
 
-// 这种写法略显狼狈了
 int canOrderBeCanceled(Order* ref, Order* listdata) {
 	if (strcmp(listdata->stu_Id, ref->stu_Id)) {
 		return 0;
 	}
 	return listdata->state == 0 || listdata->state == 4;
+}
+
+PF orderListSortAdvice(int* shift) {
+	int option = 0;
+	printf("[0] 退出\n");
+	printf("[1] 以提交时间排序(默认)\n");
+	printf("[2] 以学生账号排序\n");
+	printf("[3] 以使用时间排序\n");
+	printf("[4] 以状态量排序\n");
+	digitInput(&option, -1, "选择一个排序策略：", 0, 4);
+	if (option == 0) {
+		return NULL;
+	}
+	printf("[1] 正序(默认)\n");
+	printf("[2] 逆序\n");
+	digitInput(shift, -1, "选择展示方式：", 1, 2);
+	system("pause");
+	switch (option) {
+	case 1:
+		return cmpOrderWithOrderId;
+	case 2:
+		return cmpOrderWithStuId;
+	case 3:
+		return cmpOrderWithTime;
+	case 4:
+		return cmpOrderWithTime;
+	}
+	printf("[ERROR] Unexpected error in func \"OrderListSortAdvice\".\n");
+	return NULL;
+}
+
+int cmpOrderWithOrderId(Order* a, Order* b) {
+	return strcmp(a->order_Id, b->order_Id);
+}
+
+int cmpOrderWithStuId(Order* a, Order* b) {
+	return strcmp(a->stu_Id, b->stu_Id);
+}
+
+int cmpOrderWithTime(Order* a, Order* b) {
+	return a->weekday - b->weekday;
+}
+
+int cmpOrderWithState(Order* a, Order* b) {
+	return a->state - b->state;
 }

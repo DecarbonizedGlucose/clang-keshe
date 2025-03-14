@@ -147,13 +147,6 @@
     <ClInclude Include="UI.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="admin.txt" />
-    <Text Include="order.txt" />
-    <Text Include="room.txt" />
-    <Text Include="student.txt" />
-    <Text Include="teacher.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="admin.dat" />
     <None Include="order.dat" />
     <None Include="room.dat" />

@@ -96,18 +96,12 @@ void studentLoop(Person* me) {
 		}
 		switch (option) {
 		case 1:
-			signIn(me);
-			break;
-		case 2:
-			signOut(me);
-			break;
-		case 3:
 			applyOrder(me);
 			break;
-		case 4:
+		case 2:
 			showMyOrder(me);
 			break;
-		case 5:
+		case 3:
 			cancelOrder(me);
 			break;
 		default:

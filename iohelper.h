@@ -1,6 +1,8 @@
 #pragma once
 #include "list.h"
 
+typedef int (*PF)(void*,void*,int);
+
 int strAlnumDetect(char* str);
 
 int digitInput(int* data,unsigned triles,char* start,int min,int max);

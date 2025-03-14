@@ -59,6 +59,10 @@ List* generateSublist_Det(
 	void* dataCopy(void*)
 );
 
-List* mergeSortedLists(List* list1,List* list2);
+void merge(Node** arr,Node** help,int l,int r,int m,int cmp(void*,void*));
 
-void listMergeSort(List* list); 
+void mergeSort(Node** nodes,Node** help,int l,int r,int cmp(void*,void*));
+
+int sortForList(List* list,int cmp(void*,void*));
+
+void reverseList(List* list);

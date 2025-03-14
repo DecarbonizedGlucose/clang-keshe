@@ -1,5 +1,6 @@
 ﻿#include "list.h"
 #include <stdlib.h>
+#include <math.h>
 // 模块化
 
 Node* createNode(void* data) {
@@ -253,10 +254,91 @@ List* generateSublist_Det(
 	return newList;
 }
 
-List* mergeSortedLists(List* list1, List* list2) {
-
+void merge(Node** arr, Node** help, int l, int r, int m, int cmp(void*, void*)) {
+	int i = l;
+	int a = l, b = m + 1;
+	while (a <= m && b <= r) {
+		help[i++] = cmp(arr[a]->data, arr[b]->data) <= 0 ? arr[a++] : arr[b++];
+	}
+	while (a <= m) {
+		help[i++] = arr[a++];
+	}
+	while (b <= r) {
+		help[i++] = arr[b++];
+	}
+	for (int j = l; j <= r; ++j) {
+		arr[j] = help[j];
+	}
 }
 
-void listMergeSort(List* list) {
+void mergeSort(Node** nodes, Node** help, int l, int r, int cmp(void*, void*)) {
+	if (l == r) {
+		return 0;
+	}
+	int m = l + ((r - l) >> 1);
+	mergeSort(nodes, help, l, m, cmp);
+	mergeSort(nodes, help, m + 1, r, cmp);
+	merge(nodes, help, l, r, m, cmp);
+}
 
+int sortForList(List* list, int cmp(void*, void*)) {
+	if (list == NULL || list->length == 0) {
+		return 0;
+	}
+	if (list->length == 1) {
+		return 1;
+	}
+	Node** nodes = (Node**)malloc(list->length * sizeof(Node*));
+	if (nodes == NULL) {
+		return 0;
+	}
+	Node* cur = list->head;
+	int idx = 0;
+	while (cur != NULL) {
+		nodes[idx++] = cur;
+		cur = cur->next;
+	}
+	Node** help = (Node**)malloc(list->length * sizeof(Node*));
+	if (help == NULL) {
+		free(nodes);
+		return 0;
+	}
+	mergeSort(nodes, help, 0, list->length - 1, cmp);
+	free(help);
+	help = NULL;
+	nodes[0]->prev = NULL;
+	nodes[0]->next = nodes[1];
+	nodes[list->length - 1]->next = NULL;
+	nodes[list->length - 1]->prev = nodes[list->length - 2];
+	for (int i = 1; i < list->length - 1; ++i) {
+		nodes[i]->next = nodes[i + 1];
+		nodes[i]->prev = nodes[i - 1];
+	}
+	list->head = nodes[0];
+	list->tail = nodes[list->length - 1];
+	free(nodes);
+	nodes = NULL;
+	return 1;
+}
+
+void reverseList(List* list) {
+	Node** nodes = (Node**)malloc(list->length * sizeof(Node*));
+	if (nodes == NULL) {
+		return 0;
+	}
+	Node* cur = list->head;
+	int idx = 0;
+	while (cur != NULL) {
+		nodes[idx++] = cur;
+		cur = cur->next;
+	}
+	for (int i = 0; i < list->length; ++i) {
+		Node* tmp = nodes[i]->next;
+		nodes[i]->next = nodes[i]->prev;
+		nodes[i]->prev = tmp;
+	}
+	list->head = nodes[list->length - 1];
+	list->tail = nodes[0];
+	free(nodes);
+	nodes = NULL;
 }
