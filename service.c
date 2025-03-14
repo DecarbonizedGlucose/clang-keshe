@@ -363,10 +363,6 @@ void resetPersonPassword(Person* admin) {
 
 void showRooms(Person* admin) {
 	system("cls");
-	if (!secondSafetyVerify(admin)) {
-		system("pause");
-		return;
-	}
 	List* roomList = readRoomFromFile_Bin();
 	if (roomList == NULL) {
 		printf("[ERROR] Failed to read room from file in func \"showRooms\".\n");
