@@ -99,7 +99,7 @@ List* readRoomFromFile_Bin() {
 	while (1) {
 		Room* new_room = createEmptyRoom();
 		if (new_room == NULL) {
-			printf("[Error] 内存分配错误，无法读取账号。\n");
+			printf("\033[31;1m[Error] Var \"new_room\" is a nullptr in func \"readRoomFromFile_Bin\".\033[0m\n");
 			destroyList(roomList);
 			return NULL;
 		}

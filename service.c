@@ -30,7 +30,7 @@ void applyOrder(Person* stu) {
 	}
 	Order* newOrder = createEmptyOrder();
 	if (newOrder == NULL) {
-		printf("\033[31;1m[Error] Nullptr appeared from func \"createEmptyOrder\" in func \"applyOrder\".\033[0m\n");
+		printf("\033[31;1m[Error] Var \"newOrder\" is a nullptr in func \"applyOrder\".\033[0m\n");
 		system("pause");
 		return;
 	}
@@ -42,7 +42,7 @@ void applyOrder(Person* stu) {
 	newOrder->state = 4;
 	addNewOrder(newOrder);//这里浅拷贝
 	//roomInfoUpdate(room_Id, 1); // 这个功能要是真加上 就不是预约系统了
-	free(newOrder); // 析构两次报错
+	free(newOrder); // 析构两次报错 newOrder added in list then destroy list
 	free(newOrderId);
 	newOrder = NULL;
 	newOrderId = NULL;
@@ -120,7 +120,7 @@ void addPerson(Person* admin) {
 	}
 	Person* newPerson = createEmptyPerson();
 	if (newPerson == NULL) {
-		printf("\033[31;1m[Error] 内存分配错误，无法添加账号。\033[0m\n");
+		printf("\033[31;1m[Error] Var \"newPerson\" is a nullptr in func \"addPerson\".\033[0m\n");
 		system("pause");
 		return;
 	}
@@ -137,7 +137,7 @@ void addPerson(Person* admin) {
 	int acc = 1;
 	List* personList = readPersonFromFile_Bin(type);
 	if (personList == NULL) {
-		printf("\033[31;1m[Error] 无法读取文件，无法添加账号。\033[0m\n");
+		printf("\033[31;1m[Error] Var \"personList\" is a nullptr in func \"addPerson\".\033[0m\n");
 		acc = 0;
 	}
 	if (findListElemNode(personList, newPerson, isPersonIdEqual) != NULL) {
@@ -146,7 +146,7 @@ void addPerson(Person* admin) {
 		acc = 0;
 	}
 	if (addListLast(personList, newPerson) == NULL) {
-		printf("\033[31;1m[Error] Failed to add node to list in func \"addListLast\".\033[0m\n");
+		printf("\033[31;1m[Error] Failed to add node to list in func \"addPerson\".\033[0m\n");
 		acc = 0;
 	}
 	if (acc && writePersonToFile_Bin(personList, type) == 0) {
@@ -176,7 +176,7 @@ void showTypePersons(Person* admin) {
 	}
 	List* personList = readPersonFromFile_Bin(type);
 	if (personList == NULL) {
-		printf("\033[31;1m[Error] Failed to read person from file in func \"showTypePersons\".\033[0m\n");
+		printf("\033[31;1m[Error] Var \"personList\" is a nullptr in func \"showTypePersons\".\033[0m\n");
 		system("pause");
 		return;
 	}
@@ -254,7 +254,7 @@ void delOnePerson(Person* admin) {
 		strInput(person_Id, 3, isTeaIdValid, "请输入教师账号：");
 	}
 	else {
-		printf("\033[31;1m[Error] Unexpected value of var = %d in func \"delOnePerson\".\033[0m\n", type);
+		printf("\033[31;1m[Error] Unexpected value of var \"type\" = %d in func \"delOnePerson\".\033[0m\n", type);
 		system("pause");
 		return;
 	}
@@ -267,7 +267,7 @@ void delOnePerson(Person* admin) {
 	}
 	List* personList = readPersonFromFile_Bin(type);
 	if (personList == NULL) {
-		printf("\033[31;1m[Error] Failed to read person from file in func \"delOnePerson\".\033[0m\n");
+		printf("\033[31;1m[Error] Var \"personList\" is a nullptr in func \"delOnePerson\".\033[0m\n");
 		system("pause");
 		return;
 	}
@@ -313,7 +313,7 @@ void resetPersonPassword(Person* admin) {
 		strInput(person_Id, 3, isTeaIdValid, "请输入管理员账号：");
 	}
 	else {
-		printf("\033[31;1m[Error] Unexpected value of var = %d in func \"resetPersonPassword\".\033[0m\n", type);
+		printf("\033[31;1m[Error] Unexpected value of var \"type\" = %d in func \"resetPersonPassword\".\033[0m\n", type);
 		system("pause");
 		return;
 	}
@@ -326,7 +326,7 @@ void resetPersonPassword(Person* admin) {
 	}
 	List* personList = readPersonFromFile_Bin(type);
 	if (personList == NULL) {
-		printf("\033[31;1m[Error] Failed to read person from file in func \"resetPersonPassword\".\033[0m\n");
+		printf("\033[31;1m[Error] Var \"personList\" is a nullptr in func \"resetPersonPassword\".\033[0m\n");
 		system("pause");
 		return;
 	}
@@ -360,7 +360,7 @@ void showRooms(Person* admin) {
 	system("cls");
 	List* roomList = readRoomFromFile_Bin();
 	if (roomList == NULL) {
-		printf("\033[31;1m[Error] Failed to read room from file in func \"showRooms\".\033[0m\n");
+		printf("\033[31;1m[Error] Var \"roomList\" is a nullptr in func \"showRooms\".\033[0m\n");
 		system("pause");
 		return;
 	}
@@ -403,7 +403,7 @@ void showOrderLogs(Person* p) {
 	List* curlist = NULL;
 	List* full_list = readOrderFromFile_Bin();
 	if (full_list == NULL) {
-		printf("\033[31;1m[Error] Nullptr appears from func \"readOrderFromFile_Bin\" in func \"showOrderLogs\".\033[0m\n");
+		printf("\033[31;1m[Error] Var \"full_list\" is a nullptr in func \"showOrderLogs\".\033[0m\n");
 		return;
 	}
 	if (p != NULL) {
@@ -418,7 +418,7 @@ void showOrderLogs(Person* p) {
 		destroyList(full_list);
 		full_list = NULL;
 		if (sub_list == NULL) {
-			printf("\033[31;1m[Error] Failed to generate sublist in func \"showOrderLogs\".\033[0m\n");
+			printf("\033[31;1m[Error] Var \"sub_list\" is a nullptr in func \"showOrderLogs\".\033[0m\n");
 			system("pause");
 			return;
 		}
@@ -452,7 +452,7 @@ void showOrderLogs(Person* p) {
 Person* findPerson(int type, char* id) {
 	List* personList = readPersonFromFile_Bin(type);
 	if (personList == NULL) {
-		printf("\033[31;1m[Error] Nullptr appears from func \"readPersonFromFile_Bin\" in func \"findPerson\".\033[0m\n");
+		printf("\033[31;1m[Error] Var \"personList\" is a nullptr in func \"findPerson\".\033[0m\n");
 	}
 	Node* res = findListElemNode(personList, id, isPersonIdEqual);
 	if (res == NULL) {
@@ -470,7 +470,7 @@ Person* findPerson(int type, char* id) {
 void manageOrderLoop(Person* person, int type) {
 	List* orderList = readOrderFromFile_Bin();
 	if (orderList == NULL) {
-		printf("\033[31;1m[Error] Nullptr appears from func \"readOrderFromFile_Bin\" in func \"manageOrderLoop\".\033[0m\n");
+		printf("\033[31;1m[Error] Var \"orderList\" is a nullptr in func \"manageOrderLoop\".\033[0m\n");
 		system("pause");
 		return;
 	}
@@ -493,7 +493,7 @@ void manageOrderLoop(Person* person, int type) {
 		);
 	}
 	if (sub == NULL) {
-		printf("\033[31;1m[Error] Failed to generate sublist in func \"checkOrder\".\033[0m\n");
+		printf("\033[31;1m[Error] Var \"sub\" is a nullptr in func \"checkOrder\".\033[0m\n");
 		system("pause");
 		return;
 	}
@@ -530,7 +530,7 @@ void manageOrderLoop(Person* person, int type) {
 				isOrderIdEqual
 			);
 			if (full_node == NULL) {
-				printf("\033[31;1m[Error] 父列表中找不到子列表的元素 in func \"checkOrder\"\033[0m\n");
+				printf("\033[31;1m[Error] Var \"full_node\" is a nullptr in func \"checkOrder\"\033[0m\n");
 				break;
 			}
 			printf("\033[33m[Info] 这是你选择的预约：\033[0m\n\t");

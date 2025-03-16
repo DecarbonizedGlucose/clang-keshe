@@ -12,7 +12,6 @@
 #include "service.h"
 #include "iohelper.h"
 //#include <conio.h>
-//优化的事以后再说罢
 
 void mainLoop() {
 	int running = 1;
@@ -64,7 +63,7 @@ Person* login(int type) {
 		fflush(stdin);
 		Node* res = findListElemNode(personList, &tmp, isPersonInfoEqual);
 		if (res == NULL) {
-			printf("\033[33m[Info] 账号或密码错误。\033[0m\n");
+			printf("\033[31m[Info] 账号或密码错误。\033[0m\n");
 			printf("\033[33m[Info] 你还有%d次机会。\033[0m\n", count);
 		}
 		else {

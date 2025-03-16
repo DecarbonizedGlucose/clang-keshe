@@ -22,7 +22,7 @@ Person* createEmptyPerson() {
 Person* personCopy(Person* p) {
 	Person* newPerson = createEmptyPerson();
 	if (newPerson == NULL) {
-		printf("\033[31;1m[Error] Failed to get memory from func \"createEmptyPerson\" in func \"personCopy\".\033[0m\n");
+		printf("\033[31;1m[Error] Var \"newPerson\" is a nullptr in func \"personCopy\".\033[0m\n");
 		return NULL;
 	}
 	strcpy(newPerson->m_Id, p->m_Id);
@@ -63,7 +63,7 @@ int isIdValid(char* id, int type) {
 		}
 		break;
     default:
-		printf("\033[31;1m[Error] Unexpected value of var=%d \"type\" in func \"isIdValid\".\033[0m\n", type);
+		printf("\033[31;1m[Error] Unexpected value of var \"type\" = %d in func \"isIdValid\".\033[0m\n", type);
 		return 0;
 	}
 	return 1;
@@ -143,28 +143,25 @@ int cmpPersonWithId(Person* a, Person* b) {
 Room* createEmptyRoom() {
     Room* newRoom = (Room*)malloc(sizeof(Room));
     if (newRoom == NULL) {
-        printf("\033[31;1m[Error] Failed to malloc in func \"createEmptyRoom\".\033[0m\n");
+        printf("\033[31;1m[Error] Var \"newRoom\" is a nullptr in func \"createEmptyRoom\".\033[0m\n");
         return NULL;
     }
 	newRoom->m_Id = 0;
 	newRoom->m_Capacity = 0;
-	//newRoom->m_Size = 0;
 	return newRoom;
 }
 
 Room* createRoom(int id, int capacity) {
 	Room* newRoom = (Room*)malloc(sizeof(Room));
 	if (newRoom == NULL) {
-		printf("\033[31;1m[Error] Failed to malloc in func \"personCopy\".\033[0m\n");
+		printf("\033[31;1m[Error] Var \"newRoom\" is a nullptr in func \"personCopy\".\033[0m\n");
 		return NULL;
 	}
 	newRoom->m_Id = id;
 	newRoom->m_Capacity = capacity;
-	//newRoom->m_Size = size;
 	return newRoom;
 }
 
-//"房号     容量      已预约\n"
 void showRoomHeader() {
 	printf("\033[36m房号     容量\033[0m\n");
 }
@@ -178,7 +175,7 @@ void showRoomInLine(Room* r) {
 char* createOrderId() {
 	char* orderId = (char*)malloc(40 * sizeof(char));
 	if (orderId == NULL) {
-		printf("\033[31;1m[Error] Failed to malloc in func \"createOrderId\".\033[0m\n");
+		printf("\033[31;1m[Error] Var \"orderId\" is a nullptr in func \"createOrderId\".\033[0m\n");
 		return NULL;
 	}
 	time_t now = time(NULL);
@@ -215,7 +212,7 @@ char* createOrderId() {
 Order* createEmptyOrder() {
 	Order* newOrder = (Order*)malloc(sizeof(Order));
 	if (newOrder == NULL) {
-		printf("\033[31;1m[Error] Failed to malloc in func \"createEmptyOrder\".\033[0m\n");
+		printf("\033[31;1m[Error] Var \"newOrder\" is a nullptr in func \"createEmptyOrder\".\033[0m\n");
 		return NULL;
 	}
 	newOrder->order_Id[0] = '\0';
@@ -235,7 +232,7 @@ Order* createOrder(
 ) {
 	Order* newOrder = (Order*)malloc(sizeof(Order));
 	if (newOrder == NULL) {
-		printf("\033[31;1m[Error] Failed to malloc in func \"createOrder\".\033[0m\n");
+		printf("\033[31;1m[Error] Var \"newOrder\" is a nullptr in func \"createOrder\".\033[0m\n");
 		return NULL;
 	}
 	strcpy(newOrder->order_Id, order_Id);
@@ -250,7 +247,7 @@ Order* createOrder(
 char* changeNumToWeekday(int num) {
 	char* weekday = (char*)malloc(40 * sizeof(char));
 	if (weekday == NULL) {
-		printf("\033[31;1m[Error] Failed to malloc in func \"changeNumToWeekday\".\033[0m\n");
+		printf("\033[31;1m[Error] Var \"weekday\" is a nullptr in func \"changeNumToWeekday\".\033[0m\n");
 		return NULL;
 	}
 	switch (num) {
@@ -294,7 +291,7 @@ char* changeNumToWeekday(int num) {
 char* changeNumToState(int num) {
 	char* state = (char*)malloc(40 * sizeof(char));
 	if (state == NULL) {
-		printf("\033[31;1m[Error] Failed to malloc in func \"changeNumToState\".\033[0m\n");
+		printf("\033[31;1m[Error] Var \"state\" is a nullptr in func \"changeNumToState\".\033[0m\n");
 		return NULL;
 	}
 	switch (num) {
@@ -336,7 +333,7 @@ void showOrderInLine(Order* o) {
 	char* weekday = changeNumToWeekday(o->weekday);
 	char* state = changeNumToState(o->state);
 	if (weekday == NULL || state == NULL) {
-		printf("\033[31;1m[Error] Nullptr appeared in func \"showOrderInLine\"\033[0m\n");
+		printf("\033[31;1m[Error] Var \"weekday\" or \"state\" is a nullptr in func \"showOrderInLine\"\033[0m\n");
 		return;
 	}
 	printf("%-20s%-20s%-5d%-20s%s\n", o->order_Id, o->stu_Id, o->room_Id, weekday, state);
@@ -367,7 +364,7 @@ Order* orderCopy(Order* prev) {
 		prev->weekday
 	);
 	if (newOrder == NULL) {
-		printf("\033[31;1m[Error] Unable to get memory from func \"createOrder\" in func \"orderCopy\".\033[0m\n");
+		printf("\033[31;1m[Error] Var \"newOrder\" is a nullptr in func \"orderCopy\".\033[0m\n");
 		return NULL;
 	}
 	strcpy(newOrder->order_Id, prev->order_Id);
@@ -414,7 +411,7 @@ PF orderListSortAdvice(int* shift) {
 	case 4:
 		return cmpOrderWithTime;
 	}
-	printf("\033[31;1m[Error] Unexpected error in func \"OrderListSortAdvice\".\033[0m\n");
+	printf("\033[31;1m[Error] Unexpected value of var \"option\" = %d in func \"OrderListSortAdvice\".\033[0m\n", option);
 	return NULL;
 }
 
