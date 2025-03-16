@@ -99,6 +99,7 @@ int secondSafetyVerify(Person* admin) {
 	else {
 		printf("\033[31m[Info] 身份验证失败。\033[0m\n");
 	}
+	system("pause");
 	return res;
 }
 
@@ -115,7 +116,6 @@ void addPerson(Person* admin) {
 		return;
 	}
 	if (!secondSafetyVerify(admin)) {
-		system("pause");
 		return;
 	}
 	Person* newPerson = createEmptyPerson();
@@ -172,7 +172,6 @@ void showTypePersons(Person* admin) {
 		return;
 	}
 	if (!secondSafetyVerify(admin)) {
-		system("pause");
 		return;
 	}
 	List* personList = readPersonFromFile_Bin(type);
@@ -221,7 +220,6 @@ void findOnePerson(Person* admin) {
 		return;
 	}	
 	if (!secondSafetyVerify(admin)) {
-		system("pause");
 		return;
 	}
 	Person* p = findPerson(type, person_Id);
@@ -265,7 +263,6 @@ void delOnePerson(Person* admin) {
 		return;
 	}
 	if (!secondSafetyVerify(admin)) {
-		system("pause");
 		return;
 	}
 	List* personList = readPersonFromFile_Bin(type);
@@ -325,7 +322,6 @@ void resetPersonPassword(Person* admin) {
 		return;
 	}
 	if (!secondSafetyVerify(admin)) {
-		system("pause");
 		return;
 	}
 	List* personList = readPersonFromFile_Bin(type);
