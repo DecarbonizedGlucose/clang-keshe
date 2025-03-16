@@ -21,7 +21,7 @@ int digitInput(int* data, unsigned triles, char* start, int min, int max) {
 	int temp_data = 0;
 	while (times < triles) {
 		cur = 1;//合法状态
-		printf("[Input] %s", start);
+		printf("\033[36m[Input] %s\033[0m", start);
 		char line[300];
 		fgets(line, 299, stdin);
 		fflush(stdin);
@@ -44,9 +44,9 @@ int digitInput(int* data, unsigned triles, char* start, int min, int max) {
 		}
 		times++;
 		if (!cur) {
-			printf("[INFO] 输入有误，请重新输入。\n");
+			printf("\033[33m[Info] 输入有误，请重新输入。\033[0m\n");
 			if (triles != -1) {
-				printf("[INFO] 你还有%d次机会。\n", (triles - times));
+				printf("\033[33m[Info] 你还有%d次机会。\033[0m\n", (triles - times));
 			}
 		}
 		else {
@@ -64,7 +64,7 @@ int strInput(char* data, int triles, int det(char*), char* start) {
 	int cur = 1;
 	while (times < triles) {
 		cur = 1;
-		printf("[Input] %s", start);
+		printf("\033[36m[Input] %s\033[0m", start);
 		char line[20];
 		fgets(line, 19, stdin);
 		fflush(stdin);
@@ -72,9 +72,9 @@ int strInput(char* data, int triles, int det(char*), char* start) {
 		cur = det(line);
 		times++;
 		if (!cur) {
-			printf("[INFO] 输入有误，请重新输入。\n");
+			printf("\033[33m[Info] 输入有误，请重新输入。\033[0m\n");
 			if (triles != -1) {
-				printf("[INFO] 你还有%d次机会。\n", (triles - times));
+				printf("\033[33m[Info] 你还有%d次机会。\033[0m\n", (triles - times));
 			}
 		}
 		else {
@@ -111,7 +111,7 @@ int showListInPages(
 ) {
 	if (list == NULL) {
 		system("cls");
-		printf("[INFO] 列表为空！\n");
+		printf("\033[31;1m[Error] Param \"list\" is a nullptr in func \"showListInLine\".\033[0m\n");
 		system("pause");
 		return 0;
 	}
@@ -126,7 +126,7 @@ int showListInPages(
 	int option;
 	while (running) {
 		system("cls");
-		printf("共%d页%d项，每页%d项.\n", nop, list->length, lpp);
+		printf("\033[36m共%d页%d项，每页%d项.\033[0m\n", nop, list->length, lpp);
 		if (showIndex) {
 			printf("      ");
 		}
@@ -136,17 +136,17 @@ int showListInPages(
 		for (int i = 0; i < lpp; ++i) {
 			if (cur != NULL) {
 				if (showIndex) {
-					printf("%5d ", cur_idx);
+					printf("\033[36m%5d\033[0m ", cur_idx);
 				}
 				showDataInLine(cur->data);
 				cur = cur->next;
 				cur_idx++;
 			}
 			else {
-				printf("~\n");
+				printf("\033[32m~\033[0m\n");
 			}
 		}
-		printf("第%d页，共%d页    [0]退出翻页查看 [1]上页 [2]下页 [3]排序选项\n", startpage, nop);
+		printf("\033[36m第%d页，共%d页    [0]退出翻页查看 [1]上页 [2]下页 [3]排序选项\033[0m\n", startpage, nop);
 		digitInput(&option, -1, "", 0, 2);
 		if (!option) {
 			running = 0;

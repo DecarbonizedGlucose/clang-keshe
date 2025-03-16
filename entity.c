@@ -22,7 +22,7 @@ Person* createEmptyPerson() {
 Person* personCopy(Person* p) {
 	Person* newPerson = createEmptyPerson();
 	if (newPerson == NULL) {
-		printf("[ERROR] Failed to get memory from func \"createEmptyPerson\" in func \"personCopy\".\n");
+		printf("\033[31;1m[Error] Failed to get memory from func \"createEmptyPerson\" in func \"personCopy\".\033[0m\n");
 		return NULL;
 	}
 	strcpy(newPerson->m_Id, p->m_Id);
@@ -38,7 +38,6 @@ int isPersonIdEqual(Person* a, Person* b) {
 	return !strcmp(a->m_Id, b->m_Id);
 }
 
-// 合并美学 各有各的作用
 int isIdValid(char* id, int type) {
     int len = strlen(id);
     switch (type) {
@@ -64,7 +63,7 @@ int isIdValid(char* id, int type) {
 		}
 		break;
     default:
-		printf("[ERROR] Unexpected value of var=%d \"type\" in func \"isIdValid\".\n", type);
+		printf("\033[31;1m[Error] Unexpected value of var=%d \"type\" in func \"isIdValid\".\033[0m\n", type);
 		return 0;
 	}
 	return 1;
@@ -110,12 +109,12 @@ int isPasswordValid(char* psw) {
 }
 
 void showSinglePerson(Person* p) {
-    printf("ID: %s\n", p->m_Id);
-    printf("Password: %s\n", p->m_Psw);
+    printf("\033[36mID: %s\033[0m\n", p->m_Id);
+    printf("\033[36mPassword: %s\33[0m\n", p->m_Psw);
 }
 
 void showPersonHeader() {
-	printf("     ID             Password\n");
+	printf("\033[36m     ID             Password\033[0m\n");
 }
 
 void showPersonInLine(Person* p) {
@@ -123,10 +122,10 @@ void showPersonInLine(Person* p) {
 }
 
 PF personListSortAdvice(int* shift) {
-	printf("[INFO] 将以学生账号字典顺序排序。\n");
-	printf("[0] 退出\n");
-	printf("[1] 正序(默认)\n");
-	printf("[2] 逆序\n");
+	printf("\033[36m[Info] 将以学生账号字典顺序排序。\033[0m\n");
+	printf("\033[36m[0] 退出\033[0m\n");
+	printf("\033[36m[1] 正序(默认)\033[0m\n");
+	printf("\033[36m[2] 逆序\033[0m\n");
 	digitInput(shift, -1, "选择展示方式：", 0, 1);
 	if (*shift == 0) {
 		return NULL;
@@ -144,7 +143,7 @@ int cmpPersonWithId(Person* a, Person* b) {
 Room* createEmptyRoom() {
     Room* newRoom = (Room*)malloc(sizeof(Room));
     if (newRoom == NULL) {
-        printf("[ERROR] Failed to malloc in func \"createEmptyRoom\".\n");
+        printf("\033[31;1m[Error] Failed to malloc in func \"createEmptyRoom\".\033[0m\n");
         return NULL;
     }
 	newRoom->m_Id = 0;
@@ -156,7 +155,7 @@ Room* createEmptyRoom() {
 Room* createRoom(int id, int capacity) {
 	Room* newRoom = (Room*)malloc(sizeof(Room));
 	if (newRoom == NULL) {
-		printf("[ERROR] Failed to malloc in func \"personCopy\".\n");
+		printf("\033[31;1m[Error] Failed to malloc in func \"personCopy\".\033[0m\n");
 		return NULL;
 	}
 	newRoom->m_Id = id;
@@ -167,7 +166,7 @@ Room* createRoom(int id, int capacity) {
 
 //"房号     容量      已预约\n"
 void showRoomHeader() {
-	printf("房号     容量\n");
+	printf("\033[36m房号     容量\033[0m\n");
 }
 
 void showRoomInLine(Room* r) {
@@ -179,7 +178,7 @@ void showRoomInLine(Room* r) {
 char* createOrderId() {
 	char* orderId = (char*)malloc(40 * sizeof(char));
 	if (orderId == NULL) {
-		printf("[ERROR] Failed to malloc in func \"createOrderId\".\n");
+		printf("\033[31;1m[Error] Failed to malloc in func \"createOrderId\".\033[0m\n");
 		return NULL;
 	}
 	time_t now = time(NULL);
@@ -216,7 +215,7 @@ char* createOrderId() {
 Order* createEmptyOrder() {
 	Order* newOrder = (Order*)malloc(sizeof(Order));
 	if (newOrder == NULL) {
-		printf("[ERROR] Failed to malloc in func \"createEmptyOrder\".\n");
+		printf("\033[31;1m[Error] Failed to malloc in func \"createEmptyOrder\".\033[0m\n");
 		return NULL;
 	}
 	newOrder->order_Id[0] = '\0';
@@ -236,7 +235,7 @@ Order* createOrder(
 ) {
 	Order* newOrder = (Order*)malloc(sizeof(Order));
 	if (newOrder == NULL) {
-		printf("[ERROR] Failed to malloc in func \"createOrder\".\n");
+		printf("\033[31;1m[Error] Failed to malloc in func \"createOrder\".\033[0m\n");
 		return NULL;
 	}
 	strcpy(newOrder->order_Id, order_Id);
@@ -251,7 +250,7 @@ Order* createOrder(
 char* changeNumToWeekday(int num) {
 	char* weekday = (char*)malloc(40 * sizeof(char));
 	if (weekday == NULL) {
-		printf("[ERROR] Failed to malloc in func \"changeNumToWeekday\".\n");
+		printf("\033[31;1m[Error] Failed to malloc in func \"changeNumToWeekday\".\033[0m\n");
 		return NULL;
 	}
 	switch (num) {
@@ -286,7 +285,7 @@ char* changeNumToWeekday(int num) {
 		strcpy(weekday, "周五下午");
 		break;
 	default:
-		printf("[ERROR] Unexpected value of param \"num\" = %d in func \"changeNumToWeekday\".\n", num);
+		printf("\033[31;1m[Error] Unexpected value of param \"num\" = %d in func \"changeNumToWeekday\".\033[0m\n", num);
 		break;
 	}
 	return weekday;
@@ -295,7 +294,7 @@ char* changeNumToWeekday(int num) {
 char* changeNumToState(int num) {
 	char* state = (char*)malloc(40 * sizeof(char));
 	if (state == NULL) {
-		printf("[ERROR] Failed to malloc in func \"changeNumToState\".\n");
+		printf("\033[31;1m[Error] Failed to malloc in func \"changeNumToState\".\033[0m\n");
 		return NULL;
 	}
 	switch (num) {
@@ -321,23 +320,23 @@ char* changeNumToState(int num) {
 		strcpy(state, "过期");
 		break;
 	default:
-		printf("[ERROR] Unexpected value of param \"num\" = %d in func \"changeNumToState\".\n", num);
+		printf("\033[31;1m[Error] Unexpected value of param \"num\" = %d in func \"changeNumToState\".\033[0m\n", num);
 		return NULL;
 	}
 	return state;
 }
 
 void showOrderHeader() {
-	printf("预约号              \
+	printf("\033[36m预约号              \
 学生账号           \
-房间    时间           状态\n");
+房间    时间           状态\033[0m\n");
 }
 
 void showOrderInLine(Order* o) {
 	char* weekday = changeNumToWeekday(o->weekday);
 	char* state = changeNumToState(o->state);
 	if (weekday == NULL || state == NULL) {
-		printf("[ERROR] Nullptr appeared in func \"showOrderInLine\"\n");
+		printf("\033[31;1m[Error] Nullptr appeared in func \"showOrderInLine\"\033[0m\n");
 		return;
 	}
 	printf("%-20s%-20s%-5d%-20s%s\n", o->order_Id, o->stu_Id, o->room_Id, weekday, state);
@@ -368,7 +367,7 @@ Order* orderCopy(Order* prev) {
 		prev->weekday
 	);
 	if (newOrder == NULL) {
-		printf("[ERROR] Unable to get memory from func \"createOrder\" in func \"orderCopy\".\n");
+		printf("\033[31;1m[Error] Unable to get memory from func \"createOrder\" in func \"orderCopy\".\033[0m\n");
 		return NULL;
 	}
 	strcpy(newOrder->order_Id, prev->order_Id);
@@ -392,17 +391,17 @@ int canOrderBeCanceled(Order* ref, Order* listdata) {
 
 PF orderListSortAdvice(int* shift) {
 	int option = 0;
-	printf("[0] 退出\n");
-	printf("[1] 以提交时间排序(默认)\n");
-	printf("[2] 以学生账号排序\n");
-	printf("[3] 以使用时间排序\n");
-	printf("[4] 以状态量排序\n");
+	printf("\033[36m[0] 退出\033[0m\n");
+	printf("\033[36m[1] 以提交时间排序(默认)\033[0m\n");
+	printf("\033[36m[2] 以学生账号排序\033[0m\n");
+	printf("\033[36m[3] 以使用时间排序\033[0m\n");
+	printf("\033[36m[4] 以状态量排序\033[0m\n");
 	digitInput(&option, -1, "选择一个排序策略：", 0, 4);
 	if (option == 0) {
 		return NULL;
 	}
-	printf("[1] 正序(默认)\n");
-	printf("[2] 逆序\n");
+	printf("\033[36m[1] 正序(默认)\033[0m\n");
+	printf("\033[36m[2] 逆序\033[0m\n");
 	digitInput(shift, -1, "选择展示方式：", 1, 2);
 	system("pause");
 	switch (option) {
@@ -415,7 +414,7 @@ PF orderListSortAdvice(int* shift) {
 	case 4:
 		return cmpOrderWithTime;
 	}
-	printf("[ERROR] Unexpected error in func \"OrderListSortAdvice\".\n");
+	printf("\033[31;1m[Error] Unexpected error in func \"OrderListSortAdvice\".\033[0m\n");
 	return NULL;
 }
 

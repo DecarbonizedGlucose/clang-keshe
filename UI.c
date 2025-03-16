@@ -4,6 +4,7 @@
 
 void showMainMenu() {
 	system("cls");
+	printf("\033[36m");
 	printf("============  欢迎来到西安架空大学机房预约系统  ===========\n\n");
 	printf("\t\t+-------------------------------+\n");
 	printf("\t\t|                               |\n");
@@ -16,16 +17,20 @@ void showMainMenu() {
 	printf("\t\t|          0.退    出           |\n");
 	printf("\t\t|                               |\n");
 	printf("\t\t+-------------------------------+\n");
+	printf("\033[0m");
 }
 
 void goodbye() {
 	system("cls");
-	printf("欢迎下次使用。\n");
+	printf("\033[36m");
+	printf("[Goodbye] 欢迎下次使用。\n");
+	printf("\033[0m");
 	system("pause");
 }
 
 void showStudentMenu() {
 	system("cls");
+	printf("\033[36m");
 	printf("\t\t+----------------------------------+\n");
 	printf("\t\t|                                  |\n");
 	printf("\t\t|          1.申请预约              |\n");
@@ -37,10 +42,12 @@ void showStudentMenu() {
 	printf("\t\t|          0.注销登录              |\n");
 	printf("\t\t|                                  |\n");
 	printf("\t\t+----------------------------------+\n");
+	printf("\033[0m");
 }
 
 void showTeacherMenu() {
 	system("cls");
+	printf("\033[36m");
 	printf("\t\t+----------------------------------+\n");
 	printf("\t\t|                                  |\n");
 	printf("\t\t|          1.查看所有预约          |\n");
@@ -50,10 +57,12 @@ void showTeacherMenu() {
 	printf("\t\t|          0.注销登录              |\n");
 	printf("\t\t|                                  |\n");
 	printf("\t\t+----------------------------------+\n");
+	printf("\033[0m");
 }
 
 void showAdminMenu() {
 	system("cls");
+	printf("\033[36m");
 	printf("\t\t+---------------------------------+\n");
 	printf("\t\t|                                 |\n");
 	printf("\t\t|          1.查看所有预约         |\n");
@@ -75,10 +84,12 @@ void showAdminMenu() {
 	printf("\t\t|          0.注销登录             |\n");
 	printf("\t\t|                                 |\n");
 	printf("\t\t+---------------------------------+\n");
+	printf("\033[0m");
 }
 
 void introduceRooms() {
 	system("cls");
+	printf("\033[36m");
 	printf("机房开放时间为周一至周五8:00-11:30、13:30-22:30，具体代号如下\n");
 	printf("       上午    下午\n");
 	printf("周一     1      2\n");
@@ -90,4 +101,5 @@ void introduceRooms() {
 	printf("小机房(20)：1-5\n");
 	printf("中机房(50)：6-8\n");
 	printf("大机房(100)：9-10\n");
+	printf("\033[0m");
 }

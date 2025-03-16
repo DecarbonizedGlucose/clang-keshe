@@ -39,7 +39,7 @@ void mainLoop() {
 			adminLoop(pp);
 			break;
 		default:
-			printf("[ERROR] Unexpected value of var \"option\" = %d in func \"mainLoop\".\n", option);
+			printf("\033[31;1m[Error] Unexpected value of var \"option\" = %d in func \"mainLoop\".\033[0m\n", option);
 		}
 	}
 }
@@ -48,34 +48,34 @@ Person* login(int type) {
 	Person* person = NULL;
 	List* personList = readPersonFromFile_Bin(type);
 	if (personList == NULL) {
-		printf("[ERROR] Failed to read person from file in func \"login\".\n");
+		printf("\033[31;1m[Error] Failed to read person from file in func \"login\".\033[0m\n");
 		return NULL;
 	}
 	Person tmp;
 	int count = 3;
 	while (count--) {
-		printf("[Input] 帐号：");
+		printf("\033[36m[Input] 帐号：\033[0m");
 		fgets(tmp.m_Id, 19, stdin);
 		clearReturn(tmp.m_Id, 20);
 		fflush(stdin);
-		printf("[Input] 密码：");
+		printf("\033[36m[Input] 密码：\033[0m");
 		fgets(tmp.m_Psw, 19, stdin);
 		clearReturn(tmp.m_Psw, 20);
 		fflush(stdin);
 		Node* res = findListElemNode(personList, &tmp, isPersonInfoEqual);
 		if (res == NULL) {
-			printf("[INFO] 账号或密码错误，\n");
-			printf("[INFO] 你还有%d次机会。\n", count);
+			printf("\033[33m[Info] 账号或密码错误。\033[0m\n");
+			printf("\033[33m[Info] 你还有%d次机会。\033[0m\n", count);
 		}
 		else {
 			person = createEmptyPerson();
 			if (person == NULL) {
-				printf("[ERROR] 内存分配错误，登录失败。\n");
+				printf("\033[31;1m[Error] 内存分配错误，登录失败。\033[0m\n");
 				return NULL;
 			}
 			strcpy(person->m_Id, tmp.m_Id);
 			strcpy(person->m_Psw, tmp.m_Psw);
-			printf("[INFO] 登录成功。\n");
+			printf("\033[32m[Info] 登录成功。\033[0m\n");
 			system("pause");
 			break;
 		}
@@ -105,7 +105,7 @@ void studentLoop(Person* me) {
 			cancelOrder(me);
 			break;
 		default:
-			printf("[ERROR] Unexpected value of var \"option\" = %d in func \"studentLoop\".\n", option);
+			printf("\033[31;1m[Error] Unexpected value of var \"option\" = %d in func \"studentLoop\".\033[0m\n", option);
 		}
 	}
 }
@@ -128,7 +128,7 @@ void teacherLoop(Person* me) {
 			checkOrder(me);
 			break;
 		default:
-			printf("[ERROR] Unexpected value of var \"option\" = %d in func \"teacherLoop\".\n", option);
+			printf("\033[31;1m[Error] Unexpected value of var \"option\" = %d in func \"teacherLoop\".\033[0m\n", option);
 		}
 	}
 }
@@ -169,7 +169,7 @@ void adminLoop(Person* me) {
 			clearOrderLogs(me);
 			break;
 		default:
-			printf("[ERROR] Unexpected value of var \"option\" = %d in func \"adminLoop\".\n", option);
+			printf("\033[31;1m[Error] Unexpected value of var \"option\" = %d in func \"adminLoop\".\033[0m\n", option);
 		}
 	}
 }

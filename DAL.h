@@ -24,8 +24,6 @@ int writeOrderToFile_Bin(List* list);
 
 void addNewOrder(Order* order);
 
-void orderLogRealtimeUpdate();
-
 // ---------- all ----------
 
 int clearFile_Bin(char* fileName);
