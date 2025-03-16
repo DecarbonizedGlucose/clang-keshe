@@ -1,6 +1,5 @@
 ﻿#include <stdio.h>
 #include <stdlib.h>
-#include "entity.h"
 
 void showMainMenu() {
 	system("cls");
