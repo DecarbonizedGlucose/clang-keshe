@@ -11,7 +11,6 @@
 #include <stdlib.h>
 #include "service.h"
 #include "iohelper.h"
-//#include <conio.h>
 
 void mainLoop() {
 	int running = 1;

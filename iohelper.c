@@ -4,6 +4,7 @@
 #include <ctype.h>
 #include "iohelper.h"
 #include <stdlib.h>
+//#include <conio.h>
 
 int strAlnumDetect(char* str) {
 	for (int i = 0; i < strlen(str); ++i) {
@@ -91,12 +92,7 @@ int isQuitSign(char* str) {
 }
 
 void clearReturn(char* str, int size) {
-	for (int i = 0; i < size && str[i] != '\0'; ++i) {
-		if (str[i] == '\n') {
-			str[i] = '\0';
-		}
-	}
-	// line[strcspn(line, "\n")] = '\0';
+	str[strcspn(str, "\n")] = '\0';
 }
 
 // 翻页展示数据功能

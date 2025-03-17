@@ -40,7 +40,7 @@ void applyOrder(Person* stu) {
 	char* newOrderId = createOrderId();
 	strcpy(newOrder->order_Id, newOrderId);
 	newOrder->state = 4;
-	addNewOrder(newOrder);//这里浅拷贝
+	addNewOrder(newOrder);//这里面用了深拷贝，newPerson和newOrder处理策略不一样
 	//roomInfoUpdate(room_Id, 1); // 这个功能要是真加上 就不是预约系统了
 	free(newOrder); // 析构两次报错 newOrder added in list then destroy list
 	free(newOrderId);
@@ -142,7 +142,6 @@ void addPerson(Person* admin) {
 	}
 	if (findListElemNode(personList, newPerson, isPersonIdEqual) != NULL) {
 		printf("\033[31m[Info] 该账号已存在。\033[0m\n"); // 这里可以加个询问是否覆盖（修改密码）
-		// 什么鲁棒性，不知道
 		acc = 0;
 	}
 	if (addListLast(personList, newPerson) == NULL) {
@@ -152,7 +151,7 @@ void addPerson(Person* admin) {
 	if (acc && writePersonToFile_Bin(personList, type) == 0) {
 		printf("\033[31;1m[Error] Failed to write order to file in func \"addPerson\".\033[0m\n");
 	}
-	//free(newPerson); // 哈哈，浅拷贝 折如磨
+	// 这不能把newPerson析构了
 	destroyList(personList);
 	personList = NULL;
 	printf("\033[32m[Info] 添加账号成功。\033[0m\n");
@@ -559,6 +558,9 @@ void manageOrderLoop(Person* person, int type) {
 			}
 			printf("\033[32m[Info] 该项处理成功。\033[0m\n");
 			system("pause");
+		}
+		else {
+			break;
 		}
 	}
 	writeOrderToFile_Bin(orderList);
