@@ -24,21 +24,25 @@ List* readPersonFromFile_Bin(int type) {
 		break;
 	default:
 		printf("\033[31;1m[Error] Unexpected value of param \"type\" = %d in func \"readPersonFromFile_Bin\".\033[0m\n", type);
+		system("pause");
 	}
 	FILE* fp = fopen(fileName, "rb");
 	if (fp == NULL) {
 		printf("\033[31;1m[Error] Failed to read file in func \"readPersonFromFile_Bin\".\033[0m\n");
+		system("pause");
 		return NULL;
 	}
 	List* personList = createEmptyList();
 	if (personList == NULL) {
 		printf("\033[31;1m[Error] Var \"personList\" is a nullptr in func \"readPersonFromFile_Bin\".\033[0m\n");
+		system("pause");
 		return NULL;
 	}
 	while (1) {
 		Person* new_person = createEmptyPerson();
 		if (new_person == NULL) {
 			printf("\033[31;1m[Error] Var \"new_person\" is a nullptr in func \"readPersonFromFile_Bin\".\033[0m\n");
+			system("pause");
 			destroyList(personList);
 			return NULL;
 		}
@@ -67,10 +71,12 @@ int writePersonToFile_Bin(List* list, int type) {
 		break;
 	default:
 		printf("\033[31;1m[Error] Unexpected value of param \"type\" = %d in func \"writePersonToFile_Bin\".\033[0m", type);
+		system("pause");
 	}
 	FILE* fp = fopen(fileName, "wb");
 	if (fp == NULL) {
 		printf("\033[31;1m[Error] Failed to open file in func \"writePersonToFile_Bin\".\033[0m\n");
+		system("pause");
 		return 0;
 	}
 	Node* cur = list->head;
@@ -89,17 +95,20 @@ List* readRoomFromFile_Bin() {
 	FILE* fp = fopen(ROOMFILE_BIN, "rb");
 	if (fp == NULL) {
 		printf("\033[31;1m[Error] Failed to read file in func \"readRoomFromFile_Bin\".\033[0m\n");
+		system("pause");
 		return NULL;
 	}
 	List* roomList = createEmptyList();
 	if (roomList == NULL) {
 		printf("\033[31;1m[Error] Var \"roomList\" is a nullptr in func \"readRoomFromFile_Bin\".\033[0m\n");
+		system("pause");
 		return NULL;
 	}
 	while (1) {
 		Room* new_room = createEmptyRoom();
 		if (new_room == NULL) {
 			printf("\033[31;1m[Error] Var \"new_room\" is a nullptr in func \"readRoomFromFile_Bin\".\033[0m\n");
+			system("pause");
 			destroyList(roomList);
 			return NULL;
 		}
@@ -118,6 +127,7 @@ int writeRoomToFile_Bin(List* list) {
 	FILE* fp = fopen(ROOMFILE_BIN, "wb");
 	if (fp == NULL) {
 		printf("\033[31;1m[Error] Failed to open file in func \"writeRoomToFile_Bin\".\033[0m\n");
+		system("pause");
 		return 0;
 	}
 	Node* cur = list->head;
@@ -136,17 +146,20 @@ List* readOrderFromFile_Bin() {
 	FILE* fp = fopen(ORDERFILE_BIN, "rb");
 	if (fp == NULL) {
 		printf("\033[31;1m[Error] Failed to open file in func \"readOrderFromFile_Bin\".\033[0m\n");
+		system("pause");
 		return NULL;
 	}
 	List* orderList = createEmptyList();
 	if (orderList == NULL) {
 		printf("\033[31;1m[Error] Var \"orderList\" is a nullptr in func \"readOrderFromFile_Bin\".\033[0m\n");
+		system("pause");
 		return NULL;
 	}
 	while (1) {
 		Order* new_order = createEmptyOrder();
 		if (new_order == NULL) {
 			printf("\033[31;1m[Error] Var \"new_order\" is a nullptr in func \"readPersonFromFile_Bin\".\033[0m\n");
+			system("pause");
 			destroyList(orderList);
 			return NULL;
 		}
@@ -165,6 +178,7 @@ int writeOrderToFile_Bin(List* list) {
 	FILE* fp = fopen(ORDERFILE_BIN, "wb");
 	if (fp == NULL) {
 		printf("\033[31;1m[Error] Failed to open file in func \"writeOrderToFile_Bin\".\033[0m\n");
+		system("pause");
 		return 0;
 	}
 	Node* cur = list->head;
@@ -181,6 +195,7 @@ void addNewOrder(Order* order) {
 	List* orderList = readOrderFromFile_Bin();
 	if (orderList == NULL) {
 		printf("\033[31;1m[Error] Var \"orderList\" is a nullptr in func \"addNewOrder\".\033[0m\n");
+		system("pause");
 		return;
 	}
 	Order* newOrder = orderCopy(order);
@@ -192,6 +207,7 @@ void addNewOrder(Order* order) {
 	}
 	else {
 		printf("\033[31;1m[Error] 无法添加预约。\033[0m\n");
+		system("pause");
 	}
 	destroyList(orderList);
 }
@@ -202,6 +218,7 @@ int clearFile_Bin(char* fileName) {
 	FILE* fp = fopen(fileName, "wb");
 	if (fp == NULL) {
 		printf("\033[31;1m[Error] Failed to open file in func \"clearFile_Bin\".\033[0m\n");
+		system("pause");
 		return 0;
 	}
 	fclose(fp);

@@ -142,7 +142,7 @@ int showListInPages(
 				printf("\033[32m~\033[0m\n");
 			}
 		}
-		printf("\033[36m第%d页，共%d页    [0]退出翻页查看 [1]上页 [2]下页 [3]排序选项\033[0m\n", startpage, nop);
+		printf("\033[36m第%d页，共%d页    [0]退出翻页查看 [1]上页 [2]下页\033[0m\n", startpage, nop);
 		digitInput(&option, -1, "", 0, 2);
 		if (!option) {
 			running = 0;

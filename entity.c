@@ -23,6 +23,7 @@ Person* personCopy(Person* p) {
 	Person* newPerson = createEmptyPerson();
 	if (newPerson == NULL) {
 		printf("\033[31;1m[Error] Var \"newPerson\" is a nullptr in func \"personCopy\".\033[0m\n");
+		system("pause");
 		return NULL;
 	}
 	strcpy(newPerson->m_Id, p->m_Id);
@@ -64,6 +65,7 @@ int isIdValid(char* id, int type) {
 		break;
     default:
 		printf("\033[31;1m[Error] Unexpected value of var \"type\" = %d in func \"isIdValid\".\033[0m\n", type);
+		system("pause");
 		return 0;
 	}
 	return 1;
@@ -126,7 +128,7 @@ PF personListSortAdvice(int* shift) {
 	printf("\033[36m[0] 退出\033[0m\n");
 	printf("\033[36m[1] 正序(默认)\033[0m\n");
 	printf("\033[36m[2] 逆序\033[0m\n");
-	digitInput(shift, -1, "选择展示方式：", 0, 1);
+	digitInput(shift, -1, "选择展示方式：", 0, 2);
 	if (*shift == 0) {
 		return NULL;
 	}
@@ -144,7 +146,8 @@ Room* createEmptyRoom() {
     Room* newRoom = (Room*)malloc(sizeof(Room));
     if (newRoom == NULL) {
         printf("\033[31;1m[Error] Var \"newRoom\" is a nullptr in func \"createEmptyRoom\".\033[0m\n");
-        return NULL;
+		system("pause");
+		return NULL;
     }
 	newRoom->m_Id = 0;
 	newRoom->m_Capacity = 0;
@@ -155,6 +158,7 @@ Room* createRoom(int id, int capacity) {
 	Room* newRoom = (Room*)malloc(sizeof(Room));
 	if (newRoom == NULL) {
 		printf("\033[31;1m[Error] Var \"newRoom\" is a nullptr in func \"personCopy\".\033[0m\n");
+		system("pause");
 		return NULL;
 	}
 	newRoom->m_Id = id;
@@ -176,6 +180,7 @@ char* createOrderId() {
 	char* orderId = (char*)malloc(40 * sizeof(char));
 	if (orderId == NULL) {
 		printf("\033[31;1m[Error] Var \"orderId\" is a nullptr in func \"createOrderId\".\033[0m\n");
+		system("pause");
 		return NULL;
 	}
 	time_t now = time(NULL);
@@ -213,6 +218,7 @@ Order* createEmptyOrder() {
 	Order* newOrder = (Order*)malloc(sizeof(Order));
 	if (newOrder == NULL) {
 		printf("\033[31;1m[Error] Var \"newOrder\" is a nullptr in func \"createEmptyOrder\".\033[0m\n");
+		system("pause");
 		return NULL;
 	}
 	newOrder->order_Id[0] = '\0';
@@ -233,6 +239,7 @@ Order* createOrder(
 	Order* newOrder = (Order*)malloc(sizeof(Order));
 	if (newOrder == NULL) {
 		printf("\033[31;1m[Error] Var \"newOrder\" is a nullptr in func \"createOrder\".\033[0m\n");
+		system("pause");
 		return NULL;
 	}
 	strcpy(newOrder->order_Id, order_Id);
@@ -248,6 +255,7 @@ char* changeNumToWeekday(int num) {
 	char* weekday = (char*)malloc(40 * sizeof(char));
 	if (weekday == NULL) {
 		printf("\033[31;1m[Error] Var \"weekday\" is a nullptr in func \"changeNumToWeekday\".\033[0m\n");
+		system("pause");
 		return NULL;
 	}
 	switch (num) {
@@ -283,6 +291,7 @@ char* changeNumToWeekday(int num) {
 		break;
 	default:
 		printf("\033[31;1m[Error] Unexpected value of param \"num\" = %d in func \"changeNumToWeekday\".\033[0m\n", num);
+		system("pause");
 		break;
 	}
 	return weekday;
@@ -292,6 +301,7 @@ char* changeNumToState(int num) {
 	char* state = (char*)malloc(40 * sizeof(char));
 	if (state == NULL) {
 		printf("\033[31;1m[Error] Var \"state\" is a nullptr in func \"changeNumToState\".\033[0m\n");
+		system("pause");
 		return NULL;
 	}
 	switch (num) {
@@ -318,6 +328,7 @@ char* changeNumToState(int num) {
 		break;
 	default:
 		printf("\033[31;1m[Error] Unexpected value of param \"num\" = %d in func \"changeNumToState\".\033[0m\n", num);
+		system("pause");
 		return NULL;
 	}
 	return state;
@@ -334,6 +345,7 @@ void showOrderInLine(Order* o) {
 	char* state = changeNumToState(o->state);
 	if (weekday == NULL || state == NULL) {
 		printf("\033[31;1m[Error] Var \"weekday\" or \"state\" is a nullptr in func \"showOrderInLine\"\033[0m\n");
+		system("pause");
 		return;
 	}
 	printf("%-20s%-20s%-5d%-20s%s\n", o->order_Id, o->stu_Id, o->room_Id, weekday, state);
@@ -365,6 +377,7 @@ Order* orderCopy(Order* prev) {
 	);
 	if (newOrder == NULL) {
 		printf("\033[31;1m[Error] Var \"newOrder\" is a nullptr in func \"orderCopy\".\033[0m\n");
+		system("pause");
 		return NULL;
 	}
 	strcpy(newOrder->order_Id, prev->order_Id);
@@ -409,9 +422,10 @@ PF orderListSortAdvice(int* shift) {
 	case 3:
 		return cmpOrderWithTime;
 	case 4:
-		return cmpOrderWithTime;
+		return cmpOrderWithState;
 	}
 	printf("\033[31;1m[Error] Unexpected value of var \"option\" = %d in func \"OrderListSortAdvice\".\033[0m\n", option);
+	system("pause");
 	return NULL;
 }
 

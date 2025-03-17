@@ -38,6 +38,7 @@ void mainLoop() {
 			break;
 		default:
 			printf("\033[31;1m[Error] Unexpected value of var \"option\" = %d in func \"mainLoop\".\033[0m\n", option);
+			system("pause");
 		}
 	}
 }
@@ -47,6 +48,7 @@ Person* login(int type) {
 	List* personList = readPersonFromFile_Bin(type);
 	if (personList == NULL) {
 		printf("\033[31;1m[Error] Failed to read person from file in func \"login\".\033[0m\n");
+		system("pause");
 		return NULL;
 	}
 	Person tmp;
@@ -68,7 +70,8 @@ Person* login(int type) {
 		else {
 			person = createEmptyPerson();
 			if (person == NULL) {
-				printf("\033[31;1m[Error] 内存分配错误，登录失败。\033[0m\n");
+				printf("\033[31;1m[Error] Var \"person\" is a nullptr in func \"login\".\033[0m\n");
+				system("pause");
 				return NULL;
 			}
 			strcpy(person->m_Id, tmp.m_Id);
@@ -104,6 +107,7 @@ void studentLoop(Person* me) {
 			break;
 		default:
 			printf("\033[31;1m[Error] Unexpected value of var \"option\" = %d in func \"studentLoop\".\033[0m\n", option);
+			system("pause");
 		}
 	}
 }
@@ -127,6 +131,7 @@ void teacherLoop(Person* me) {
 			break;
 		default:
 			printf("\033[31;1m[Error] Unexpected value of var \"option\" = %d in func \"teacherLoop\".\033[0m\n", option);
+			system("pause");
 		}
 	}
 }
@@ -168,6 +173,7 @@ void adminLoop(Person* me) {
 			break;
 		default:
 			printf("\033[31;1m[Error] Unexpected value of var \"option\" = %d in func \"adminLoop\".\033[0m\n", option);
+			system("pause");
 		}
 	}
 }
