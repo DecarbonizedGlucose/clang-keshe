@@ -14,8 +14,6 @@ List* readRoomFromFile_Bin();
 
 int writeRoomToFile_Bin(List* list);
 
-void roomInfoUpdate(int id,int delta_size);
-
 // ---------- order ----------
 
 List* readOrderFromFile_Bin();
