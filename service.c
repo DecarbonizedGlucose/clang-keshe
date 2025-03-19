@@ -463,7 +463,7 @@ Person* findPerson(int type, char* id) {
 	}
 	Node* res = findListElemNode(personList, id, isPersonIdEqual);
 	if (res == NULL) {
-		printf("\033[31m[Info] 未找到该账号。\033[0m\n");
+		//printf("\033[31m[Info] 未找到该账号。\033[0m\n");
 		destroyList(personList);
 		personList = NULL;
 		return NULL;
