@@ -90,7 +90,7 @@ void studentLoop(Person* me) {
 	int option;
 	while (running) {
 		showStudentMenu();
-		digitInput(&option, -1, "请选择操作：", 0, 5);
+		digitInput(&option, -1, "请选择操作：", 0, 3);
 		if (!option) {
 			running = 0;
 			break;
@@ -117,7 +117,7 @@ void teacherLoop(Person* me) {
 	int option;
 	while (running) {
 		showTeacherMenu();
-		digitInput(&option, -1, "请选择操作：", 0, 2);
+		digitInput(&option, -1, "请选择操作：", 0, 3);
 		if (!option) {
 			running = 0;
 			break;
