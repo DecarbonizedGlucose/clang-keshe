@@ -127,6 +127,9 @@ void teacherLoop(Person* me) {
 			showAllOrder(me);
 			break;
 		case 2:
+			showOnesOrder(me);
+			break;
+		case 3:
 			checkOrder(me);
 			break;
 		default:

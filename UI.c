@@ -51,7 +51,9 @@ void showTeacherMenu() {
 	printf("\t\t|                                  |\n");
 	printf("\t\t|          1.查看所有预约          |\n");
 	printf("\t\t|                                  |\n");
-	printf("\t\t|          2.审核预约              |\n");
+	printf("\t\t|          2.查看某人预约          |\n");
+	printf("\t\t|                                  |\n");
+	printf("\t\t|          3.审核预约              |\n");
 	printf("\t\t|                                  |\n");
 	printf("\t\t|          0.注销登录              |\n");
 	printf("\t\t|                                  |\n");
