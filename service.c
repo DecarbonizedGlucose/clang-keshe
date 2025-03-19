@@ -157,7 +157,9 @@ void addPerson(Person* admin) {
 	// 这不能把newPerson析构了
 	destroyList(personList);
 	personList = NULL;
-	printf("\033[32m[Info] 添加账号成功。\033[0m\n");
+	if (acc) {
+		printf("\033[32m[Info] 添加账号成功。\033[0m\n");
+	}
 	system("pause");
 }
 
